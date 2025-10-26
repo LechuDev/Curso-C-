@@ -1,20 +1,20 @@
-# Curso de Programación en C#
+# Curso de Programación en C #
 
 ## Índice
 
-- [Curso de Programación en C#](#curso-de-programación-en-c)
+- [Curso de Programación en C](#curso-de-programación-en-c)
   - [Índice](#índice)
   - [1.- Uso de la Línea de Comandos (CMD)](#1--uso-de-la-línea-de-comandos-cmd)
     - [1.1.- ¿Para qué sirve?](#11--para-qué-sirve)
     - [1.2.- Comandos Básicos](#12--comandos-básicos)
-  - [2.- Ambiente de Trabajo en C#](#2--ambiente-de-trabajo-en-c)
+  - [2.- Ambiente de Trabajo en C](#2--ambiente-de-trabajo-en-c)
     - [2.1 Instalación del SDK de .NET](#21-instalación-del-sdk-de-net)
       - [2.1.1 Historia de los compiladores](#211-historia-de-los-compiladores)
       - [2.1.2 Instrucciones de Descarga](#212-instrucciones-de-descarga)
     - [2.2 Descarga de IDE](#22-descarga-de-ide)
       - [Opción 1: Visual Studio Code (Ligero y rápido)](#opción-1-visual-studio-code-ligero-y-rápido)
       - [Opción 2: Visual Studio Community (Completo y profesional)](#opción-2-visual-studio-community-completo-y-profesional)
-  - [3.- Primeros Pasos en C#](#3--primeros-pasos-en-c)
+  - [3.- Primeros Pasos en C](#3--primeros-pasos-en-c)
     - [3.1 Tu primer "Hola, Mundo"](#31-tu-primer-hola-mundo)
       - [Versión Antigua (C# 1.0 - 7.0)](#versión-antigua-c-10---70)
       - [Versión Moderna (C# 9 y superior)](#versión-moderna-c-9-y-superior)
@@ -63,7 +63,7 @@ Aquí tienes algunos de los comandos más esenciales al menos en Windows para em
 
 ---
 
-## 2.- Ambiente de Trabajo en C#
+## 2.- Ambiente de Trabajo en C #
 
 ### 2.1 Instalación del SDK de .NET
 
@@ -128,7 +128,7 @@ Un **IDE** (Entorno de Desarrollo Integrado) facilita el proceso de programació
 
 ---
 
-## 3.- Primeros Pasos en C#
+## 3.- Primeros Pasos en C #
 
 ### 3.1 Tu primer "Hola, Mundo"
 
