@@ -760,6 +760,167 @@ Evita variables como `x`, `y` o `dato1`. Prefiere `contadorUsuarios`, `temperatu
 
 ---
 
+### 5.8 Variables locales y globales
+
+En C#, las **variables** se clasifican según **dónde se declaran** y **qué alcance tienen**: locales o globales. Esto define **dónde puedes acceder a ellas** y **cuánto tiempo viven en memoria**.
+
+---
+
+#### 5.8.1 Variables Locales
+
+- Se declaran **dentro de un método, bloque o función**.
+- Solo **existen mientras el método se está ejecutando**.
+- No se pueden usar fuera del método donde fueron declaradas.
+
+##### Ejemplo
+
+```csharp
+void Saludar()
+{
+    string mensaje = "Hola desde local"; // Variable local
+    Console.WriteLine(mensaje);
+}
+
+Saludar();
+// Console.WriteLine(mensaje); // ❌ Error: 'mensaje' no existe fuera del método
+```
+
+**Explicación:**
+
+- `mensaje` es **local**, solo vive dentro del método `Saludar()`.
+- Al salir del método, C# libera la memoria usada por la variable.
+
+---
+
+#### 5.8.2 Variables Globales (Campos / Variables de Clase)
+
+- Se declaran **fuera de cualquier método**, dentro de una clase.
+- Son accesibles por **todos los métodos de la misma clase**.
+- Permanecen mientras exista el objeto (si son de instancia) o mientras dure la aplicación (si son `static`).
+
+##### Ejemplo de Variables Globales
+
+```csharp
+class Persona
+{
+    public string nombreGlobal = "Lechu"; // Variable global (campo de instancia)
+    public static int contador = 0;        // Variable global estática
+
+    public void MostrarNombre()
+    {
+        Console.WriteLine(nombreGlobal);
+    }
+}
+
+Persona p = new Persona();
+p.MostrarNombre(); // "Lechu"
+Console.WriteLine(Persona.contador); // 0
+```
+
+**Explicación:**
+
+- `nombreGlobal` → pertenece a cada instancia de la clase `Persona`. Cada objeto tiene su propia copia.
+- `contador` → `static`, pertenece a la **clase completa**, no a cada objeto. Se comparte entre todas las instancias.
+
+---
+
+#### 5.8.3 Buenas Prácticas
+
+- **Prefiere variables locales** cuando no necesites que otros métodos accedan a la variable.
+- Usa **variables globales** (`static`) solo cuando realmente quieras compartir información entre métodos o instancias.
+- Evita abusar de variables globales: pueden generar **errores difíciles de depurar** y confusiones en programas grandes.
+- Nombra tus variables de forma clara para saber si son locales o globales (por ejemplo, `nombreGlobal` vs `mensajeLocal`).
+
+---
+
+### 5.9 Variables Privadas y Públicas
+
+En C#, además de **locales y globales**, las variables de clase pueden tener **modificadores de acceso** que determinan **quién puede ver y modificar la variable**:
+
+| Modificador | Qué significa                                                                                |
+| ----------- | -------------------------------------------------------------------------------------------- |
+| `public`    | La variable **es accesible desde cualquier parte del programa**, incluso desde otras clases. |
+| `private`   | La variable **solo es accesible dentro de la clase** donde fue declarada.                    |
+
+---
+
+#### 5.9.1 Variables Públicas (`public`)
+
+- Se declaran con la palabra clave `public`.
+- Útiles cuando quieres que otras clases puedan **leer o modificar** el valor directamente.
+
+##### Ejemplo Variables Públicas
+
+```csharp
+class Persona
+{
+    public string nombre; // Variable pública
+}
+
+Persona p = new Persona();
+p.nombre = "Lechu";
+Console.WriteLine(p.nombre); // "Lechu"
+```
+
+**Explicación:**
+
+- `nombre` es accesible desde cualquier parte del código.
+- Puedes **leer y escribir** su valor directamente.
+
+⚠️ **Advertencia:** Usar demasiadas variables públicas puede ser peligroso porque cualquier clase puede modificarlas, causando errores difíciles de rastrear.
+
+---
+
+#### 5.9.2 Variables Privadas (`private`)
+
+- Se declaran con la palabra clave `private`.
+- Solo **los métodos de la misma clase** pueden acceder a ellas.
+- Se usan mucho para **ocultar datos** y proteger la integridad del objeto.
+
+##### Ejemplo Variables privadas
+
+```csharp
+class Persona
+{
+    private int edad; // Variable privada
+
+    public void SetEdad(int e)
+    {
+        if (e >= 0) edad = e; // Validación antes de asignar
+    }
+
+    public int GetEdad()
+    {
+        return edad;
+    }
+}
+
+Persona p = new Persona();
+p.SetEdad(25); 
+Console.WriteLine(p.GetEdad()); // 25
+// Console.WriteLine(p.edad); // ❌ Error: 'edad' es privada
+```
+
+**Explicación:**
+
+- `edad` no puede ser modificada directamente desde fuera.
+- Se usan **métodos públicos** (`SetEdad` y `GetEdad`) para **controlar cómo se accede y modifica** la variable.
+- Esto se llama **encapsulamiento**, un principio fundamental de la programación orientada a objetos.
+
+---
+
+#### 5.9.3 Buenas Prácticas
+
+- **Prefiere variables privadas** y accede a ellas mediante métodos o propiedades públicas (`get`/`set`).
+- Usa variables públicas solo si realmente necesitas que sean **accesibles desde cualquier clase**.
+- Encapsular variables ayuda a:
+
+  - Evitar que datos inválidos se asignen.
+  - Mejorar la mantenibilidad del código.
+  - Facilitar cambios internos sin romper otras partes del programa.
+
+---
+
 ## 6.- Más sobre Strings
 
 ### 6.1 Introducción a los Strings en C #
@@ -3761,7 +3922,7 @@ Es decir: **sirve para iterar sobre elementos sin preocuparte por índices ni l�
 
 ---
 
-### 🧱 **Declaración básica**
+### 🧱 Declaración básica
 
 ```csharp
 foreach (tipo elemento in coleccion)
@@ -3787,7 +3948,7 @@ foreach (string fruta in frutas)
 
 ---
 
-### 🧩 **Cómo funciona internamente**
+### 🧩 Cómo funciona internamente
 
 Detrás del telón, `foreach` usa un **iterador** que llama internamente a los métodos:
 
@@ -3820,7 +3981,7 @@ while (enumerador.MoveNext())
 
 ---
 
-### 🧮 **Tipos de colecciones compatibles**
+### 🧮 Tipos de colecciones compatibles
 
 `foreach` funciona con cualquier tipo que implemente:
 
@@ -3843,7 +4004,7 @@ Dictionary<int, string> diccionario = new Dictionary<int, string>()
 
 ---
 
-### 📚 **Ejemplo con diccionarios**
+### 📚 Ejemplo con diccionarios
 
 ```csharp
 var precios = new Dictionary<string, int>()
@@ -3871,7 +4032,7 @@ foreach (var valor in precios.Values)
 
 ---
 
-### 🧠 **Inmutabilidad del elemento**
+### 🧠 Inmutabilidad del elemento
 
 En un `foreach`, **el valor del elemento es de solo lectura**.
 No puedes modificar directamente el elemento dentro del ciclo.
@@ -3896,7 +4057,7 @@ for (int i = 0; i < numeros.Length; i++)
 
 ---
 
-### ⚡ **Optimización y buenas prácticas**
+### ⚡ Optimización y buenas prácticas
 
 1. **Evita usar `foreach` en colecciones que cambian durante la iteración.**
 
@@ -3923,7 +4084,7 @@ foreach (var numero in numeros.Where(n => n > 5))
 
 ---
 
-### 🧩 **`foreach` con índice (truco)**
+### 🧩 `foreach` con índice (truco)
 
 Aunque `foreach` no tiene índice directamente, puedes usar `Select` de LINQ:
 
@@ -3938,7 +4099,7 @@ foreach (var (fruta, i) in frutas.Select((valor, indice) => (valor, indice)))
 
 ---
 
-### 🔄 **Variantes y equivalentes**
+### 🔄 Variantes y equivalentes
 
 | Variante           | Descripción                                        | Ejemplo                             |
 | ------------------ | -------------------------------------------------- | ----------------------------------- |
@@ -3948,7 +4109,7 @@ foreach (var (fruta, i) in frutas.Select((valor, indice) => (valor, indice)))
 
 ---
 
-### 🚀 **Ejemplo de `await foreach` (C# 8+)**
+### 🚀 Ejemplo de `await foreach` (C# 8+)
 
 ```csharp
 static async IAsyncEnumerable<int> GenerarNumerosAsync()
@@ -3973,7 +4134,7 @@ static async Task Main()
 
 ---
 
-### 🧭 **Resumen**
+### 🧭 Resumen
 
 | Concepto                   | `for`              | `foreach`           |
 | -------------------------- | ------------------ | ------------------- |
@@ -4001,7 +4162,7 @@ La diferencia está en **cuándo se evalúa la condición**:
 
 ---
 
-### 🧱 **Ciclo `while` – Estructura básica**
+### 🧱 Ciclo `while` – Estructura básica
 
 ```csharp
 while (condición)
@@ -4027,7 +4188,7 @@ Si la condición no se cumple al inicio, **el bloque no se ejecuta nunca**.
 
 ---
 
-### 🧩 **Ciclo `do while` – Estructura básica**
+### 🧩 Ciclo `do while` – Estructura básica
 
 ```csharp
 do
@@ -4052,7 +4213,7 @@ do
 
 ---
 
-### 🔄 **Comparación rápida**
+### 🔄 Comparación rápida
 
 | Característica                   | `while`       | `do while`      |
 | -------------------------------- | ------------- | --------------- |
@@ -4064,7 +4225,7 @@ do
 
 ---
 
-### ⚙️ **Ejemplo práctico: menú interactivo**
+### ⚙️ Ejemplo práctico: menú interactivo
 
 ```csharp
 string opcion;
@@ -4094,7 +4255,7 @@ do
 
 ---
 
-### ⚡ **Consejos y buenas prácticas**
+### ⚡ Consejos y buenas prácticas
 
 1. **Evita bucles infinitos no controlados**
 
@@ -4122,7 +4283,7 @@ do
 
 ---
 
-### 🧮 **Optimización de ciclos `while`**
+### 🧮 Optimización de ciclos `while`
 
 - Si trabajas con colecciones o índices fijos, **prefiere `for` o `foreach`** (más claros y seguros).
 - Si repites operaciones costosas dentro del ciclo, **extrae cálculos fuera** del `while`.
@@ -4148,7 +4309,7 @@ for (int i = 0; i < count; i++)
 
 ---
 
-### 💡 **Uso con `break` y `continue`**
+### 💡 Uso con `break` y `continue`
 
 ```csharp
 int i = 0;
@@ -4171,7 +4332,7 @@ Imprime del 1 al 10, **saltando el 3 y deteniéndose al llegar al 8**.
 
 ---
 
-### 🧠 **`while` infinito controlado (bucles de servicio)**
+### 🧠 `while` infinito controlado (bucles de servicio)
 
 A veces se usan intencionalmente para procesos que deben correr siempre:
 
@@ -4187,7 +4348,7 @@ while (true)
 
 ---
 
-### 🧩 **Resumen general**
+### 🧩 Resumen general
 
 | Tipo de ciclo | Cuándo se evalúa | Puede no ejecutarse | Ideal para...                          |
 | ------------- | ---------------- | ------------------- | -------------------------------------- |
@@ -4198,7 +4359,7 @@ while (true)
 
 ---
 
-### 🚀 **Conclusión**
+### 🚀 Conclusión
 
 Los ciclos `while` y `do while` son poderosos para controlar **flujo condicional repetitivo**.
 
@@ -4218,14 +4379,14 @@ Para eso existen estas tres palabras clave:
 
 ---
 
-### 🧩 **1️⃣ `break` — Rompe el ciclo actual**
+### 🧩 1️⃣ `break` — Rompe el ciclo actual
 
 Sirve para **salir inmediatamente** del ciclo (o `switch`) en el que se encuentra.
 No se ejecuta el resto del bloque ni se sigue iterando.
 
 ---
 
-#### 🔹 **Ejemplo básico**
+#### 🔹 Ejemplo básico
 
 ```csharp
 for (int i = 0; i < 10; i++)
@@ -4251,7 +4412,7 @@ El ciclo se detiene al llegar al `break`.
 
 ---
 
-#### 🔹 **Uso en `while` y `foreach`**
+#### 🔹 Uso en `while` y `foreach`
 
 ```csharp
 int numero = 0;
@@ -4267,7 +4428,7 @@ while (true)
 
 ---
 
-#### ⚙️ **Casos de uso comunes**
+#### ⚙️ Casos de uso comunes
 
 - Finalizar un ciclo al cumplir una condición.
 - Salir de un menú interactivo.
@@ -4275,13 +4436,13 @@ while (true)
 
 ---
 
-### 🧩 **2️⃣ `continue` — Salta a la siguiente iteración**
+### 🧩 2️⃣ `continue` — Salta a la siguiente iteración
 
 Omite el resto del código dentro del bloque y **pasa directamente a la siguiente iteración** del ciclo.
 
 ---
 
-#### 🔹 **Ejemplo básico de `continue`**
+#### 🔹 Ejemplo básico de `continue`
 
 ```csharp
 for (int i = 0; i < 5; i++)
@@ -4306,7 +4467,7 @@ La iteración donde `i == 2` se salta por completo.
 
 ---
 
-#### 🔹 **Ejemplo práctico con `while`**
+#### 🔹 Ejemplo práctico con `while`
 
 ```csharp
 int i = 0;
@@ -4331,7 +4492,7 @@ while (i < 5)
 
 ---
 
-#### ⚙️ **Usos típicos**
+#### ⚙️ Usos típicos
 
 - Saltar iteraciones que no cumplen un criterio.
 - Evitar anidar demasiados `if` dentro de los bucles.
@@ -4339,14 +4500,14 @@ while (i < 5)
 
 ---
 
-### 🧩 **3️⃣ `goto` — Salto directo a una etiqueta**
+### 🧩 3️⃣ `goto` — Salto directo a una etiqueta
 
 El temido (y mal comprendido) **`goto`** permite **saltar a una etiqueta específica del código**.
 Su uso se considera **poco recomendado**, porque puede romper la estructura lógica del programa y volverlo difícil de mantener.
 
 ---
 
-#### 🔹 **Sintaxis básica**
+#### 🔹 Sintaxis básica
 
 ```csharp
 goto etiqueta;
@@ -4358,7 +4519,7 @@ Console.WriteLine("Salto completado.");
 
 ---
 
-#### 🔹 **Ejemplo práctico**
+#### 🔹 Ejemplo práctico
 
 ```csharp
 int i = 0;
@@ -4387,7 +4548,7 @@ Fin del ciclo.
 
 ---
 
-#### ⚠️ **Cuándo (y cuándo NO) usar `goto`**
+#### ⚠️ Cuándo (y cuándo NO) usar `goto`
 
 **✅ Casos válidos:**
 
@@ -4401,7 +4562,7 @@ Fin del ciclo.
 
 ---
 
-#### 🔹 **Ejemplo: romper varios bucles anidados**
+#### 🔹 Ejemplo: romper varios bucles anidados
 
 ```csharp
 for (int i = 0; i < 5; i++)
@@ -4423,7 +4584,7 @@ Console.WriteLine("Ciclos terminados.");
 
 ---
 
-### ⚡ **Resumen general**
+### ⚡ Resumen general
 
 | Palabra clave | Función                          | Rompe el ciclo | Salta iteración | Salta a otro punto |
 | ------------- | -------------------------------- | -------------- | --------------- | ------------------ |
@@ -4433,7 +4594,7 @@ Console.WriteLine("Ciclos terminados.");
 
 ---
 
-### 🧠 **Optimización y buenas prácticas**
+### 🧠 Optimización y buenas prácticas
 
 1. Usa `break` y `continue` para **claridad de flujo**, no para esconder mala lógica.
 2. Evita `goto` salvo casos muy específicos.
@@ -4479,15 +4640,1292 @@ for (int i = 0; i < 10; i++)
 
 Dominar estas palabras te da **control total sobre el flujo interno de tus bucles**, evitando redundancias y mejorando el rendimiento lógico de tu código.
 
-## 17.-
+## 🧮 17.- Matrices en C# (Arrays)
 
-## 18.-
+En C#, una **matriz (array)** es una **colección de elementos del mismo tipo** almacenados en posiciones contiguas de memoria.
+Cada elemento se accede mediante un **índice**, que siempre empieza en **0**.
 
-## 19.-
+Las matrices son muy útiles para manejar listas, tablas, colecciones de datos numéricos o cadenas, y forman la base de estructuras más complejas como listas, colas, pilas y matrices multidimensionales.
 
-## 20.-
+---
 
-## 21.-
+### 🔹 17.1.- Declaración y creación de matrices
+
+Hay varias formas de **declarar e inicializar** matrices en C#:
+
+```csharp
+// Declaración vacía (sin datos)
+int[] numeros;
+
+// Declaración e inicialización con tamaño
+numeros = new int[5]; // Crea un array con 5 elementos (índices 0–4)
+
+// Declaración e inicialización con valores
+int[] edades = { 18, 22, 25, 30, 40 };
+```
+
+🧠 En el tercer caso, el compilador deduce el tamaño automáticamente (en este ejemplo, 5 elementos).
+
+---
+
+### 🔹 17.2.- Acceso y modificación de elementos
+
+Cada elemento se accede con su **índice**:
+
+```csharp
+int[] edades = { 18, 22, 25, 30, 40 };
+
+// Acceder a un elemento
+Console.WriteLine(edades[2]); // Muestra 25
+
+// Modificar un elemento
+edades[2] = 26;
+Console.WriteLine(edades[2]); // Muestra 26
+```
+
+⚠️ Si intentas acceder a un índice fuera del rango (`edades[10]`), obtendrás una **excepción `IndexOutOfRangeException`**.
+
+---
+
+### 🔹 17.3.- Recorrer matrices con `for` y `foreach`
+
+**Con `for`:**
+
+```csharp
+int[] numeros = { 10, 20, 30, 40 };
+
+for (int i = 0; i < numeros.Length; i++)
+{
+    Console.WriteLine($"Elemento {i}: {numeros[i]}");
+}
+```
+
+**Con `foreach`:**
+
+```csharp
+foreach (int n in numeros)
+{
+    Console.WriteLine($"Valor: {n}");
+}
+```
+
+🧩 `foreach` es más legible, pero `for` da más control sobre los índices.
+
+---
+
+### 🔹 17.4.- Matrices multidimensionales
+
+C# soporta **matrices de más de una dimensión** (bidimensionales, tridimensionales, etc.).
+
+#### Ejemplo de matriz bidimensional (como una tabla)
+
+```csharp
+int[,] matriz = new int[2, 3] { { 1, 2, 3 }, { 4, 5, 6 } };
+```
+
+Visualmente:
+
+```Yaml
+1  2  3
+4  5  6
+```
+
+**Acceso:**
+
+```csharp
+Console.WriteLine(matriz[0, 1]); // 2
+```
+
+**Recorrido:**
+
+```csharp
+for (int fila = 0; fila < matriz.GetLength(0); fila++)
+{
+    for (int col = 0; col < matriz.GetLength(1); col++)
+    {
+        Console.Write($"{matriz[fila, col]} ");
+    }
+    Console.WriteLine();
+}
+```
+
+---
+
+### 🔹 17.5.- Matrices irregulares (Jagged Arrays)
+
+Un **jagged array** es un array de arrays, donde cada subarray puede tener diferente tamaño.
+
+```csharp
+int[][] jagged = new int[3][];
+jagged[0] = new int[] { 1, 2 };
+jagged[1] = new int[] { 3, 4, 5 };
+jagged[2] = new int[] { 6 };
+```
+
+**Recorrido:**
+
+```csharp
+for (int i = 0; i < jagged.Length; i++)
+{
+    for (int j = 0; j < jagged[i].Length; j++)
+    {
+        Console.Write($"{jagged[i][j]} ");
+    }
+    Console.WriteLine();
+}
+```
+
+🧠 Ideal cuando cada fila tiene distinta cantidad de datos (por ejemplo, alumnos con diferente número de calificaciones).
+
+---
+
+### 🔹 17.6.- Métodos útiles de la clase `Array`
+
+C# provee muchos métodos para manipular arrays fácilmente:
+
+| Método                      | Descripción                                 |
+| --------------------------- | ------------------------------------------- |
+| `Array.Sort(array)`         | Ordena los elementos                        |
+| `Array.Reverse(array)`      | Invierte el orden                           |
+| `Array.IndexOf(array, val)` | Devuelve el índice de un valor              |
+| `Array.Clear(array, i, n)`  | Limpia `n` elementos desde la posición `i`  |
+| `array.Length`              | Devuelve la cantidad total de elementos     |
+| `array.Rank`                | Devuelve el número de dimensiones del array |
+| `Array.Copy()`              | Copia elementos entre arrays                |
+
+🧩 Ejemplo:
+
+```csharp
+int[] numeros = { 5, 3, 8, 1 };
+Array.Sort(numeros);
+Console.WriteLine(string.Join(", ", numeros)); // 1, 3, 5, 8
+```
+
+---
+
+### 🔹 17.7.- Copiar y clonar matrices
+
+```csharp
+int[] original = { 1, 2, 3 };
+int[] copia = (int[])original.Clone();
+
+copia[0] = 99;
+
+Console.WriteLine(original[0]); // 1
+Console.WriteLine(copia[0]);    // 99
+```
+
+🧠 `Clone()` crea una **copia independiente** del array.
+
+---
+
+### 🔹 17.8.- Uso avanzado: inicialización dinámica
+
+Puedes crear matrices con valores calculados en tiempo de ejecución:
+
+```csharp
+int tamaño = 5;
+int[] cuadrados = new int[tamaño];
+
+for (int i = 0; i < tamaño; i++)
+{
+    cuadrados[i] = i * i;
+}
+
+Console.WriteLine(string.Join(", ", cuadrados)); // 0, 1, 4, 9, 16
+```
+
+---
+
+### 🔹 17.9.- Buenas prácticas con arrays
+
+✅ Usa `foreach` para recorrer si no necesitas el índice.
+✅ Usa `Length` en lugar de números fijos.
+✅ Si el tamaño del conjunto cambia con frecuencia, **usa `List<T>`** (veremos más adelante).
+✅ Prefiere arrays de tipos simples (int, float, double, char, etc.) para mejor rendimiento.
+⚠️ Evita indexar fuera del rango.
+
+---
+
+### 🔹 17.10.- Ejemplo completo
+
+```csharp
+int[,] tabla = new int[3, 3];
+
+// Llenar la matriz
+for (int i = 0; i < 3; i++)
+{
+    for (int j = 0; j < 3; j++)
+    {
+        tabla[i, j] = (i + 1) * (j + 1);
+    }
+}
+
+// Mostrar resultados
+for (int i = 0; i < 3; i++)
+{
+    for (int j = 0; j < 3; j++)
+    {
+        Console.Write($"{tabla[i, j],3}");
+    }
+    Console.WriteLine();
+}
+```
+
+🧮 Resultado:
+
+```Yaml
+  1  2  3
+  2  4  6
+  3  6  9
+```
+
+---
+
+### 🧠 Resumen del tema
+
+| Tipo de array      | Ejemplo de declaración      | Característica principal              |
+| ------------------ | --------------------------- | ------------------------------------- |
+| Unidimensional     | `int[] a = new int[5];`     | Lista lineal de datos                 |
+| Bidimensional      | `int[,] m = new int[2,3];`  | Tipo tabla (filas y columnas)         |
+| Jagged (irregular) | `int[][] j = new int[3][];` | Cada fila puede tener distinto tamaño |
+
+---
+
+Perfecto 😎, aquí tienes la **complementación del tema 17 (Matrices)** enfocada **solo en lo que faltaba**: los **arreglos dinámicos, jagged arrays, multidimensionales, y diferencias clave entre ellos**, sin repetir lo anterior.
+
+---
+
+### 🔹 17.11.- Tipos de Arreglos y Variantes Avanzadas
+
+#### 🧩 1. Arreglos Multidimensionales (`[,]`)
+
+Son como tablas: **todas las filas tienen el mismo tamaño**.
+
+```csharp
+int[,] matriz = new int[2, 3]
+{
+    { 1, 2, 3 },
+    { 4, 5, 6 }
+};
+```
+
+Acceso:
+
+```csharp
+Console.WriteLine(matriz[1, 2]); // 6
+```
+
+Recorrido:
+
+```csharp
+for (int fila = 0; fila < matriz.GetLength(0); fila++)
+{
+    for (int col = 0; col < matriz.GetLength(1); col++)
+    {
+        Console.Write(matriz[fila, col] + " ");
+    }
+    Console.WriteLine();
+}
+```
+
+🧠 **Uso típico:** cuando necesitas una estructura de tabla fija, como un tablero, mapa, o matriz matemática.
+⚙️ **Ventaja:** muy compacto en memoria.
+📉 **Desventaja:** todos los renglones deben tener igual tamaño.
+
+---
+
+#### 🪜 2. Arreglos Jagged (`[][]`)
+
+También llamados **“arreglos dentados” o “irregulares”**, son **arreglos de arreglos**, permitiendo diferentes longitudes por fila.
+
+```csharp
+int[][] jagged = new int[3][];
+jagged[0] = new int[] { 1, 2, 3 };
+jagged[1] = new int[] { 4, 5 };
+jagged[2] = new int[] { 6, 7, 8, 9 };
+```
+
+Recorrido:
+
+```csharp
+for (int i = 0; i < jagged.Length; i++)
+{
+    for (int j = 0; j < jagged[i].Length; j++)
+    {
+        Console.Write(jagged[i][j] + " ");
+    }
+    Console.WriteLine();
+}
+```
+
+🧠 **Uso típico:** estructuras donde cada fila tiene diferente cantidad de datos (por ejemplo, notas de alumnos con distinto número de calificaciones).
+⚙️ **Ventaja:** más flexible y eficiente en memoria si las filas varían mucho.
+📉 **Desventaja:** acceso un poco más lento, porque cada fila es un array independiente.
+
+---
+
+#### 🔄 3. Arreglos Dinámicos (`List<T>`)
+
+Los **arrays normales no cambian de tamaño**, pero con `List<T>` puedes **agregar o quitar elementos libremente**.
+
+```csharp
+List<int> numeros = new List<int>();
+numeros.Add(10);
+numeros.Add(20);
+numeros.Add(30);
+numeros.Remove(20);
+```
+
+🧠 **Uso típico:** cuando no sabes cuántos elementos tendrás al inicio.
+⚙️ **Ventaja:** se ajusta automáticamente en tamaño.
+📉 **Desventaja:** usa un poco más de memoria que un array fijo.
+
+---
+
+#### ⚡ 4. Conversión entre Arrays y Listas
+
+Puedes convertir entre ambos fácilmente:
+
+```csharp
+int[] arreglo = { 1, 2, 3 };
+List<int> lista = arreglo.ToList();
+
+int[] nuevoArreglo = lista.ToArray();
+```
+
+---
+
+#### 🧠 5. Redimensionar Arrays Manualmente
+
+Si **de verdad** necesitas cambiar el tamaño de un array, puedes usar:
+
+```csharp
+Array.Resize(ref arreglo, 10); // Cambia el tamaño del arreglo
+```
+
+> ⚠️ Pero esto **crea una nueva copia en memoria**, así que no se recomienda para uso intensivo.
+> Si necesitas agregar o quitar elementos constantemente, **usa una `List<T>`**.
+
+---
+
+#### 🔍 6. Arreglos con Tipos Personalizados
+
+Puedes almacenar **cualquier tipo**, incluso clases u objetos:
+
+```csharp
+class Persona
+{
+    public string Nombre;
+    public int Edad;
+}
+
+Persona[] personas = new Persona[]
+{
+    new Persona { Nombre = "Ana", Edad = 25 },
+    new Persona { Nombre = "Luis", Edad = 30 }
+};
+```
+
+---
+
+#### ⚙️ 7. Tips de Optimización
+
+- Usa `for` en lugar de `foreach` si necesitas máxima velocidad.
+- Declara el tamaño correcto al inicio para evitar redimensiones.
+- Para datos masivos, considera `Span<T>` o `Memory<T>` (altas prestaciones).
+- Evita arreglos con más de 3 dimensiones: se vuelven lentos y difíciles de mantener.
+- En matrices grandes, **prefiere los jagged arrays** por eficiencia en acceso y memoria.
+
+Perfecto 😎🔥 entonces el **siguiente tema será:**
+
+---
+
+## 🧱 18.- Listas y Colecciones en C #
+
+Aquí empezaremos a subir de nivel: pasamos de los **arreglos estáticos** (tamaño fijo) a las **colecciones dinámicas** del *namespace* `System.Collections.Generic`, que son el corazón de la manipulación de datos moderna en C#.
+
+Estas estructuras permiten **agregar, eliminar, buscar y ordenar** elementos fácilmente, sin tener que preocuparnos por manejar índices manuales ni tamaños fijos.
+
+---
+
+### 🧩 18.1.- Introducción a las Colecciones Genéricas
+
+- Las colecciones son estructuras de datos **dinámicas** que almacenan grupos de elementos.
+- Las colecciones **genéricas** (como `List<T>`, `Dictionary<TKey, TValue>`, etc.) permiten especificar el tipo de dato, mejorando la seguridad y el rendimiento.
+
+```csharp
+List<int> numeros = new List<int>();
+numeros.Add(10);
+numeros.Add(20);
+numeros.Add(30);
+```
+
+📘 **Ventaja:** C# evita conversiones de tipo innecesarias, haciendo el código más rápido y seguro.
+
+---
+
+### 📋 18.2.- List<T> — Listas Dinámicas
+
+La clase `List<T>` es la **evolución directa de los arreglos**.
+Permite crecer o disminuir en tamaño automáticamente.
+
+```csharp
+List<string> nombres = new List<string> { "Ana", "Luis", "Pedro" };
+nombres.Add("Lucía");
+nombres.Remove("Luis");
+```
+
+**Métodos comunes:**
+
+| Método       | Descripción                     |
+| ------------ | ------------------------------- |
+| `Add()`      | Agrega un elemento              |
+| `Remove()`   | Elimina un elemento             |
+| `Insert()`   | Inserta en posición específica  |
+| `Contains()` | Comprueba si existe un elemento |
+| `Sort()`     | Ordena la lista                 |
+| `Clear()`    | Vacía la lista                  |
+
+🧠 **Tip:** si necesitas agregar millones de elementos, inicializa la lista con capacidad estimada para mejorar el rendimiento:
+
+```csharp
+List<int> listaGrande = new List<int>(1000000);
+```
+
+---
+
+### 🔑 18.3.- Dictionary<TKey, TValue> — Diccionarios (Mapas Clave-Valor)
+
+El `Dictionary` asocia **una clave única con un valor**, ideal para búsquedas rápidas.
+
+```csharp
+Dictionary<string, int> edades = new Dictionary<string, int>();
+edades["Ana"] = 25;
+edades["Luis"] = 30;
+
+Console.WriteLine(edades["Luis"]); // 30
+```
+
+**Métodos útiles:**
+
+| Método                        | Descripción                   |
+| ----------------------------- | ----------------------------- |
+| `Add(key, value)`             | Agrega un par clave-valor     |
+| `Remove(key)`                 | Elimina una clave             |
+| `ContainsKey(key)`            | Comprueba existencia de clave |
+| `TryGetValue(key, out value)` | Obtiene valor de forma segura |
+
+🧠 **Usos comunes:** tablas de configuración, catálogos, índices o conteo de ocurrencias.
+
+---
+
+### 📦 18.4.- Queue<T> — Colas (FIFO)
+
+Estructura de tipo **primero en entrar, primero en salir (FIFO)**.
+
+```csharp
+Queue<string> cola = new Queue<string>();
+cola.Enqueue("Cliente 1");
+cola.Enqueue("Cliente 2");
+
+string atendido = cola.Dequeue();
+Console.WriteLine(atendido); // Cliente 1
+```
+
+| Método      | Descripción                             |
+| ----------- | --------------------------------------- |
+| `Enqueue()` | Agrega un elemento al final             |
+| `Dequeue()` | Extrae el primer elemento               |
+| `Peek()`    | Muestra el primer elemento sin quitarlo |
+
+🧠 **Uso típico:** simulaciones, sistemas de turnos, o procesos por orden de llegada.
+
+---
+
+### 🪃 18.5.- Stack<T> — Pilas (LIFO)
+
+Estructura **último en entrar, primero en salir (LIFO)**.
+Imagina una pila de platos: el último que pones es el primero que sacas.
+
+```csharp
+Stack<int> pila = new Stack<int>();
+pila.Push(10);
+pila.Push(20);
+int ultimo = pila.Pop(); // 20
+```
+
+| Método   | Descripción                       |
+| -------- | --------------------------------- |
+| `Push()` | Agrega un elemento arriba         |
+| `Pop()`  | Saca el elemento superior         |
+| `Peek()` | Consulta el superior sin quitarlo |
+
+🧠 **Uso común:** deshacer/rehacer, navegación atrás/adelante, llamadas recursivas.
+
+---
+
+### 🔍 18.6.- HashSet<T> — Conjuntos sin duplicados
+
+Guarda elementos **únicos**, sin repetición y sin orden definido.
+
+```csharp
+HashSet<int> numeros = new HashSet<int> { 1, 2, 2, 3 };
+Console.WriteLine(string.Join(", ", numeros)); // 1, 2, 3
+```
+
+| Método            | Descripción          |
+| ----------------- | -------------------- |
+| `Add()`           | Agrega si no existe  |
+| `Remove()`        | Elimina              |
+| `Contains()`      | Comprueba si existe  |
+| `UnionWith()`     | Une dos conjuntos    |
+| `IntersectWith()` | Obtiene intersección |
+
+🧠 **Uso típico:** evitar duplicados en listas o filtrar elementos únicos.
+
+---
+
+### 🧮 18.7.- SortedList y SortedDictionary
+
+Son versiones **ordenadas automáticamente** de `List` y `Dictionary`.
+
+```csharp
+SortedList<int, string> listaOrdenada = new SortedList<int, string>();
+listaOrdenada.Add(3, "Tres");
+listaOrdenada.Add(1, "Uno");
+listaOrdenada.Add(2, "Dos");
+```
+
+📘 **Resultado:** siempre ordenado por clave → 1, 2, 3.
+
+---
+
+### 🧠 18.8.- Consejos y Buenas Prácticas
+
+- Usa `List<T>` para la mayoría de los casos generales.
+- Usa `Dictionary<TKey, TValue>` cuando necesites búsquedas rápidas por clave.
+- Usa `HashSet<T>` si necesitas **un conjunto sin duplicados**.
+- Evita convertir entre colecciones constantemente (usa la correcta desde el inicio).
+- Usa `foreach` para recorrer colecciones legibles y seguras.
+- En operaciones masivas, preasigna capacidad para evitar realocaciones.
+
+---
+
+### 💡 18.9.- Ejemplo Práctico: Gestión de Estudiantes
+
+```csharp
+List<string> alumnos = new List<string> { "Ana", "Luis", "Pedro" };
+Dictionary<string, int> calificaciones = new Dictionary<string, int>()
+{
+    { "Ana", 95 },
+    { "Luis", 80 },
+    { "Pedro", 88 }
+};
+
+foreach (var alumno in alumnos)
+{
+    Console.WriteLine($"{alumno} tiene {calificaciones[alumno]} puntos.");
+}
+```
+
+**Salida:**
+
+```yaml
+Ana tiene 95 puntos.
+Luis tiene 80 puntos.
+Pedro tiene 88 puntos.
+```
+
+Perfecto 😎🔥
+Entonces seguimos con el tema **## 19.- Métodos en C#**, uno de los pilares fundamentales de la programación estructurada y orientada a objetos.
+Aquí aprenderás a **crear, usar, sobrecargar y optimizar** tus propios métodos para escribir código más limpio, reutilizable y profesional.
+
+---
+
+## 🧩 19.- Métodos en C #
+
+### 19.1 ¿Qué es un Método?
+
+Un **método** es un bloque de código que ejecuta una tarea específica y puede devolver un valor.
+Sirve para **evitar repetir código** y hacer el programa más legible y modular.
+
+```csharp
+void Saludar()
+{
+    Console.WriteLine("¡Hola LechuDev!");
+}
+```
+
+📘 **Se ejecuta** cuando lo llamas:
+
+```csharp
+Saludar();
+```
+
+---
+
+### 19.2 Estructura de un Método
+
+```csharp
+[Modificador] [TipoRetorno] [Nombre]([Parámetros])
+{
+    // Cuerpo del método
+}
+```
+
+**Ejemplo:**
+
+```csharp
+public int Sumar(int a, int b)
+{
+    return a + b;
+}
+```
+
+| Elemento         | Descripción                                                              |
+| ---------------- | ------------------------------------------------------------------------ |
+| `public`         | Modificador de acceso (puede ser `public`, `private`, `protected`, etc.) |
+| `int`            | Tipo de dato que devuelve el método                                      |
+| `Sumar`          | Nombre del método                                                        |
+| `(int a, int b)` | Parámetros de entrada                                                    |
+| `return a + b;`  | Valor que devuelve el método                                             |
+
+---
+
+### 19.3 Métodos `void` (sin retorno)
+
+Los métodos `void` **no devuelven ningún valor**, solo ejecutan una acción.
+
+```csharp
+void MostrarMensaje(string mensaje)
+{
+    Console.WriteLine(mensaje);
+}
+
+MostrarMensaje("Hola desde un método!");
+```
+
+---
+
+### 19.4 Métodos con Retorno
+
+Devuelven un valor del tipo indicado.
+Se utiliza `return` para devolver el resultado.
+
+```csharp
+int Cuadrado(int numero)
+{
+    return numero * numero;
+}
+
+int resultado = Cuadrado(5);
+Console.WriteLine(resultado); // 25
+```
+
+---
+
+### 19.5 Parámetros y Argumentos
+
+Un **parámetro** es una variable declarada en la definición del método.
+Un **argumento** es el valor que se pasa al llamar al método.
+
+```csharp
+void SaludoPersonalizado(string nombre)
+{
+    Console.WriteLine($"Hola, {nombre}!");
+}
+
+SaludoPersonalizado("LechuDev"); // argumento = "LechuDev"
+```
+
+---
+
+### 19.6 Parámetros por Valor y por Referencia
+
+#### 🔹 Por Valor (default)
+
+Se pasa una **copia** del valor.
+
+```csharp
+void Incrementar(int x)
+{
+    x++;
+}
+int numero = 10;
+Incrementar(numero);
+Console.WriteLine(numero); // 10 (no cambió)
+```
+
+#### 🔹 Por Referencia (`ref`)
+
+Permite modificar la variable original.
+
+```csharp
+void IncrementarRef(ref int x)
+{
+    x++;
+}
+int numero = 10;
+IncrementarRef(ref numero);
+Console.WriteLine(numero); // 11
+```
+
+#### 🔹 Solo salida (`out`)
+
+Permite devolver **más de un valor** sin usar clases o tuplas.
+
+```csharp
+void Calcular(int a, int b, out int suma, out int resta)
+{
+    suma = a + b;
+    resta = a - b;
+}
+Calcular(8, 3, out int s, out int r);
+Console.WriteLine($"Suma: {s}, Resta: {r}");
+```
+
+---
+
+### 19.7 Parámetros Opcionales y con Nombre
+
+```csharp
+void MostrarDatos(string nombre, int edad = 18)
+{
+    Console.WriteLine($"{nombre} tiene {edad} años.");
+}
+
+MostrarDatos("LechuDev");       // usa edad por defecto = 18
+MostrarDatos("Carlos", 25);     // edad = 25
+MostrarDatos(edad: 30, nombre: "Ana"); // parámetros con nombre
+```
+
+---
+
+### 19.8 Métodos Estáticos (`static`)
+
+Los métodos estáticos **pertenecen a la clase**, no a una instancia.
+
+```csharp
+class Calculadora
+{
+    public static int Sumar(int a, int b) => a + b;
+}
+
+int resultado = Calculadora.Sumar(4, 6);
+Console.WriteLine(resultado);
+```
+
+🧠 **Uso común:** cuando el método no depende de datos del objeto, solo realiza una operación.
+
+---
+
+### 19.9 Sobrecarga de Métodos (Overloading)
+
+Puedes tener **varios métodos con el mismo nombre**, siempre que los parámetros sean distintos.
+
+```csharp
+int Sumar(int a, int b) => a + b;
+double Sumar(double a, double b) => a + b;
+```
+
+🧠 **El compilador elige** el método correcto según el tipo de datos que reciba.
+
+---
+
+### 19.10 Expresiones Lambda (Métodos en una línea)
+
+Una **expresión lambda** simplifica la sintaxis de un método.
+
+```csharp
+int Cuadrado(int n) => n * n;
+```
+
+Es equivalente a:
+
+```csharp
+int Cuadrado(int n)
+{
+    return n * n;
+}
+```
+
+---
+
+### 19.11 Métodos Locales (anidados dentro de otro método)
+
+Desde C# 7 puedes declarar métodos **dentro de otros métodos**.
+
+```csharp
+void Proceso()
+{
+    int Calcular(int x) => x * 2;
+    Console.WriteLine(Calcular(5));
+}
+
+Proceso(); // 10
+```
+
+---
+
+### 19.12 Métodos Asíncronos (`async` / `await`)
+
+Permiten ejecutar tareas sin bloquear el programa principal.
+
+```csharp
+async Task DescargarAsync()
+{
+    await Task.Delay(2000); // simula espera
+    Console.WriteLine("Descarga completa!");
+}
+
+await DescargarAsync();
+```
+
+🧠 **Uso:** ideal para peticiones web, lectura de archivos, o procesos lentos.
+
+---
+
+### 19.13 Buenas Prácticas
+
+✅ Usa nombres descriptivos y en PascalCase (`CalcularPromedio`).
+✅ Evita métodos muy largos: si un método hace más de una cosa, divídelo.
+✅ Prefiere **`return` temprano** para evitar bloques anidados.
+✅ Documenta parámetros y retornos con comentarios XML si trabajas en equipo.
+
+---
+
+### 19.14 Ejemplo Final: Calculadora Modular
+
+```csharp
+class Calculadora
+{
+    public static int Sumar(int a, int b) => a + b;
+    public static int Restar(int a, int b) => a - b;
+    public static int Multiplicar(int a, int b) => a * b;
+    public static double Dividir(double a, double b) => b != 0 ? a / b : double.NaN;
+}
+
+Console.WriteLine(Calculadora.Sumar(4, 5));
+Console.WriteLine(Calculadora.Restar(10, 3));
+Console.WriteLine(Calculadora.Multiplicar(2, 6));
+Console.WriteLine(Calculadora.Dividir(8, 2));
+```
+
+📘 **Salida:**
+
+```yaml
+9
+7
+12
+4
+```
+
+---
+
+Perfecto 😎🔥
+Sigamos entonces con el tema **## 20.- Métodos y Funciones Avanzadas en C#**, donde conectaremos todo lo aprendido con conceptos más poderosos y flexibles de programación.
+
+---
+
+## 🧩 20.- Métodos y Funciones Avanzadas
+
+### 20.1 Recursividad
+
+Un **método recursivo** es aquel que **se llama a sí mismo**.
+Se utiliza para problemas que se pueden dividir en subproblemas similares.
+
+```csharp
+int Factorial(int n)
+{
+    if (n <= 1) return 1;
+    return n * Factorial(n - 1);
+}
+
+Console.WriteLine(Factorial(5)); // 120
+```
+
+💡 **Reglas:**
+
+- Debe existir una **condición base** para evitar bucles infinitos.
+- Útil para: factorial, Fibonacci, búsqueda en árboles, algoritmos de backtracking.
+
+---
+
+### 20.2 Funciones Anónimas (Anonymous Functions)
+
+Son funciones sin nombre, usadas generalmente en **delegados o eventos**.
+
+```csharp
+Func<int, int> cuadrado = delegate(int x) { return x * x; };
+Console.WriteLine(cuadrado(6)); // 36
+```
+
+---
+
+### 20.3 Expresiones Lambda Avanzadas
+
+Simplifican aún más las funciones anónimas.
+
+```csharp
+Func<int, int> doble = x => x * 2;
+Func<int, int, int> suma = (a, b) => a + b;
+
+Console.WriteLine(doble(5)); // 10
+Console.WriteLine(suma(3, 4)); // 7
+```
+
+💡 **Tip:** ideales para filtros, ordenamientos y LINQ.
+
+---
+
+### 20.4 Delegados (Delegates)
+
+Un **delegado** es un tipo que **referencia métodos**.
+Permite pasar funciones como parámetros y crear callbacks.
+
+```csharp
+delegate int Operacion(int a, int b);
+
+int Sumar(int x, int y) => x + y;
+int Multiplicar(int x, int y) => x * y;
+
+Operacion op = Sumar;
+Console.WriteLine(op(3, 4)); // 7
+
+op = Multiplicar;
+Console.WriteLine(op(3, 4)); // 12
+```
+
+💡 **Ventaja:** permite desacoplar código y programar patrones como Observer.
+
+---
+
+### 20.5 Eventos (basados en Delegados)
+
+Los eventos permiten **notificar cambios o acciones**.
+
+```csharp
+class Publicador
+{
+    public event Action EventoMensaje;
+
+    public void LanzarEvento()
+    {
+        EventoMensaje?.Invoke();
+    }
+}
+
+var p = new Publicador();
+p.EventoMensaje += () => Console.WriteLine("¡Evento disparado!");
+p.LanzarEvento(); // ¡Evento disparado!
+```
+
+---
+
+### 20.6 Métodos Genéricos
+
+Permiten crear **métodos que funcionan con cualquier tipo de dato**.
+
+```csharp
+T ObtenerValor<T>(T valor)
+{
+    return valor;
+}
+
+Console.WriteLine(ObtenerValor<int>(42));      // 42
+Console.WriteLine(ObtenerValor<string>("Hola")); // Hola
+```
+
+💡 **Tip:** combinable con `List<T>` y colecciones genéricas.
+
+---
+
+### 20.7 Parámetros `params`
+
+Permiten pasar **un número variable de argumentos** a un método.
+
+```csharp
+int SumarTodos(params int[] numeros)
+{
+    int suma = 0;
+    foreach (var n in numeros)
+        suma += n;
+    return suma;
+}
+
+Console.WriteLine(SumarTodos(1, 2, 3, 4)); // 10
+```
+
+---
+
+### 20.8 Métodos de Extensión
+
+Permiten **añadir métodos a clases existentes** sin herencia ni modificar su código.
+
+```csharp
+public static class Extensiones
+{
+    public static bool EsPar(this int n) => n % 2 == 0;
+}
+
+int numero = 8;
+Console.WriteLine(numero.EsPar()); // True
+```
+
+💡 **Uso:** muy común en LINQ y utilidades de manipulación de datos.
+
+---
+
+### 20.9 Métodos Asíncronos Avanzados
+
+Combina `async`, `await` y `Task` para **procesos paralelos o I/O sin bloqueo**.
+
+```csharp
+async Task<int> ObtenerDatosAsync()
+{
+    await Task.Delay(2000); // Simula descarga
+    return 42;
+}
+
+int valor = await ObtenerDatosAsync();
+Console.WriteLine(valor); // 42
+```
+
+💡 **Tip:** evita `Thread.Sleep` en interfaces gráficas o servidores.
+
+---
+
+### 20.10 Buenas Prácticas
+
+- Mantén **un método = una responsabilidad**.
+- Usa **delegados y eventos** para desacoplar código.
+- Prefiere **métodos genéricos** y de extensión para reutilización.
+- Evita recursión profunda sin optimización: usa recursión de cola o bucles si es masiva.
+- Documenta parámetros, retornos y excepciones.
+
+---
+
+### 20.11 Ejemplo Integrado: Calculadora Genérica y Asíncrona
+
+```csharp
+class Calculadora
+{
+    public static async Task<double> OperarAsync(double a, double b, Func<double, double, double> op)
+    {
+        await Task.Delay(500); // simulación de procesamiento
+        return op(a, b);
+    }
+}
+
+double suma = await Calculadora.OperarAsync(5, 3, (x, y) => x + y);
+double multi = await Calculadora.OperarAsync(5, 3, (x, y) => x * y);
+
+Console.WriteLine($"Suma: {suma}, Multiplicación: {multi}");
+```
+
+**Salida:**
+
+```yaml
+Suma: 8, Multiplicación: 15
+```
+
+¡Perfecto! Vamos a explicarlo paso a paso, con un enfoque **muy amigable para novatos**, usando ejemplos claros y desglosando cada concepto. Vamos a desarrollar el tema **21.- Delegados, Eventos y LINQ**.
+
+---
+
+## 21.- Delegados, Eventos y LINQ en C#**
+
+### 21.1 ¿Qué es un Delegado?
+
+Un **delegado** es como un **teléfono que puede llamar a un método**.
+En otras palabras, un delegado **guarda la referencia de un método** y permite ejecutarlo después, o pasarlo como parámetro a otro método.
+
+📌 **Para qué sirve:**
+
+- Permite que tu código sea más flexible y reutilizable.
+- Permite pasar un método como si fuera un dato (esto es muy útil para callbacks o eventos).
+
+#### Ejemplo Básico
+
+```csharp
+// Declaración del delegado
+delegate void SaludoDelegado(string nombre);
+
+// Método que coincide con la firma del delegado
+void Saludar(string nombre)
+{
+    Console.WriteLine($"Hola, {nombre}!");
+}
+
+// Usando el delegado
+SaludoDelegado miDelegado = Saludar;
+miDelegado("LechuDev"); // Llama al método Saludar
+```
+
+**Explicación:**
+
+- `delegate void SaludoDelegado(string nombre);` → Define un tipo de delegado que apunta a métodos que reciben un string y no devuelven nada.
+- `miDelegado("LechuDev");` → Ejecuta el método apuntado por el delegado.
+
+---
+
+### 21.2 Delegados Multicast
+
+Un delegado puede **apuntar a varios métodos** al mismo tiempo.
+
+```csharp
+void Saludar(string nombre) => Console.WriteLine($"Hola, {nombre}!");
+void Despedir(string nombre) => Console.WriteLine($"Adiós, {nombre}!");
+
+SaludoDelegado miDelegado = Saludar;
+miDelegado += Despedir; // Agrega otro método
+
+miDelegado("LechuDev"); 
+```
+
+**Salida:**
+
+```yaml
+Hola, LechuDev!
+Adiós, LechuDev!
+```
+
+💡 **Tip:** Se usa para notificaciones o ejecutar varias acciones con un solo delegado.
+
+---
+
+### 21.3 Eventos
+
+Un **evento** es una **señal que un objeto envía** cuando sucede algo importante.
+Los objetos que quieren reaccionar a ese evento **se suscriben** a él mediante delegados.
+
+#### Ejemplo Básico de Eventos
+
+```csharp
+class Boton
+{
+    public event Action AlHacerClick;
+
+    public void HacerClick()
+    {
+        AlHacerClick?.Invoke(); // Lanza el evento si alguien está suscrito
+    }
+}
+
+// Suscribirse al evento
+Boton boton = new Boton();
+boton.AlHacerClick += () => Console.WriteLine("¡Botón presionado!");
+boton.HacerClick();
+```
+
+**Explicación paso a paso:**
+
+- `public event Action AlHacerClick;` → Define un evento basado en el delegado `Action`.
+- `boton.AlHacerClick += ...` → Se suscribe un método (en este caso lambda) al evento.
+- `AlHacerClick?.Invoke();` → Dispara el evento; todos los suscriptores se ejecutan.
+
+💡 **Tip:** Los eventos se usan muchísimo en interfaces gráficas, juegos y notificaciones.
+
+---
+
+### 21.4 Delegados Genéricos (`Func` y `Action`)
+
+C# tiene **delegados predefinidos** para evitar escribir tipos nuevos todo el tiempo.
+
+- `Action` → No devuelve nada, puede recibir parámetros.
+- `Func<T, TResult>` → Devuelve un valor (`TResult`), puede recibir parámetros.
+
+```csharp
+Action<string> saludar = nombre => Console.WriteLine($"Hola, {nombre}!");
+saludar("LechuDev");
+
+Func<int, int, int> sumar = (a, b) => a + b;
+Console.WriteLine(sumar(5, 3)); // 8
+```
+
+---
+
+### 21.5 LINQ (Language Integrated Query)
+
+**LINQ** permite **consultar colecciones de datos** (listas, arrays, bases de datos) de forma sencilla y declarativa, como si fuera SQL.
+
+#### Ejemplo básico
+
+```csharp
+List<int> numeros = new List<int> { 1, 2, 3, 4, 5, 6 };
+
+// Filtrar números pares
+var pares = numeros.Where(n => n % 2 == 0);
+
+foreach (var n in pares)
+{
+    Console.WriteLine(n);
+}
+```
+
+**Salida:**
+
+```yaml
+2
+4
+6
+```
+
+💡 **Explicación:**
+
+- `Where` recibe un **predicado** (una función que devuelve true o false) y selecciona los elementos que cumplen la condición.
+- El `=>` es la **expresión lambda**, que define la función en una línea.
+
+---
+
+### 21.6 Operadores LINQ Comunes
+
+| Operador                   | Qué hace                                                  |
+| -------------------------- | --------------------------------------------------------- |
+| `Where`                    | Filtra elementos según una condición                      |
+| `Select`                   | Proyecta o transforma elementos                           |
+| `OrderBy`                  | Ordena de forma ascendente                                |
+| `OrderByDescending`        | Ordena de forma descendente                               |
+| `First` / `FirstOrDefault` | Obtiene el primer elemento (o valor por defecto)          |
+| `Last` / `LastOrDefault`   | Obtiene el último elemento                                |
+| `Count`                    | Cuenta elementos                                          |
+| `Sum` / `Average`          | Suma o calcula promedio                                   |
+| `Any`                      | Devuelve true si al menos un elemento cumple la condición |
+| `All`                      | Devuelve true si todos los elementos cumplen la condición |
+
+#### Ejemplo usando varios
+
+```csharp
+var resultado = numeros
+                .Where(n => n > 2)
+                .OrderByDescending(n => n)
+                .Select(n => n * 10);
+
+foreach (var n in resultado)
+    Console.WriteLine(n);
+```
+
+**Salida:**
+
+```yaml
+60
+50
+40
+30
+```
+
+---
+
+### 21.7 Buenas Prácticas para Delegados, Eventos y LINQ
+
+✅ Usa **delegados genéricos** (`Func` y `Action`) cuando puedas.
+✅ Evita eventos con muchas suscripciones innecesarias; limpia suscriptores si ya no se usan.
+✅ Usa LINQ para **consultas claras y legibles**, pero cuidado con colecciones muy grandes: evalúa rendimiento.
+✅ Prefiere expresiones lambda pequeñas y descriptivas.
+✅ Documenta qué hace cada evento y delegado.
+
+---
 
 ## 22.-
 
