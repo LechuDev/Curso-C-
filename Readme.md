@@ -2504,10 +2504,10 @@ long: 9876543210
 
 En C#, la **clase `Math`** del **namespace `System`** ofrece un conjunto completo de **funciones matemáticas** para realizar operaciones comunes y avanzadas. Estas funciones permiten:
 
-* Calcular raíces, potencias y logaritmos.
-* Redondear números.
-* Trabajar con trigonometría.
-* Obtener valores absolutos y comparaciones entre números.
+- Calcular raíces, potencias y logaritmos.
+- Redondear números.
+- Trabajar con trigonometría.
+- Obtener valores absolutos y comparaciones entre números.
 
 Todas las funciones de `Math` son **estáticas**, lo que significa que no necesitas crear una instancia de la clase para usarlas. Por ejemplo:
 
@@ -2726,9 +2726,9 @@ double asin = Math.Asin(1); // PI/2
 
 💡 **Tip General:**
 
-* La clase `Math` es **estática**, por lo que se llama como `Math.Funcion()`.
-* Muchas funciones aceptan `double`, pero hay **sobrecargas** para `int`, `long`, `float`, `decimal`.
-* Se recomienda **usar `Math.Round` o `Math.Truncate`** para resultados controlados cuando trabajes con decimales.
+- La clase `Math` es **estática**, por lo que se llama como `Math.Funcion()`.
+- Muchas funciones aceptan `double`, pero hay **sobrecargas** para `int`, `long`, `float`, `decimal`.
+- Se recomienda **usar `Math.Round` o `Math.Truncate`** para resultados controlados cuando trabajes con decimales.
 
 ---
 
@@ -2816,7 +2816,1689 @@ class DemoMath
 
 ---
 
-## Nuevo
+## 10.- Condicional `If`, `If-Else`, `Else If`, Ifs anidados
+
+En C#, las estructuras condicionales permiten **tomar decisiones en el flujo de ejecución** basándose en expresiones booleanas (`true` o `false`). La más básica es el `if`.
+
 ---
 
-# Nuevo
+### 10.1.- `if` simple
+
+La forma más sencilla de usar un `if`:
+
+```csharp
+int edad = 18;
+
+if (edad >= 18)
+{
+    Console.WriteLine("Eres mayor de edad.");
+}
+```
+
+**Explicación:**
+
+- La condición `edad >= 18` se evalúa a `true` o `false`.
+- Si es `true`, se ejecuta el bloque de código dentro de `{}`.
+- Si es `false`, se ignora.
+
+**Tip:** En C#, **las llaves `{}` son opcionales si el bloque contiene solo una línea**:
+
+```csharp
+if (edad >= 18)
+    Console.WriteLine("Eres mayor de edad.");
+```
+
+---
+
+### 10.2.- `if-else`
+
+Permite ejecutar un bloque alternativo si la condición es falsa:
+
+```csharp
+if (edad >= 18)
+{
+    Console.WriteLine("Mayor de edad.");
+}
+else
+{
+    Console.WriteLine("Menor de edad.");
+}
+```
+
+**Tip:** También se puede usar sin llaves para un solo comando:
+
+```csharp
+if (edad >= 18)
+    Console.WriteLine("Mayor de edad.");
+else
+    Console.WriteLine("Menor de edad.");
+```
+
+---
+
+### 10.3.- `else if` (múltiples condiciones)
+
+Cuando hay varias condiciones a evaluar:
+
+```csharp
+int nota = 85;
+
+if (nota >= 90)
+    Console.WriteLine("Excelente");
+else if (nota >= 70)
+    Console.WriteLine("Bueno");
+else if (nota >= 50)
+    Console.WriteLine("Suficiente");
+else
+    Console.WriteLine("Insuficiente");
+```
+
+**Tip:** Siempre termina con un `else` opcional para cubrir todos los casos.
+
+---
+
+### 10.4.- Ifs anidados
+
+Puedes colocar un `if` dentro de otro `if`:
+
+```csharp
+int edad = 20;
+bool licencia = true;
+
+if (edad >= 18)
+{
+    if (licencia)
+        Console.WriteLine("Puedes conducir.");
+    else
+        Console.WriteLine("Necesitas licencia.");
+}
+else
+{
+    Console.WriteLine("Eres menor de edad.");
+}
+```
+
+**Tip de optimización:** Evita anidamientos profundos usando operadores lógicos combinados (`&&`, `||`) cuando sea posible:
+
+```csharp
+if (edad >= 18 && licencia)
+    Console.WriteLine("Puedes conducir.");
+else if (edad >= 18 && !licencia)
+    Console.WriteLine("Necesitas licencia.");
+else
+    Console.WriteLine("Eres menor de edad.");
+```
+
+---
+
+### 10.5.- Expresiones lógicas en `if`
+
+Se pueden combinar condiciones con **AND (`&&`)**, **OR (`||`)**, y **NOT (`!`)**:
+
+```csharp
+int edad = 22;
+bool tieneEntrada = false;
+
+if (edad >= 18 && tieneEntrada)
+    Console.WriteLine("Puedes entrar al concierto.");
+else
+    Console.WriteLine("No puedes entrar.");
+```
+
+**Tip:** Evita duplicar condiciones repetitivas combinando expresiones lógicas.
+
+---
+
+### 10.6.- `if` sin paréntesis (solo en C# 9 con expresiones lambda o patrones)
+
+En C# clásico, **los paréntesis son obligatorios**.
+Sin embargo, con **pattern matching** puedes simplificar la condición:
+
+```csharp
+object obj = 10;
+
+if (obj is int n && n > 5)
+    Console.WriteLine($"Número mayor que 5: {n}");
+```
+
+**Explicación:**
+
+- `obj is int n` verifica el tipo y lo asigna a `n`.
+- Se combina con `&& n > 5` en la misma condición.
+
+---
+
+### 10.7.- Operador ternario (`? :`) como alternativa a `if-else`
+
+```csharp
+int edad = 18;
+string mensaje = (edad >= 18) ? "Mayor de edad" : "Menor de edad";
+Console.WriteLine(mensaje);
+```
+
+**Tip:** Útil para expresiones cortas y asignaciones directas.
+
+---
+
+### 10.8.- Optimización de `if` en C #
+
+1. **Evitar anidamientos profundos:** combina condiciones o usa `return` temprano.
+2. **Usar `switch` cuando hay muchas condiciones sobre un mismo valor**.
+3. **Usar operadores lógicos cortocircuito (`&&`, `||`)** para evaluar lo mínimo necesario.
+4. **Pattern matching** para tipos y valores combinados, evita múltiples `if`.
+
+```csharp
+object obj = 10;
+
+if (obj is int n && n > 0)
+    Console.WriteLine("Número positivo");
+else
+    Console.WriteLine("No es un número positivo");
+```
+
+---
+
+### 10.9.- Resumen de variantes de `if`
+
+| Tipo de if                | Ejemplo corto                           | Uso recomendado                           |
+| ------------------------- | --------------------------------------- | ----------------------------------------- |
+| `if` simple               | `if (x>0) ...`                          | Decisión única                            |
+| `if-else`                 | `if(x>0) ... else ...`                  | Decisión binaria                          |
+| `if-else if-else`         | `if(x>0) ... else if(x<0) ... else ...` | Múltiples condiciones                     |
+| If anidado                | `if(...) { if(...) { ... } }`           | Cuando condiciones dependen unas de otras |
+| Pattern matching (`is`)   | `if(obj is int n && n>0)`               | Validación de tipo y valor                |
+| Operador ternario (`? :`) | `string msg = (x>0)? "Pos" : "Neg"`     | Expresiones cortas                        |
+
+---
+
+### 10.10.- Operador ternario (`?:`)
+
+El **operador ternario** es una forma compacta de escribir un `if-else` simple.
+
+**Sintaxis básica:**
+
+```csharp
+condición ? valor_si_verdadero : valor_si_falso;
+```
+
+**Ejemplo 1: Asignación de variable**
+
+```csharp
+int edad = 20;
+string mensaje = (edad >= 18) ? "Mayor de edad" : "Menor de edad";
+Console.WriteLine(mensaje); // "Mayor de edad"
+```
+
+**Explicación paso a paso:**
+
+1. `(edad >= 18)` → Evaluamos la condición, retorna `true` o `false`.
+2. `? "Mayor de edad"` → Si es `true`, se asigna este valor.
+3. `: "Menor de edad"` → Si es `false`, se asigna este valor.
+4. Se puede asignar directamente a una variable o usarlo dentro de una expresión.
+
+---
+
+**Ejemplo 2: En llamadas a métodos**
+
+```csharp
+int numero = -5;
+Console.WriteLine(numero >= 0 ? "Positivo" : "Negativo"); // "Negativo"
+```
+
+**Tip:**
+
+- Evita usar ternarios muy largos, ya que disminuyen la legibilidad.
+- Útil para **asignaciones rápidas**, **retornos de funciones** y **expresiones en línea**.
+
+---
+
+**Ejemplo 3: Ternario anidado**
+
+```csharp
+int nota = 85;
+string resultado = (nota >= 90) ? "Excelente" :
+                   (nota >= 70) ? "Bueno" :
+                   (nota >= 50) ? "Suficiente" : "Insuficiente";
+
+Console.WriteLine(resultado); // "Bueno"
+```
+
+**Tip:**
+
+- Los ternarios anidados son válidos, pero **pueden volverse difíciles de leer**, por lo que se recomienda **siempre alinear y sangrar correctamente**.
+
+---
+
+### 10.11.- Pattern Matching (`is` y `switch`)
+
+El **pattern matching** permite evaluar **tipo y/o valor** de una variable en una sola expresión, evitando múltiples `if` y castings innecesarios.
+
+#### 10.11.1.- `is` con pattern matching
+
+**Sintaxis básica:**
+
+```csharp
+if (variable is Tipo nombre && condición)
+{
+    // Código si coincide
+}
+```
+
+**Ejemplo 1: Validar tipo y valor**
+
+```csharp
+object obj = 42;
+
+if (obj is int n && n > 20)
+{
+    Console.WriteLine($"Número entero mayor que 20: {n}");
+}
+```
+
+**Explicación:**
+
+1. `obj is int n` → Verifica que `obj` es de tipo `int` y lo asigna a `n`.
+2. `&& n > 20` → Evalúa una condición adicional sobre `n`.
+3. Bloque se ejecuta solo si ambas condiciones son `true`.
+
+---
+
+**Ejemplo 2: Uso con `else`**
+
+```csharp
+object valor = "Hola";
+
+if (valor is int numero)
+    Console.WriteLine($"Número: {numero}");
+else
+    Console.WriteLine("No es un número.");
+```
+
+- Evita hacer `int numero = (int)valor;` que lanzaría excepción si el tipo no coincide.
+
+---
+
+#### 10.11.2.- Pattern Matching con `switch`
+
+Desde C# 8+, se puede usar **switch expressions** para condicionales compactos basados en tipos y valores:
+
+```csharp
+object obj = 10;
+
+string tipo = obj switch
+{
+    int n when n > 0 => "Entero positivo",
+    int n when n < 0 => "Entero negativo",
+    string s => $"Cadena de texto: {s}",
+    _ => "Otro tipo"
+};
+
+Console.WriteLine(tipo); // "Entero positivo"
+```
+
+**Explicación:**
+
+1. `int n when n > 0` → Coincide si `obj` es `int` y mayor que 0.
+2. `string s` → Coincide si `obj` es cadena.
+3. `_` → Catch-all, cualquier otro caso.
+4. Permite **evitar múltiples `if-else` anidados**, manteniendo código legible y seguro.
+
+---
+
+#### 🔹10.11.3.- Ventajas del pattern matching
+
+- Combina **validación de tipo** y **condición en un solo paso**.
+
+- Evita **castings peligrosos** y errores en tiempo de ejecución.
+- Funciona con **if**, **switch** y **expressions**.
+- Mejora **legibilidad** y **mantenibilidad** del código.
+
+---
+
+## 11.- Switch en C #
+
+El **`switch`** es una estructura de control que permite seleccionar entre múltiples opciones basadas en el valor de una variable. Es una alternativa más **limpia y legible** que usar muchos `if-else if-else`.
+
+---
+
+### 11.1.- Sintaxis básica del switch
+
+```csharp
+int dia = 3;
+
+switch (dia)
+{
+    case 1:
+        Console.WriteLine("Lunes");
+        break;
+    case 2:
+        Console.WriteLine("Martes");
+        break;
+    case 3:
+        Console.WriteLine("Miércoles");
+        break;
+    default:
+        Console.WriteLine("Otro día");
+        break;
+}
+```
+
+**Explicación:**
+
+1. `switch (dia)` → Se evalúa el valor de `dia`.
+2. Cada `case` compara con un valor literal.
+3. `break` → Evita que se ejecute el siguiente `case` (“fall-through”).
+4. `default` → Bloque opcional que se ejecuta si ningún `case` coincide.
+
+---
+
+### 11.2.- Switch sin `break` (fall-through explícito)
+
+En C#, **no se permite “caída libre”** como en C/C++: cada `case` debe terminar con `break`, `return` o `goto`.
+
+```csharp
+int numero = 2;
+
+switch (numero)
+{
+    case 1:
+    case 2:
+        Console.WriteLine("Número 1 o 2");
+        break;
+    default:
+        Console.WriteLine("Otro número");
+        break;
+}
+```
+
+- Aquí **case 1 y case 2** comparten el mismo bloque de código.
+- Útil para agrupar valores.
+
+---
+
+### 11.3.- Switch con múltiples tipos de valores
+
+```csharp
+string letra = "a";
+
+switch (letra)
+{
+    case "a":
+    case "A":
+        Console.WriteLine("Vocal A");
+        break;
+    case "e":
+    case "E":
+        Console.WriteLine("Vocal E");
+        break;
+    default:
+        Console.WriteLine("Otra letra");
+        break;
+}
+```
+
+- Puede usarse con **`int`**, **`string`**, **`char`**, **enum**, etc.
+
+---
+
+### 11.4.- Switch con expresiones (C# 8+)
+
+Desde C# 8, se puede usar **`switch expressions`**, que son más compactas:
+
+```csharp
+int nota = 85;
+
+string resultado = nota switch
+{
+    >= 90 => "Excelente",
+    >= 70 => "Bueno",
+    >= 50 => "Suficiente",
+    _ => "Insuficiente"
+};
+
+Console.WriteLine(resultado); // "Bueno"
+```
+
+**Explicación:**
+
+1. Cada línea representa un **patrón** (`>=90`) y el valor a devolver (`"Excelente"`).
+2. `_` → patrón por defecto, equivalente a `default`.
+3. Retorna un valor directamente, ideal para asignaciones.
+
+---
+
+### 11.5.- Switch con patrones (Pattern Matching)
+
+C# permite **combinar switch con tipos y condiciones**:
+
+```csharp
+object obj = 10;
+
+string tipo = obj switch
+{
+    int n when n > 0 => "Entero positivo",
+    int n when n < 0 => "Entero negativo",
+    string s => $"Cadena: {s}",
+    _ => "Otro tipo"
+};
+
+Console.WriteLine(tipo); // "Entero positivo"
+```
+
+- Se puede evaluar **tipo** y **condición** en la misma expresión.
+- Evita múltiples `if-else` anidados y castings inseguros.
+
+---
+
+### 11.6.- Switch con tuplas
+
+C# permite usar **tuplas** para evaluar múltiples variables al mismo tiempo:
+
+```csharp
+(int x, int y) punto = (1, -1);
+
+string cuadrante = punto switch
+{
+    ( > 0, > 0) => "Primer cuadrante",
+    ( < 0, > 0) => "Segundo cuadrante",
+    ( < 0, < 0) => "Tercer cuadrante",
+    ( > 0, < 0) => "Cuarto cuadrante",
+    _ => "Origen o eje"
+};
+
+Console.WriteLine(cuadrante); // "Cuarto cuadrante"
+```
+
+- Muy útil para **combinaciones de valores** y geometría, entre otros casos.
+
+---
+
+### 11.7.- Switch con enums
+
+```csharp
+enum Dias { Lunes, Martes, Miercoles, Jueves, Viernes }
+
+Dias dia = Dias.Miercoles;
+
+switch (dia)
+{
+    case Dias.Lunes:
+        Console.WriteLine("Inicio de semana");
+        break;
+    case Dias.Viernes:
+        Console.WriteLine("Fin de semana");
+        break;
+    default:
+        Console.WriteLine("Día intermedio");
+        break;
+}
+```
+
+- Los **enums** hacen los switch más legibles y seguros.
+
+---
+
+### 11.8.- Optimización de switches
+
+1. **Usar switch expressions** en lugar de switch tradicional cuando se devuelve un valor.
+2. **Agrupar cases** que ejecutan lo mismo para evitar código repetido.
+3. **Usar pattern matching** para validar tipos y rangos en un solo paso.
+4. Evitar `switch` excesivamente largo, considerar **diccionarios** para mapas clave → valor.
+
+---
+
+### 11.9.- Consejos y buenas prácticas
+
+- Siempre incluir un **`default`** (o `_` en expresiones) para casos inesperados.
+- Evita lógica compleja dentro de los `case`; mejor llamar a **métodos separados**.
+- Prefiere **switch expressions** para retornos simples, asignaciones y legibilidad.
+- Usa **switch con tuplas o patrones** para combinar varias condiciones sin anidar `if`.
+
+---
+
+### 11.10.- Resumen de variantes de switch
+
+| Tipo de switch              | Ejemplo corto                          | Cuándo usar                 |
+| --------------------------- | -------------------------------------- | --------------------------- |
+| Switch clásico con `case`   | `switch(x){ case 1: ... break; }`      | Múltiples valores discretos |
+| Switch agrupado             | `case 1: case 2: ... break;`           | Casos que comparten acción  |
+| Switch expression (C# 8+)   | `var res = x switch { ... }`           | Retorno de valores simples  |
+| Switch con pattern matching | `obj switch { int n when n>0 => ... }` | Tipos + condiciones         |
+| Switch con tuplas           | `(x,y) switch { ... }`                 | Evaluar múltiples variables |
+| Switch con enums            | `switch(dia)`                          | Legible y seguro            |
+
+---
+
+## 12.-🧩 Diferencia entre *Tupla* y *Enum* en C #
+
+Primero que nada:
+👉 Ambos existen en C#, pero **sirven para cosas totalmente distintas**.
+
+---
+
+### 🧱 1. ENUM — *Tipo de dato definido por el programador*
+
+Un **enum (enumeración)** es un **tipo de dato especial** que te permite **nombrar valores numéricos constantes**.
+
+#### Ejemplo de ENUM
+
+```csharp
+enum Dias
+{
+    Lunes,     // 0
+    Martes,    // 1
+    Miercoles, // 2
+    Jueves,    // 3
+    Viernes    // 4
+}
+```
+
+Esto crea un **nuevo tipo de dato** llamado `Dias`.
+Puedes usarlo así:
+
+```csharp
+Dias hoy = Dias.Miercoles;
+
+if (hoy == Dias.Miercoles)
+    Console.WriteLine("¡Mitad de semana!");
+```
+
+#### ✳️ Características de ENUM
+
+| Concepto           | Valor                                                    |
+| ------------------ | -------------------------------------------------------- |
+| **Qué es**         | Tipo de dato definido por el usuario                     |
+| **Internamente**   | Representa valores numéricos enteros (por defecto `int`) |
+| **Uso típico**     | Estados, días, modos, tipos (categorías discretas)       |
+| **Ventajas**       | Código más legible, evita números mágicos                |
+| **Ejemplo de uso** | Estados de un juego, tipos de usuario, días de la semana |
+
+📘 En resumen:
+
+> Un **enum** es una forma de crear un tipo de dato con valores *predefinidos* y *nombrados*.
+
+---
+
+### 🧮 2. TUPLA — *Estructura de datos que agrupa valores distintos*
+
+Una **tupla** no es un tipo de dato predefinido, sino una **estructura** que permite **empaquetar varios valores (de distintos tipos)** en una sola unidad.
+
+#### Ejemplo de tupla
+
+```csharp
+var persona = ("Lechu", 28, true);
+Console.WriteLine($"Nombre: {persona.Item1}, Edad: {persona.Item2}, Activo: {persona.Item3}");
+```
+
+O más limpio con nombres:
+
+```csharp
+var persona = (Nombre: "Lechu", Edad: 28, Activo: true);
+Console.WriteLine($"Hola {persona.Nombre}, edad: {persona.Edad}");
+```
+
+#### ✳️ Características de Tupla
+
+| Concepto           | Valor                                                                                      |
+| ------------------ | ------------------------------------------------------------------------------------------ |
+| **Qué es**         | Estructura de datos que agrupa múltiples valores                                           |
+| **Internamente**   | Un objeto de tipo `ValueTuple<T1, T2, T3, ...>`                                            |
+| **Uso típico**     | Retornar varios valores de una función, agrupar datos temporales                           |
+| **Ventajas**       | No necesitas crear una clase solo para agrupar datos                                       |
+| **Ejemplo de uso** | Retornar `(x, y)` de una función de coordenadas, o `(resultado, mensaje)` de una operación |
+
+📘 En resumen:
+
+> Una **tupla** es una “mini estructura de datos” que contiene múltiples valores (de tipos distintos o iguales) sin necesidad de una clase.
+
+---
+
+### ⚖️ Comparación directa
+
+| Característica                 | **Enum**                                      | **Tupla**                                            |
+| ------------------------------ | --------------------------------------------- | ---------------------------------------------------- |
+| Tipo de entidad                | Tipo de dato definido por el usuario          | Estructura de datos                                  |
+| Propósito                      | Representar un conjunto de valores constantes | Agrupar varios valores en una sola variable          |
+| Tipos que puede contener       | Solo números enteros (normalmente)            | Cualquier tipo (`int`, `string`, `bool`, etc.)       |
+| Mutabilidad                    | Inmutable (no cambia su definición)           | Mutable (puedes reasignar valores)                   |
+| Ejemplo                        | `enum Estado { Activo, Inactivo }`            | `var punto = (x: 10, y: 20)`                         |
+| Uso común                      | Estados, categorías, banderas                 | Retornar múltiples valores, pasar conjuntos de datos |
+| Equivalente en otros lenguajes | Enum de Java, Enum de C++                     | Tuple de Python, struct ligera                       |
+
+ 🧠 En pocas palabras
+
+| Si necesitas...                                                     | Usa...    |
+| ------------------------------------------------------------------- | --------- |
+| Representar un conjunto fijo de valores (como días, estados, roles) | **Enum**  |
+| Empaquetar varios datos (como nombre, edad, estado)                 | **Tupla** |
+
+ 💡 Tip ingenieril
+
+- Usa **enum** para **clasificar** cosas (e.g. tipos de enemigo, modos de juego, niveles de dificultad).
+- Usa **tuplas** para **transportar datos rápidamente**, especialmente como **retorno de funciones**.
+
+## 13.- Ciclo `for` en C #
+
+### 13.0 Introducción
+
+El ciclo **`for`** se utiliza cuando **sabes cuántas veces quieres repetir una instrucción o bloque de código**.
+Es ideal para recorrer arreglos, listas, ejecutar operaciones repetitivas o iterar con condiciones controladas.
+
+---
+
+### 🔹 13.1 Estructura básica del `for`
+
+```csharp
+for (inicialización; condición; actualización)
+{
+    // Bloque de código a ejecutar
+}
+```
+
+- 🧠 Explicación
+
+1. **Inicialización:** se ejecuta una sola vez antes de comenzar el ciclo.
+2. **Condición:** se evalúa antes de cada iteración. Si es `true`, el ciclo continúa; si es `false`, se detiene.
+3. **Actualización:** se ejecuta al final de cada iteración.
+
+---
+
+#### 🧩 Ejemplo simple
+
+```csharp
+for (int i = 0; i < 5; i++)
+{
+    Console.WriteLine($"Iteración número: {i}");
+}
+```
+
+📘 **Salida:**
+
+```yaml
+Iteración número: 0
+Iteración número: 1
+Iteración número: 2
+Iteración número: 3
+Iteración número: 4
+```
+
+---
+
+### 🔹 13.2 Partes del `for` explicadas
+
+| Parte              | Qué hace                             | Ejemplo     |
+| ------------------ | ------------------------------------ | ----------- |
+| **Inicialización** | Crea y define la variable de control | `int i = 0` |
+| **Condición**      | Evalúa si continúa el ciclo          | `i < 5`     |
+| **Actualización**  | Modifica la variable                 | `i++`       |
+
+> 💡 Puedes usar cualquier operador en la actualización: `i++`, `i--`, `i += 2`, `i *= 2`, etc.
+
+---
+
+### 🔹 13.3 Tipos y variaciones del `for`
+
+#### 1️⃣ For clásico (más usado)
+
+```csharp
+for (int i = 0; i < 10; i++)
+    Console.WriteLine(i);
+```
+
+#### 2️⃣ For decreciente
+
+```csharp
+for (int i = 10; i >= 0; i--)
+    Console.WriteLine(i);
+```
+
+#### 3️⃣ For con paso personalizado
+
+```csharp
+for (int i = 0; i <= 20; i += 5)
+    Console.WriteLine(i);
+```
+
+#### 4️⃣ For sin cuerpo
+
+Cuando el cuerpo del ciclo es una sola instrucción:
+
+```csharp
+for (int i = 0; i < 5; Console.WriteLine(i++));
+```
+
+#### 5️⃣ For infinito (cuidado ⚠️)
+
+```csharp
+for (;;)
+{
+    Console.WriteLine("Loop infinito...");
+    break; // sin esto, nunca termina
+}
+```
+
+---
+
+### 🔹 13.4 Variantes más modernas
+
+#### 🔸 13.4.1 For con múltiples variables
+
+Puedes inicializar y actualizar más de una variable:
+
+```csharp
+for (int i = 0, j = 10; i < j; i++, j--)
+{
+    Console.WriteLine($"i = {i}, j = {j}");
+}
+```
+
+#### 🔸 13.4.2 For con listas o colecciones (cuando no quieres usar foreach)
+
+```csharp
+string[] nombres = { "Lechu", "Dev", "Skater" };
+
+for (int i = 0; i < nombres.Length; i++)
+{
+    Console.WriteLine($"Nombre {i}: {nombres[i]}");
+}
+```
+
+---
+
+### 🔹 13.5 Optimización del `for`
+
+#### 🧠 1️⃣ Evita recalcular longitudes en cada iteración
+
+❌ Incorrecto:
+
+```csharp
+for (int i = 0; i < lista.Count; i++)
+```
+
+✅ Correcto:
+
+```csharp
+int n = lista.Count;
+for (int i = 0; i < n; i++)
+```
+
+#### 🧠 2️⃣ Prefiere `foreach` si solo necesitas recorrer una colección
+
+Menos propenso a errores y más legible:
+
+```csharp
+foreach (var item in lista)
+    Console.WriteLine(item);
+```
+
+#### 🧠 3️⃣ Evita operaciones costosas dentro del ciclo
+
+Calcula valores una sola vez antes del `for` si no cambian.
+
+#### 🧠 4️⃣ Usa paralelismo si el ciclo es muy pesado
+
+Para tareas grandes puedes usar:
+
+```csharp
+Parallel.For(0, 100, i => {
+    // Ejecución paralela
+});
+```
+
+---
+
+### 🔹 13.6 Combinando `for` con condiciones
+
+```csharp
+for (int i = 0; i < 10; i++)
+{
+    if (i % 2 == 0)
+        Console.WriteLine($"{i} es par");
+    else
+        Console.WriteLine($"{i} es impar");
+}
+```
+
+---
+
+### 🔹 13.7 Uso de `break` y `continue`
+
+#### 🔸 `break`
+
+Sale completamente del ciclo:
+
+```csharp
+for (int i = 0; i < 10; i++)
+{
+    if (i == 5)
+        break;
+    Console.WriteLine(i);
+}
+```
+
+#### 🔸 `continue`
+
+Salta a la siguiente iteración:
+
+```csharp
+for (int i = 0; i < 10; i++)
+{
+    if (i % 2 != 0)
+        continue;
+    Console.WriteLine(i); // Solo imprime los pares
+}
+```
+
+---
+
+### 🔹 13.8 For anidado
+
+Permite ciclos dentro de otros ciclos:
+
+```csharp
+for (int i = 1; i <= 3; i++)
+{
+    for (int j = 1; j <= 2; j++)
+    {
+        Console.WriteLine($"i = {i}, j = {j}");
+    }
+}
+```
+
+📘 **Salida:**
+
+```yaml
+i = 1, j = 1
+i = 1, j = 2
+i = 2, j = 1
+i = 2, j = 2
+i = 3, j = 1
+i = 3, j = 2
+```
+
+---
+
+### 🔹 13.9 Ejemplo práctico — Tabla de multiplicar
+
+```csharp
+Console.Write("Ingresa un número: ");
+int numero = int.Parse(Console.ReadLine());
+
+for (int i = 1; i <= 10; i++)
+{
+    Console.WriteLine($"{numero} x {i} = {numero * i}");
+}
+```
+
+---
+
+### 🔹 13.10 Buenas prácticas para usar `for`
+
+✅ Usa nombres descriptivos en variables (`i`, `j`, `index`, etc.)
+✅ No hagas ciclos innecesarios (rompe con `break` si ya obtuviste lo que buscas)
+✅ Evita modificar la colección que estás recorriendo dentro del `for`
+✅ Prefiere `foreach` si no necesitas el índice
+✅ Usa `Parallel.For` solo si las iteraciones no dependen entre sí
+
+---
+
+### 🧩 13.11 Mini resumen final
+
+| Tipo de `for`       | Descripción                  | Ejemplo                                     |
+| ------------------- | ---------------------------- | ------------------------------------------- |
+| Clásico             | Ciclo normal con contador    | `for (int i=0;i<10;i++)`                    |
+| Decreciente         | Itera hacia atrás            | `for (int i=10;i>=0;i--)`                   |
+| Sin cuerpo          | Todo dentro del paréntesis   | `for (int i=0;i<5;Console.WriteLine(i++));` |
+| Infinito            | No tiene condición           | `for(;;){}`                                 |
+| Múltiples variables | Controla más de una a la vez | `for(int i=0,j=10;i<j;i++,j--)`             |
+
+---
+
+## 14.- Ciclo `foreach`
+
+El ciclo **`foreach`** en C# es una forma simplificada y **segura** de recorrer colecciones, arreglos, listas o cualquier tipo de dato que implemente la interfaz `IEnumerable` o `IEnumerable<T>`.
+Es decir: **sirve para iterar sobre elementos sin preocuparte por índices ni límites**.
+
+---
+
+### 🧱 **Declaración básica**
+
+```csharp
+foreach (tipo elemento in coleccion)
+{
+    // Código a ejecutar en cada iteración
+}
+```
+
+Ejemplo:
+
+```csharp
+string[] frutas = { "Manzana", "Banana", "Pera" };
+
+foreach (string fruta in frutas)
+{
+    Console.WriteLine(fruta);
+}
+```
+
+🔹 El ciclo recorre **automáticamente** todos los elementos de la colección.
+🔹 `fruta` toma el valor de cada elemento en cada iteración.
+🔹 No necesitas manejar contadores ni índices (como en `for`).
+
+---
+
+### 🧩 **Cómo funciona internamente**
+
+Detrás del telón, `foreach` usa un **iterador** que llama internamente a los métodos:
+
+- `GetEnumerator()` → obtiene el enumerador.
+- `MoveNext()` → avanza al siguiente elemento.
+- `Current` → obtiene el elemento actual.
+
+Así que esto:
+
+```csharp
+foreach (var item in lista)
+{
+    Console.WriteLine(item);
+}
+```
+
+equivale a esto:
+
+```csharp
+var enumerador = lista.GetEnumerator();
+
+while (enumerador.MoveNext())
+{
+    var item = enumerador.Current;
+    Console.WriteLine(item);
+}
+```
+
+⚙️ Es decir, `foreach` es una forma elegante de escribir el patrón del enumerador.
+
+---
+
+### 🧮 **Tipos de colecciones compatibles**
+
+`foreach` funciona con cualquier tipo que implemente:
+
+- `IEnumerable`
+- `IEnumerable<T>`
+- `IEnumerator`
+- `IEnumerator<T>`
+
+Ejemplos comunes:
+
+```csharp
+int[] numeros = { 1, 2, 3, 4 };
+List<string> nombres = new List<string>() { "Ana", "Luis", "Carlos" };
+Dictionary<int, string> diccionario = new Dictionary<int, string>()
+{
+    {1, "Uno"},
+    {2, "Dos"}
+};
+```
+
+---
+
+### 📚 **Ejemplo con diccionarios**
+
+```csharp
+var precios = new Dictionary<string, int>()
+{
+    {"Manzana", 10},
+    {"Banana", 5},
+    {"Pera", 7}
+};
+
+foreach (var par in precios)
+{
+    Console.WriteLine($"{par.Key}: ${par.Value}");
+}
+```
+
+También puedes iterar solo las claves o los valores:
+
+```csharp
+foreach (var clave in precios.Keys)
+    Console.WriteLine(clave);
+
+foreach (var valor in precios.Values)
+    Console.WriteLine(valor);
+```
+
+---
+
+### 🧠 **Inmutabilidad del elemento**
+
+En un `foreach`, **el valor del elemento es de solo lectura**.
+No puedes modificar directamente el elemento dentro del ciclo.
+
+❌ Esto **no funciona**:
+
+```csharp
+foreach (int n in numeros)
+{
+    n *= 2; // Error: n es de solo lectura
+}
+```
+
+✅ Para modificar los elementos, usa un `for` clásico:
+
+```csharp
+for (int i = 0; i < numeros.Length; i++)
+{
+    numeros[i] *= 2;
+}
+```
+
+---
+
+### ⚡ **Optimización y buenas prácticas**
+
+1. **Evita usar `foreach` en colecciones que cambian durante la iteración.**
+
+   - Modificar la colección lanza `InvalidOperationException`.
+
+2. **Prefiere `foreach` sobre `for` cuando solo necesites leer los valores.**
+
+   - Es más limpio y menos propenso a errores de índice.
+
+3. **Usa `for` si necesitas conocer el índice.**
+
+   - En `foreach`, el índice no está disponible por defecto (aunque puedes generarlo manualmente).
+
+4. **Usa LINQ o métodos funcionales si quieres filtrar o transformar colecciones.**
+
+Ejemplo:
+
+```csharp
+foreach (var numero in numeros.Where(n => n > 5))
+{
+    Console.WriteLine(numero);
+}
+```
+
+---
+
+### 🧩 **`foreach` con índice (truco)**
+
+Aunque `foreach` no tiene índice directamente, puedes usar `Select` de LINQ:
+
+```csharp
+var frutas = new[] { "Manzana", "Pera", "Uva" };
+
+foreach (var (fruta, i) in frutas.Select((valor, indice) => (valor, indice)))
+{
+    Console.WriteLine($"Fruta {i}: {fruta}");
+}
+```
+
+---
+
+### 🔄 **Variantes y equivalentes**
+
+| Variante           | Descripción                                        | Ejemplo                             |
+| ------------------ | -------------------------------------------------- | ----------------------------------- |
+| `foreach` normal   | Itera sobre colección                              | `foreach (var x in lista)`          |
+| `Parallel.ForEach` | Ejecuta iteraciones en paralelo (multi-hilo)       | `Parallel.ForEach(lista, x => ...)` |
+| `await foreach`    | Itera sobre flujos asíncronos (`IAsyncEnumerable`) | `await foreach (var item in flujo)` |
+
+---
+
+### 🚀 **Ejemplo de `await foreach` (C# 8+)**
+
+```csharp
+static async IAsyncEnumerable<int> GenerarNumerosAsync()
+{
+    for (int i = 1; i <= 3; i++)
+    {
+        await Task.Delay(500);
+        yield return i;
+    }
+}
+
+static async Task Main()
+{
+    await foreach (var numero in GenerarNumerosAsync())
+    {
+        Console.WriteLine(numero);
+    }
+}
+```
+
+👉 Permite **procesar datos en streaming** (muy útil para lecturas asíncronas o APIs).
+
+---
+
+### 🧭 **Resumen**
+
+| Concepto                   | `for`              | `foreach`           |
+| -------------------------- | ------------------ | ------------------- |
+| Control de índice          | ✅                  | ❌                   |
+| Lectura de datos           | ✅                  | ✅                   |
+| Modificación de elementos  | ✅                  | ❌                   |
+| Sintaxis más limpia        | ❌                  | ✅                   |
+| Compatible con colecciones | ✅                  | ✅                   |
+| Riesgo de error de índice  | Alto               | Nulo                |
+| Asincronía                 | Con `Parallel.For` | Con `await foreach` |
+
+---
+🧩 **Conclusión**
+
+El ciclo `foreach` es **seguro, expresivo y fácil de leer**, ideal para recorrer colecciones sin preocuparte por límites ni errores de índice.
+Usa `for` si necesitas **modificar elementos o controlar el índice**; usa `foreach` si solo **quieres recorrer o procesar datos**.
+
+## 15.- Ciclos `while` y `do while`
+
+Estos dos ciclos permiten ejecutar código **mientras** una condición sea verdadera.
+La diferencia está en **cuándo se evalúa la condición**:
+
+- `while` la evalúa **antes** de entrar al bloque.
+- `do while` la evalúa **después**, garantizando al menos una ejecución.
+
+---
+
+### 🧱 **Ciclo `while` – Estructura básica**
+
+```csharp
+while (condición)
+{
+    // Código que se ejecuta mientras la condición sea verdadera
+}
+```
+
+Ejemplo:
+
+```csharp
+int contador = 0;
+
+while (contador < 5)
+{
+    Console.WriteLine($"Iteración {contador}");
+    contador++;
+}
+```
+
+📊 Este ciclo imprimirá del 0 al 4.
+Si la condición no se cumple al inicio, **el bloque no se ejecuta nunca**.
+
+---
+
+### 🧩 **Ciclo `do while` – Estructura básica**
+
+```csharp
+do
+{
+    // Código que se ejecuta al menos una vez
+} while (condición);
+```
+
+Ejemplo:
+
+```csharp
+int numero = 5;
+
+do
+{
+    Console.WriteLine($"Número actual: {numero}");
+    numero--;
+} while (numero > 0);
+```
+
+📌 A diferencia del `while`, **si la condición es falsa desde el inicio**, este ciclo **se ejecuta una vez de todas formas**.
+
+---
+
+### 🔄 **Comparación rápida**
+
+| Característica                   | `while`       | `do while`      |
+| -------------------------------- | ------------- | --------------- |
+| Evalúa antes de ejecutar         | ✅             | ❌               |
+| Evalúa después de ejecutar       | ❌             | ✅               |
+| Se puede ejecutar cero veces     | ✅             | ❌               |
+| Siempre ejecuta al menos una vez | ❌             | ✅               |
+| Uso típico                       | Validar antes | Validar después |
+
+---
+
+### ⚙️ **Ejemplo práctico: menú interactivo**
+
+```csharp
+string opcion;
+
+do
+{
+    Console.WriteLine("1. Saludar");
+    Console.WriteLine("2. Despedirse");
+    Console.WriteLine("3. Salir");
+    Console.Write("Elige una opción: ");
+    opcion = Console.ReadLine();
+
+    switch (opcion)
+    {
+        case "1":
+            Console.WriteLine("¡Hola!");
+            break;
+        case "2":
+            Console.WriteLine("Adiós!");
+            break;
+    }
+
+} while (opcion != "3");
+```
+
+💡 Aquí `do while` es ideal porque **queremos mostrar el menú al menos una vez**.
+
+---
+
+### ⚡ **Consejos y buenas prácticas**
+
+1. **Evita bucles infinitos no controlados**
+
+   ```csharp
+   while(true) { ... } // peligroso si no hay break
+   ```
+
+   Si los usas, asegúrate de incluir una **condición de salida** con `break`:
+
+   ```csharp
+   while(true)
+   {
+       string entrada = Console.ReadLine();
+       if (entrada == "salir") break;
+   }
+   ```
+
+2. **Cuida las variables de control**
+   Siempre asegúrate de **modificar la variable** que afecta la condición, o nunca saldrás del bucle.
+
+3. **Usa `while` cuando no sabes cuántas iteraciones habrá**
+   Ejemplo: leer datos hasta que el usuario introduzca “fin”.
+
+4. **Usa `do while` cuando quieras ejecutar algo al menos una vez**, como un menú o validación de entrada.
+
+---
+
+### 🧮 **Optimización de ciclos `while`**
+
+- Si trabajas con colecciones o índices fijos, **prefiere `for` o `foreach`** (más claros y seguros).
+- Si repites operaciones costosas dentro del ciclo, **extrae cálculos fuera** del `while`.
+
+❌ Ineficiente:
+
+```csharp
+while (lista.Count > 0)
+{
+    lista.RemoveAt(0);
+}
+```
+
+✅ Mejor:
+
+```csharp
+int count = lista.Count;
+for (int i = 0; i < count; i++)
+{
+    lista.RemoveAt(0);
+}
+```
+
+---
+
+### 💡 **Uso con `break` y `continue`**
+
+```csharp
+int i = 0;
+while (i < 10)
+{
+    i++;
+
+    if (i == 3)
+        continue; // salta el resto del bloque
+
+    if (i == 8)
+        break; // rompe el ciclo
+
+    Console.WriteLine(i);
+}
+```
+
+Resultado:
+Imprime del 1 al 10, **saltando el 3 y deteniéndose al llegar al 8**.
+
+---
+
+### 🧠 **`while` infinito controlado (bucles de servicio)**
+
+A veces se usan intencionalmente para procesos que deben correr siempre:
+
+```csharp
+while (true)
+{
+    ProcesarEventos();
+    Thread.Sleep(1000);
+}
+```
+
+⚠️ Estos ciclos deben tener **algún mecanismo de salida o pausa**, como una bandera booleana o una señal externa.
+
+---
+
+### 🧩 **Resumen general**
+
+| Tipo de ciclo | Cuándo se evalúa | Puede no ejecutarse | Ideal para...                          |
+| ------------- | ---------------- | ------------------- | -------------------------------------- |
+| `for`         | Antes            | ✅                   | Iteraciones contadas                   |
+| `foreach`     | Automático       | ✅                   | Recorrer colecciones                   |
+| `while`       | Antes            | ✅                   | Condiciones dinámicas                  |
+| `do while`    | Después          | ❌                   | Ejecución garantizada al menos una vez |
+
+---
+
+### 🚀 **Conclusión**
+
+Los ciclos `while` y `do while` son poderosos para controlar **flujo condicional repetitivo**.
+
+- Usa `while` cuando **quieras verificar antes de ejecutar**.
+- Usa `do while` cuando **necesites ejecutar al menos una vez antes de verificar**.
+  Ambos son esenciales cuando la cantidad de iteraciones **no está definida de antemano**.
+
+---
+
+¿Deseas que sigamos con el **tema 16: Ciclo `break`, `continue` y `goto`** (control de flujo dentro de bucles)?
+Puedo hacerlo con ejemplos, advertencias y optimizaciones.
+
+## 16.- Control de Flujo: `break`, `continue` y `goto`
+
+Los ciclos (`for`, `foreach`, `while`, `do while`) ejecutan bloques repetitivos de código, pero muchas veces necesitamos **romper, saltar o redirigir** el flujo según condiciones específicas.
+Para eso existen estas tres palabras clave:
+
+---
+
+### 🧩 **1️⃣ `break` — Rompe el ciclo actual**
+
+Sirve para **salir inmediatamente** del ciclo (o `switch`) en el que se encuentra.
+No se ejecuta el resto del bloque ni se sigue iterando.
+
+---
+
+#### 🔹 **Ejemplo básico**
+
+```csharp
+for (int i = 0; i < 10; i++)
+{
+    if (i == 5)
+        break; // rompe el ciclo cuando i == 5
+
+    Console.WriteLine(i);
+}
+```
+
+🧠 Resultado:
+
+```yaml
+0
+1
+2
+3
+4
+```
+
+El ciclo se detiene al llegar al `break`.
+
+---
+
+#### 🔹 **Uso en `while` y `foreach`**
+
+```csharp
+int numero = 0;
+while (true)
+{
+    numero++;
+    if (numero == 3)
+        break; // sale del ciclo infinito
+
+    Console.WriteLine(numero);
+}
+```
+
+---
+
+#### ⚙️ **Casos de uso comunes**
+
+- Finalizar un ciclo al cumplir una condición.
+- Salir de un menú interactivo.
+- Romper una búsqueda al encontrar un resultado.
+
+---
+
+### 🧩 **2️⃣ `continue` — Salta a la siguiente iteración**
+
+Omite el resto del código dentro del bloque y **pasa directamente a la siguiente iteración** del ciclo.
+
+---
+
+#### 🔹 **Ejemplo básico de `continue`**
+
+```csharp
+for (int i = 0; i < 5; i++)
+{
+    if (i == 2)
+        continue; // salta la iteración cuando i == 2
+
+    Console.WriteLine(i);
+}
+```
+
+🧠 Resultado:
+
+```yaml
+0
+1
+3
+4
+```
+
+La iteración donde `i == 2` se salta por completo.
+
+---
+
+#### 🔹 **Ejemplo práctico con `while`**
+
+```csharp
+int i = 0;
+
+while (i < 5)
+{
+    i++;
+    if (i % 2 == 0)
+        continue; // omite los pares
+
+    Console.WriteLine(i);
+}
+```
+
+🧮 Resultado:
+
+```yaml
+1
+3
+5
+```
+
+---
+
+#### ⚙️ **Usos típicos**
+
+- Saltar iteraciones que no cumplen un criterio.
+- Evitar anidar demasiados `if` dentro de los bucles.
+- Mejorar la legibilidad de condiciones complejas.
+
+---
+
+### 🧩 **3️⃣ `goto` — Salto directo a una etiqueta**
+
+El temido (y mal comprendido) **`goto`** permite **saltar a una etiqueta específica del código**.
+Su uso se considera **poco recomendado**, porque puede romper la estructura lógica del programa y volverlo difícil de mantener.
+
+---
+
+#### 🔹 **Sintaxis básica**
+
+```csharp
+goto etiqueta;
+
+// ...
+etiqueta:
+Console.WriteLine("Salto completado.");
+```
+
+---
+
+#### 🔹 **Ejemplo práctico**
+
+```csharp
+int i = 0;
+
+while (true)
+{
+    if (i == 3)
+        goto Salir; // salta al final del programa
+
+    Console.WriteLine(i);
+    i++;
+}
+
+Salir:
+Console.WriteLine("Fin del ciclo.");
+```
+
+🧠 Resultado:
+
+```yaml
+0
+1
+2
+Fin del ciclo.
+```
+
+---
+
+#### ⚠️ **Cuándo (y cuándo NO) usar `goto`**
+
+**✅ Casos válidos:**
+
+- Para salir de varios ciclos anidados de una sola vez.
+- En código muy bajo nivel o control de errores críticos (poco común en C# moderno).
+
+**❌ Evítalo cuando:**
+
+- Se puede resolver con `break`, `continue` o funciones separadas.
+- Hace el código más difícil de leer.
+
+---
+
+#### 🔹 **Ejemplo: romper varios bucles anidados**
+
+```csharp
+for (int i = 0; i < 5; i++)
+{
+    for (int j = 0; j < 5; j++)
+    {
+        if (i == 2 && j == 3)
+            goto Salir; // rompe ambos ciclos
+
+        Console.WriteLine($"{i}, {j}");
+    }
+}
+
+Salir:
+Console.WriteLine("Ciclos terminados.");
+```
+
+🧠 Sin `goto`, tendrías que usar variables booleanas o funciones auxiliares.
+
+---
+
+### ⚡ **Resumen general**
+
+| Palabra clave | Función                          | Rompe el ciclo | Salta iteración | Salta a otro punto |
+| ------------- | -------------------------------- | -------------- | --------------- | ------------------ |
+| `break`       | Sale del ciclo o `switch` actual | ✅              | ❌               | ❌                  |
+| `continue`    | Salta a la siguiente iteración   | ❌              | ✅               | ❌                  |
+| `goto`        | Salta a una etiqueta específica  | ✅              | ❌               | ✅                  |
+
+---
+
+### 🧠 **Optimización y buenas prácticas**
+
+1. Usa `break` y `continue` para **claridad de flujo**, no para esconder mala lógica.
+2. Evita `goto` salvo casos muy específicos.
+3. Si un ciclo tiene muchas condiciones de salida, **replantea el diseño** (quizás divídelo en funciones).
+4. Usa `return` si estás dentro de un método y deseas terminar **todo el proceso**, no solo el ciclo.
+
+---
+
+#### 💡 **Ejemplo avanzado: combinación de control**
+
+```csharp
+for (int i = 0; i < 10; i++)
+{
+    if (i == 3)
+        continue; // salta el 3
+
+    if (i == 8)
+        break; // termina el ciclo
+
+    Console.WriteLine(i);
+}
+```
+
+🧮 Resultado:
+
+```yaml
+0
+1
+2
+4
+5
+6
+7
+```
+
+---
+
+#### 🧩 **Conclusión**
+
+- 🔸 **`break`** → Detén el ciclo actual.
+- 🔸 **`continue`** → Salta la iteración actual.
+- 🔸 **`goto`** → Salta a una etiqueta (usa con precaución).
+
+Dominar estas palabras te da **control total sobre el flujo interno de tus bucles**, evitando redundancias y mejorando el rendimiento lógico de tu código.
+
+## 17.-
+
+## 18.-
+
+## 19.-
+
+## 20.-
+
+## 21.-
+
+## 22.-
+
+## 23.-
+
+## 24.-
+
+## 25.-
+
+## 26.-
+
+## 27.-
+
+## 28.-
