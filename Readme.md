@@ -1,5 +1,22 @@
 # Curso de Programación en C #
 
+## Introducción
+
+Esta es una recopilación de notas generadas a mano y con ChatGPT, Gemini.
+Estas notas fueron tomadas de un curso de programación de YouTube.
+
+Agradezco de antemano al creador de este video
+
+[Curso Programación C# - De Cero a Hero](https://www.youtube.com/watch?v=pTIpUFN1rBY)
+
+Y cualquier persona es libre de Explorar esta información la cual es bastante, asi que dejo a continuación link a el indice, este se abre con
+
+'Ctrl + Click'
+
+Acceso al indice => [Indice](#indice)
+
+---
+
 ## 1.- Uso de la Línea de Comandos (CMD)
 
 La **Línea de Comandos** (también conocida como **CMD** o Símbolo del Sistema) es una potente herramienta que te permite interactuar con tu sistema operativo mediante comandos de texto.
@@ -5927,16 +5944,615 @@ foreach (var n in resultado)
 
 ---
 
-## 22.-
+## 22.- Programación Orientada a Objetos (POO) en C #
 
-## 23.-
+La **POO** es un paradigma de programación que organiza el código mediante **objetos**, que son instancias de **clases**, permitiendo modelar el mundo real dentro de un programa.
 
-## 24.-
+C# es un lenguaje **totalmente orientado a objetos**, por lo que aprender POO es esencial para programar profesionalmente.
 
-## 25.-
+---
 
-## 26.-
+### 22.1 Conceptos Clave
 
-## 27.-
+1. **Clase:** Es un **molde o plantilla** que define las propiedades (datos) y métodos (funciones) de un objeto.
+2. **Objeto:** Es una **instancia de una clase**, es decir, un “ejemplar” concreto con valores propios.
+3. **Propiedad (Property):** Una variable dentro de la clase que describe el estado de un objeto.
+4. **Método (Method):** Una función dentro de la clase que describe el comportamiento del objeto.
+5. **Encapsulamiento:** Ocultar datos internos y controlar el acceso a ellos mediante métodos o propiedades.
+6. **Herencia:** Permite crear nuevas clases basadas en clases existentes, reutilizando código.
+7. **Polimorfismo:** La capacidad de que un objeto se comporte de diferentes formas según el contexto.
+8. **Abstracción:** Simplificación del mundo real mostrando solo lo necesario y ocultando los detalles internos.
 
-## 28.-
+---
+
+### 22.2 Clases y Objetos
+
+#### 22.2.1 Declaración de una Clase
+
+```csharp
+class Persona
+{
+    // Propiedades
+    public string Nombre;
+    public int Edad;
+
+    // Método
+    public void Saludar()
+    {
+        Console.WriteLine($"Hola, soy {Nombre} y tengo {Edad} años.");
+    }
+}
+```
+
+#### 22.2.2 Crear un Objeto
+
+```csharp
+Persona p1 = new Persona();
+p1.Nombre = "Lechu";
+p1.Edad = 28;
+p1.Saludar(); // "Hola, soy Lechu y tengo 28 años."
+```
+
+**Explicación:**
+
+- `class Persona { ... }` → Define una clase llamada `Persona`.
+- `Persona p1 = new Persona();` → Crea un objeto `p1` de la clase `Persona`.
+- `p1.Nombre = "Lechu";` → Asigna valor a la propiedad del objeto.
+
+---
+
+### 22.3 Constructores
+
+Un **constructor** es un método especial que se ejecuta **al crear un objeto**, usado para inicializar propiedades.
+
+```csharp
+class Persona
+{
+    public string Nombre;
+    public int Edad;
+
+    // Constructor
+    public Persona(string nombre, int edad)
+    {
+        Nombre = nombre;
+        Edad = edad;
+    }
+
+    public void Saludar()
+    {
+        Console.WriteLine($"Hola, soy {Nombre} y tengo {Edad} años.");
+    }
+}
+
+// Crear objeto usando constructor
+Persona p2 = new Persona("LechuDev", 28);
+p2.Saludar();
+```
+
+**Tip:** Puedes tener varios constructores con **diferentes parámetros** (sobrecarga de constructores).
+
+---
+
+### 22.4 Propiedades y Encapsulamiento
+
+En lugar de usar variables públicas, podemos usar **propiedades con get y set**:
+
+```csharp
+class Persona
+{
+    private int edad; // Variable privada
+
+    public string Nombre { get; set; } // Auto-propiedad
+
+    public int Edad
+    {
+        get { return edad; }
+        set
+        {
+            if (value >= 0) edad = value; // Validación
+            else Console.WriteLine("Edad inválida");
+        }
+    }
+}
+
+Persona p = new Persona();
+p.Nombre = "LechuDev";
+p.Edad = 28;
+Console.WriteLine($"{p.Nombre} tiene {p.Edad} años.");
+```
+
+**Explicación:**
+
+- `Nombre { get; set; }` → Propiedad pública simple.
+- `Edad` → Propiedad con **validación**, que protege la integridad del dato.
+- Esto es **encapsulamiento**, ocultando la variable `edad`.
+
+---
+
+### 22.5 Métodos
+
+- Los métodos definen **comportamiento**.
+- Pueden tener **parámetros** y **devolver valores**.
+
+```csharp
+class Calculadora
+{
+    public int Sumar(int a, int b)
+    {
+        return a + b;
+    }
+}
+
+Calculadora calc = new Calculadora();
+Console.WriteLine(calc.Sumar(5, 3)); // 8
+```
+
+💡 Buen hábito: los métodos deben **hacer solo una cosa**, ser **claros y cortos**.
+
+---
+
+### 22.6 Herencia
+
+La herencia permite **crear una clase basada en otra**, reutilizando código.
+
+```csharp
+class Animal
+{
+    public void Comer() => Console.WriteLine("Comiendo...");
+}
+
+class Perro : Animal
+{
+    public void Ladrar() => Console.WriteLine("Guau!");
+}
+
+Perro miPerro = new Perro();
+miPerro.Comer(); // Heredado
+miPerro.Ladrar(); // Propio
+```
+
+**Tip:** Usa herencia para **evitar repetir código** y crear jerarquías lógicas.
+
+---
+
+### 22.7 Polimorfismo
+
+El polimorfismo permite que **un mismo método se comporte de manera distinta** según la clase que lo implemente.
+
+```csharp
+class Animal
+{
+    public virtual void HacerSonido()
+    {
+        Console.WriteLine("Sonido genérico");
+    }
+}
+
+class Perro : Animal
+{
+    public override void HacerSonido()
+    {
+        Console.WriteLine("Guau!");
+    }
+}
+
+Animal a = new Perro();
+a.HacerSonido(); // "Guau!" gracias al polimorfismo
+```
+
+**Explicación:**
+
+- `virtual` → Método que puede ser sobrescrito.
+- `override` → Método que sobrescribe al original en la subclase.
+
+---
+
+### 22.8 Abstracción
+
+- Permite **centrarse en lo esencial** y ocultar los detalles internos.
+- Se logra usando **clases abstractas** o **interfaces**.
+
+```csharp
+abstract class Figura
+{
+    public abstract double Area(); // Método sin implementación
+}
+
+class Circulo : Figura
+{
+    public double Radio { get; set; }
+    public override double Area() => Math.PI * Radio * Radio;
+}
+
+Circulo c = new Circulo { Radio = 3 };
+Console.WriteLine(c.Area()); // 28.27
+```
+
+**Tip:** Usa abstracción para **definir contratos claros** sin exponer detalles innecesarios.
+
+---
+
+### 22.9 Interfaces
+
+- Son **contratos** que las clases deben implementar.
+- Una clase puede implementar **múltiples interfaces**, pero solo heredar de una clase.
+
+```csharp
+interface IVehículo
+{
+    void Conducir();
+}
+
+class Coche : IVehículo
+{
+    public void Conducir()
+    {
+        Console.WriteLine("Conduciendo el coche");
+    }
+}
+
+IVehiculo miCoche = new Coche();
+miCoche.Conducir();
+```
+
+---
+
+### 22.10 Buenas Prácticas en POO
+
+1. Siempre usa **encapsulamiento** (`private` + `get/set`).
+2. Evita **herencias profundas**; prefiere composición si es posible.
+3. Implementa **interfaces** para flexibilizar tu código.
+4. Mantén tus clases **pequeñas y cohesionadas**: cada clase hace una sola cosa.
+5. Usa **constructores y sobrecarga** para inicializar objetos claramente.
+6. Aplica **polimorfismo y abstracción** para mejorar mantenibilidad.
+
+---
+
+---
+
+## Indice
+
+- [Curso de Programación en C](#curso-de-programación-en-c)
+  - [Introducción](#introducción)
+  - [1.- Uso de la Línea de Comandos (CMD)](#1--uso-de-la-línea-de-comandos-cmd)
+    - [1.1.- ¿Para qué sirve?](#11--para-qué-sirve)
+    - [1.2.- Comandos Básicos](#12--comandos-básicos)
+  - [2.- Ambiente de Trabajo en C](#2--ambiente-de-trabajo-en-c)
+    - [2.1 Instalación del SDK de .NET](#21-instalación-del-sdk-de-net)
+      - [2.1.1 Historia de los compiladores](#211-historia-de-los-compiladores)
+      - [2.1.2 Instrucciones de Descarga](#212-instrucciones-de-descarga)
+    - [2.2 Descarga de IDE](#22-descarga-de-ide)
+      - [Opción 1: Visual Studio Code (Ligero y rápido)](#opción-1-visual-studio-code-ligero-y-rápido)
+      - [Opción 2: Visual Studio Community (Completo y profesional)](#opción-2-visual-studio-community-completo-y-profesional)
+  - [3.- Primeros Pasos en C](#3--primeros-pasos-en-c)
+    - [3.1 Tu primer "Hola, Mundo"](#31-tu-primer-hola-mundo)
+      - [3.1.1 Versión Antigua (C# 1.0 - 7.0)](#311-versión-antigua-c-10---70)
+      - [3.1.2 Versión Moderna (C# 9 y superior)](#312-versión-moderna-c-9-y-superior)
+    - [3.2 Compilación y Ejecución](#32-compilación-y-ejecución)
+      - [3.2.1 🧠 ¿Qué es compilar?](#321--qué-es-compilar)
+      - [3.2.2⚙️ Compilación desde la Línea de Comandos](#322️-compilación-desde-la-línea-de-comandos)
+        - [3.2.2.1 Paso 1: Crear el archivo](#3221-paso-1-crear-el-archivo)
+        - [3.2.2.2 Paso 2: Compilar con el SDK de .NET](#3222-paso-2-compilar-con-el-sdk-de-net)
+        - [3.2.2.3 Paso 3: Ejecutar el programa](#3223-paso-3-ejecutar-el-programa)
+      - [3.2.3 💻 Compilación y Ejecución en Visual Studio Code](#323--compilación-y-ejecución-en-visual-studio-code)
+      - [🧩 3.2.4 ¿Qué sucede durante la ejecución?](#-324-qué-sucede-durante-la-ejecución)
+      - [⚡ 3.2.5 Errores Comunes al Compilar](#-325-errores-comunes-al-compilar)
+      - [🧮 3.2.6 Extra: Compilación de varios archivos](#-326-extra-compilación-de-varios-archivos)
+      - [🎯 3.2.7 Resumen](#-327-resumen)
+  - [4.- Bits y Bytes de Información](#4--bits-y-bytes-de-información)
+    - [4.1 ¿Qué es un Bit?](#41-qué-es-un-bit)
+    - [4.2 ¿Qué es un Byte?](#42-qué-es-un-byte)
+    - [4.3 Conversión entre Bits y Bytes](#43-conversión-entre-bits-y-bytes)
+    - [4.4 Ejemplo de Conversión](#44-ejemplo-de-conversión)
+      - [Ejemplo 1: Bits a Bytes](#ejemplo-1-bits-a-bytes)
+      - [Ejemplo 2: Bytes a Bits](#ejemplo-2-bytes-a-bits)
+      - [Ejemplo 3: Representando un texto](#ejemplo-3-representando-un-texto)
+      - [Ejemplo 4: Tamaños comunes en informática](#ejemplo-4-tamaños-comunes-en-informática)
+    - [4.5 Importancia en Programación](#45-importancia-en-programación)
+  - [5.- Tipos de Datos en C# – Variables y Constantes](#5--tipos-de-datos-en-c--variables-y-constantes)
+    - [5.1 ¿Qué es una Variable?](#51-qué-es-una-variable)
+    - [5.2 Reglas para Nombrar Variables](#52-reglas-para-nombrar-variables)
+    - [5.3 Tipos de Datos Primitivos en C](#53-tipos-de-datos-primitivos-en-c)
+      - [🧮 Tipos Numéricos Enteros](#-tipos-numéricos-enteros)
+      - [🔢 Tipos Numéricos de Punto Flotante](#-tipos-numéricos-de-punto-flotante)
+      - [🔠 Tipos de Texto y Caracteres](#-tipos-de-texto-y-caracteres)
+      - [💡 Tipo Lógico (Booleano)](#-tipo-lógico-booleano)
+    - [5.4 Variables vs. Constantes](#54-variables-vs-constantes)
+    - [5.5 Inferencia de Tipos (`var` y `dynamic`)](#55-inferencia-de-tipos-var-y-dynamic)
+      - [🔹 `var` (Tipo Inferido en tiempo de compilación)](#-var-tipo-inferido-en-tiempo-de-compilación)
+      - [🔹 `dynamic` (Tipo dinámico en tiempo de ejecución)](#-dynamic-tipo-dinámico-en-tiempo-de-ejecución)
+    - [5.6 Ejemplo General en C](#56-ejemplo-general-en-c)
+    - [5.7 Recomendaciones Profesionales](#57-recomendaciones-profesionales)
+    - [5.8 Variables locales y globales](#58-variables-locales-y-globales)
+      - [5.8.1 Variables Locales](#581-variables-locales)
+        - [Ejemplo](#ejemplo)
+      - [5.8.2 Variables Globales (Campos / Variables de Clase)](#582-variables-globales-campos--variables-de-clase)
+        - [Ejemplo de Variables Globales](#ejemplo-de-variables-globales)
+      - [5.8.3 Buenas Prácticas](#583-buenas-prácticas)
+    - [5.9 Variables Privadas y Públicas](#59-variables-privadas-y-públicas)
+      - [5.9.1 Variables Públicas (`public`)](#591-variables-públicas-public)
+        - [Ejemplo Variables Públicas](#ejemplo-variables-públicas)
+      - [5.9.2 Variables Privadas (`private`)](#592-variables-privadas-private)
+        - [Ejemplo Variables privadas](#ejemplo-variables-privadas)
+      - [5.9.3 Buenas Prácticas](#593-buenas-prácticas)
+  - [6.- Más sobre Strings](#6--más-sobre-strings)
+    - [6.1 Introducción a los Strings en C](#61-introducción-a-los-strings-en-c)
+    - [6.2 Manipulación de Strings (Concatenación, Subcadenas, Búsqueda)](#62-manipulación-de-strings-concatenación-subcadenas-búsqueda)
+      - [🔹 6.2.1 Concatenación: unir varios strings](#-621-concatenación-unir-varios-strings)
+        - [🔹 Concatenación con el operador `+`](#-concatenación-con-el-operador-)
+        - [🔹 Concatenación con `string.Concat()`](#-concatenación-con-stringconcat)
+        - [🔹 Concatenación con interpolación (`$""`)](#-concatenación-con-interpolación-)
+        - [💡 **Resumen de las tres formas:**](#-resumen-de-las-tres-formas)
+      - [🔹 6.2.2 Subcadenas: extraer una parte del texto](#-622-subcadenas-extraer-una-parte-del-texto)
+      - [🔹 6.2.3 Búsqueda: localizar texto dentro de un string](#-623-búsqueda-localizar-texto-dentro-de-un-string)
+    - [6.3 Formateo de Strings](#63-formateo-de-strings)
+    - [6.4 Interpolación de Strings](#64-interpolación-de-strings)
+    - [6.5 Métodos Comunes de la Clase String](#65-métodos-comunes-de-la-clase-string)
+    - [6.6 Uso de StringBuilder para Cadenas Grandes](#66-uso-de-stringbuilder-para-cadenas-grandes)
+    - [6.7 Codificación y Unicode](#67-codificación-y-unicode)
+    - [6.8 Expresiones Regulares](#68-expresiones-regulares)
+    - [6.9 Internacionalización y Localización de Strings](#69-internacionalización-y-localización-de-strings)
+    - [6.10 Optimización del Rendimiento con Strings](#610-optimización-del-rendimiento-con-strings)
+    - [6.11 Buenas Prácticas en el Manejo de Strings](#611-buenas-prácticas-en-el-manejo-de-strings)
+    - [6.12 Ejemplos Prácticos y Ejercicios](#612-ejemplos-prácticos-y-ejercicios)
+  - [7.- Los Operadores en C](#7--los-operadores-en-c)
+    - [7.1.- Operadores Aritméticos](#71--operadores-aritméticos)
+      - [7.1.1.- Suma (`+`)](#711--suma-)
+      - [7.1.2 Resta (`-`)](#712-resta--)
+      - [7.1.3 Multiplicación (`*`)](#713-multiplicación-)
+      - [7.1.4 División (`/`)](#714-división-)
+      - [7.1.5 Módulo (`%`)](#715-módulo-)
+      - [7.1.6 Incremento (`++`)](#716-incremento-)
+      - [7.1.7 Decremento (`--`)](#717-decremento---)
+      - [7.1.8 Exponenciación (potencias)](#718-exponenciación-potencias)
+      - [7.1.9 Resumen](#719-resumen)
+      - [7.1.10 Ejemplo: Calculadora simple](#7110-ejemplo-calculadora-simple)
+    - [7.2.- Operadores de Asignación](#72--operadores-de-asignación)
+      - [🔹 7.2.1 Asignación básica (`=`)](#-721-asignación-básica-)
+      - [🔹 7.2.2 Asignación con suma (`+=`)](#-722-asignación-con-suma-)
+      - [🔹 7.2.3 Asignación con resta (`-=`)](#-723-asignación-con-resta--)
+      - [🔹 7.2.4 Asignación con multiplicación (`*=`)](#-724-asignación-con-multiplicación-)
+      - [🔹 7.2.5 Asignación con división (`/=`)](#-725-asignación-con-división-)
+      - [🔹 7.2.6 Asignación con módulo (`%=`)](#-726-asignación-con-módulo-)
+      - [🔹 7.2.7 Resumen de los operadores de asignación](#-727-resumen-de-los-operadores-de-asignación)
+      - [🔹 7.2.8 Ejemplo: Calculadora avanzada](#-728-ejemplo-calculadora-avanzada)
+        - [🔹 Explicación paso a paso](#-explicación-paso-a-paso)
+    - [7.3.- Operadores Relacionales y de Comparación](#73--operadores-relacionales-y-de-comparación)
+      - [🔹 7.3.1 Igualdad (`==`)](#-731-igualdad-)
+      - [🔹 7.3.2 Diferente (`!=`)](#-732-diferente-)
+      - [🔹 7.3.3 Mayor que (`>`)](#-733-mayor-que-)
+      - [🔹 7.3.4 Menor que (`<`)](#-734-menor-que-)
+      - [🔹 7.3.5 Mayor o igual que (`>=`)](#-735-mayor-o-igual-que-)
+      - [🔹 7.3.6 Menor o igual que (`<=`)](#-736-menor-o-igual-que-)
+      - [🔹 7.3.7 Ejemplo práctico: Comparaciones combinadas](#-737-ejemplo-práctico-comparaciones-combinadas)
+    - [7.4.- Operadores Lógicos (`&&`, `||`, `!`)](#74--operadores-lógicos---)
+      - [🔹 7.4.1 AND lógico (`&&`)](#-741-and-lógico-)
+      - [🔹 7.4.2 OR lógico (`||`)](#-742-or-lógico-)
+      - [🔹 7.4.3 NOT lógico (`!`)](#-743-not-lógico-)
+      - [🔹 7.4.4 Combinación de operadores lógicos y relacionales](#-744-combinación-de-operadores-lógicos-y-relacionales)
+      - [🔹 7.4.5 Tabla de verdad de operadores lógicos](#-745-tabla-de-verdad-de-operadores-lógicos)
+      - [🔹 7.4.6 Ejemplo práctico: Control de acceso](#-746-ejemplo-práctico-control-de-acceso)
+    - [7.6.- Operador de Incremento (`++`)](#76--operador-de-incremento-)
+      - [🔹 Ejemplo 1: Prefijo (`++variable`)](#-ejemplo-1-prefijo-variable)
+      - [🔹 Ejemplo 2: Sufijo (`variable++`)](#-ejemplo-2-sufijo-variable)
+    - [7.7.- Operador de Decremento (`--`)](#77--operador-de-decremento---)
+      - [🔹 Ejemplo 1: Prefijo (`--variable`)](#-ejemplo-1-prefijo---variable)
+      - [🔹 Ejemplo 2: Sufijo (`variable--`)](#-ejemplo-2-sufijo-variable--)
+    - [7.8.- Exponenciación (`Math.Pow`)](#78--exponenciación-mathpow)
+      - [7.8.1.-🔹 Ejemplo básico de `Math.Pow`](#781--ejemplo-básico-de-mathpow)
+      - [7.8.2.-🔹 Combinación con otros operadores](#782--combinación-con-otros-operadores)
+      - [7.8.3🔹 Ejemplo avanzado: Validación de resultados](#783-ejemplo-avanzado-validación-de-resultados)
+      - [7.8.4🔹 Resumen](#784-resumen)
+    - [7.9.- Ejemplo final: Calculadora Avanzada](#79--ejemplo-final-calculadora-avanzada)
+      - [🔹 7.9.1 Explicación paso a paso](#-791-explicación-paso-a-paso)
+  - [8.- Transformar Cadenas a Valores Numéricos](#8--transformar-cadenas-a-valores-numéricos)
+    - [8.1.- Conversión usando `int.Parse()` y `double.Parse()`](#81--conversión-usando-intparse-y-doubleparse)
+    - [8.2.- Conversión segura con `TryParse()`](#82--conversión-segura-con-tryparse)
+    - [8.3.- Conversión de números decimales](#83--conversión-de-números-decimales)
+    - [8.4.- Conversión usando `Convert.ToInt32()` y `Convert.ToDouble()`](#84--conversión-usando-converttoint32-y-converttodouble)
+    - [8.5.- Conversión a otros tipos numéricos con `Convert`](#85--conversión-a-otros-tipos-numéricos-con-convert)
+    - [8.6.-Tabla de Conversiones en C](#86-tabla-de-conversiones-en-c)
+  - [9.- Funciones Matemáticas de la Librería Math](#9--funciones-matemáticas-de-la-librería-math)
+    - [9.1.- Raíz Cuadrada y Potencias](#91--raíz-cuadrada-y-potencias)
+    - [9.2.- Valores Absolutos y Signos](#92--valores-absolutos-y-signos)
+    - [9.3.- Redondeo y Truncamiento](#93--redondeo-y-truncamiento)
+    - [9.4.- Mínimo, Máximo y Comparaciones](#94--mínimo-máximo-y-comparaciones)
+    - [9.5.- Logaritmos y Exponenciales](#95--logaritmos-y-exponenciales)
+    - [9.6.- Trigonometría](#96--trigonometría)
+    - [9.8.- Raíces y Potencias Avanzadas](#98--raíces-y-potencias-avanzadas)
+    - [9.9.- Funciones de Redondeo con Decimales](#99--funciones-de-redondeo-con-decimales)
+    - [9.10.- Funciones de Valor Absoluto Avanzadas](#910--funciones-de-valor-absoluto-avanzadas)
+    - [9.11.- Comparaciones y Clamping](#911--comparaciones-y-clamping)
+    - [9.12.- Funciones Trigonométricas Adicionales](#912--funciones-trigonométricas-adicionales)
+    - [9.13.- Funciones Hiperbólicas](#913--funciones-hiperbólicas)
+    - [9.14.- Funciones de Comparación de Precisión](#914--funciones-de-comparación-de-precisión)
+    - [9.15.- Ejemplo práctico: “Demostración completa de Math”](#915--ejemplo-práctico-demostración-completa-de-math)
+      - [🔹 Qué hace este programa](#-qué-hace-este-programa)
+  - [10.- Condicional `If`, `If-Else`, `Else If`, Ifs anidados](#10--condicional-if-if-else-else-if-ifs-anidados)
+    - [10.1.- `if` simple](#101--if-simple)
+    - [10.2.- `if-else`](#102--if-else)
+    - [10.3.- `else if` (múltiples condiciones)](#103--else-if-múltiples-condiciones)
+    - [10.4.- Ifs anidados](#104--ifs-anidados)
+    - [10.5.- Expresiones lógicas en `if`](#105--expresiones-lógicas-en-if)
+    - [10.6.- `if` sin paréntesis (solo en C# 9 con expresiones lambda o patrones)](#106--if-sin-paréntesis-solo-en-c-9-con-expresiones-lambda-o-patrones)
+    - [10.7.- Operador ternario (`? :`) como alternativa a `if-else`](#107--operador-ternario---como-alternativa-a-if-else)
+    - [10.8.- Optimización de `if` en C](#108--optimización-de-if-en-c)
+    - [10.9.- Resumen de variantes de `if`](#109--resumen-de-variantes-de-if)
+    - [10.10.- Operador ternario (`?:`)](#1010--operador-ternario-)
+    - [10.11.- Pattern Matching (`is` y `switch`)](#1011--pattern-matching-is-y-switch)
+      - [10.11.1.- `is` con pattern matching](#10111--is-con-pattern-matching)
+      - [10.11.2.- Pattern Matching con `switch`](#10112--pattern-matching-con-switch)
+      - [🔹10.11.3.- Ventajas del pattern matching](#10113--ventajas-del-pattern-matching)
+  - [11.- Switch en C](#11--switch-en-c)
+    - [11.1.- Sintaxis básica del switch](#111--sintaxis-básica-del-switch)
+    - [11.2.- Switch sin `break` (fall-through explícito)](#112--switch-sin-break-fall-through-explícito)
+    - [11.3.- Switch con múltiples tipos de valores](#113--switch-con-múltiples-tipos-de-valores)
+    - [11.4.- Switch con expresiones (C# 8+)](#114--switch-con-expresiones-c-8)
+    - [11.5.- Switch con patrones (Pattern Matching)](#115--switch-con-patrones-pattern-matching)
+    - [11.6.- Switch con tuplas](#116--switch-con-tuplas)
+    - [11.7.- Switch con enums](#117--switch-con-enums)
+    - [11.8.- Optimización de switches](#118--optimización-de-switches)
+    - [11.9.- Consejos y buenas prácticas](#119--consejos-y-buenas-prácticas)
+    - [11.10.- Resumen de variantes de switch](#1110--resumen-de-variantes-de-switch)
+  - [12.-🧩 Diferencia entre *Tupla* y *Enum* en C](#12--diferencia-entre-tupla-y-enum-en-c)
+    - [🧱 1. ENUM — *Tipo de dato definido por el programador*](#-1-enum--tipo-de-dato-definido-por-el-programador)
+      - [Ejemplo de ENUM](#ejemplo-de-enum)
+      - [✳️ Características de ENUM](#️-características-de-enum)
+    - [🧮 2. TUPLA — *Estructura de datos que agrupa valores distintos*](#-2-tupla--estructura-de-datos-que-agrupa-valores-distintos)
+      - [Ejemplo de tupla](#ejemplo-de-tupla)
+      - [✳️ Características de Tupla](#️-características-de-tupla)
+    - [⚖️ Comparación directa](#️-comparación-directa)
+  - [13.- Ciclo `for` en C](#13--ciclo-for-en-c)
+    - [13.0 Introducción](#130-introducción)
+    - [🔹 13.1 Estructura básica del `for`](#-131-estructura-básica-del-for)
+      - [🧩 Ejemplo simple](#-ejemplo-simple)
+    - [🔹 13.2 Partes del `for` explicadas](#-132-partes-del-for-explicadas)
+    - [🔹 13.3 Tipos y variaciones del `for`](#-133-tipos-y-variaciones-del-for)
+      - [1️⃣ For clásico (más usado)](#1️⃣-for-clásico-más-usado)
+      - [2️⃣ For decreciente](#2️⃣-for-decreciente)
+      - [3️⃣ For con paso personalizado](#3️⃣-for-con-paso-personalizado)
+      - [4️⃣ For sin cuerpo](#4️⃣-for-sin-cuerpo)
+      - [5️⃣ For infinito (cuidado ⚠️)](#5️⃣-for-infinito-cuidado-️)
+    - [🔹 13.4 Variantes más modernas](#-134-variantes-más-modernas)
+      - [🔸 13.4.1 For con múltiples variables](#-1341-for-con-múltiples-variables)
+      - [🔸 13.4.2 For con listas o colecciones (cuando no quieres usar foreach)](#-1342-for-con-listas-o-colecciones-cuando-no-quieres-usar-foreach)
+    - [🔹 13.5 Optimización del `for`](#-135-optimización-del-for)
+      - [🧠 1️⃣ Evita recalcular longitudes en cada iteración](#-1️⃣-evita-recalcular-longitudes-en-cada-iteración)
+      - [🧠 2️⃣ Prefiere `foreach` si solo necesitas recorrer una colección](#-2️⃣-prefiere-foreach-si-solo-necesitas-recorrer-una-colección)
+      - [🧠 3️⃣ Evita operaciones costosas dentro del ciclo](#-3️⃣-evita-operaciones-costosas-dentro-del-ciclo)
+      - [🧠 4️⃣ Usa paralelismo si el ciclo es muy pesado](#-4️⃣-usa-paralelismo-si-el-ciclo-es-muy-pesado)
+    - [🔹 13.6 Combinando `for` con condiciones](#-136-combinando-for-con-condiciones)
+    - [🔹 13.7 Uso de `break` y `continue`](#-137-uso-de-break-y-continue)
+      - [🔸 `break`](#-break)
+      - [🔸 `continue`](#-continue)
+    - [🔹 13.8 For anidado](#-138-for-anidado)
+    - [🔹 13.9 Ejemplo práctico — Tabla de multiplicar](#-139-ejemplo-práctico--tabla-de-multiplicar)
+    - [🔹 13.10 Buenas prácticas para usar `for`](#-1310-buenas-prácticas-para-usar-for)
+    - [🧩 13.11 Mini resumen final](#-1311-mini-resumen-final)
+  - [14.- Ciclo `foreach`](#14--ciclo-foreach)
+    - [🧱 Declaración básica](#-declaración-básica)
+    - [🧩 Cómo funciona internamente](#-cómo-funciona-internamente)
+    - [🧮 Tipos de colecciones compatibles](#-tipos-de-colecciones-compatibles)
+    - [📚 Ejemplo con diccionarios](#-ejemplo-con-diccionarios)
+    - [🧠 Inmutabilidad del elemento](#-inmutabilidad-del-elemento)
+    - [⚡ Optimización y buenas prácticas](#-optimización-y-buenas-prácticas)
+    - [🧩 `foreach` con índice (truco)](#-foreach-con-índice-truco)
+    - [🔄 Variantes y equivalentes](#-variantes-y-equivalentes)
+    - [🚀 Ejemplo de `await foreach` (C# 8+)](#-ejemplo-de-await-foreach-c-8)
+    - [🧭 Resumen](#-resumen)
+  - [15.- Ciclos `while` y `do while`](#15--ciclos-while-y-do-while)
+    - [🧱 Ciclo `while` – Estructura básica](#-ciclo-while--estructura-básica)
+    - [🧩 Ciclo `do while` – Estructura básica](#-ciclo-do-while--estructura-básica)
+    - [🔄 Comparación rápida](#-comparación-rápida)
+    - [⚙️ Ejemplo práctico: menú interactivo](#️-ejemplo-práctico-menú-interactivo)
+    - [⚡ Consejos y buenas prácticas](#-consejos-y-buenas-prácticas)
+    - [🧮 Optimización de ciclos `while`](#-optimización-de-ciclos-while)
+    - [💡 Uso con `break` y `continue`](#-uso-con-break-y-continue)
+    - [🧠 `while` infinito controlado (bucles de servicio)](#-while-infinito-controlado-bucles-de-servicio)
+    - [🧩 Resumen general](#-resumen-general)
+    - [🚀 Conclusión](#-conclusión)
+  - [16.- Control de Flujo: `break`, `continue` y `goto`](#16--control-de-flujo-break-continue-y-goto)
+    - [🧩 1️⃣ `break` — Rompe el ciclo actual](#-1️⃣-break--rompe-el-ciclo-actual)
+      - [🔹 Ejemplo básico](#-ejemplo-básico)
+      - [🔹 Uso en `while` y `foreach`](#-uso-en-while-y-foreach)
+      - [⚙️ Casos de uso comunes](#️-casos-de-uso-comunes)
+    - [🧩 2️⃣ `continue` — Salta a la siguiente iteración](#-2️⃣-continue--salta-a-la-siguiente-iteración)
+      - [🔹 Ejemplo básico de `continue`](#-ejemplo-básico-de-continue)
+      - [🔹 Ejemplo práctico con `while`](#-ejemplo-práctico-con-while)
+      - [⚙️ Usos típicos](#️-usos-típicos)
+    - [🧩 3️⃣ `goto` — Salto directo a una etiqueta](#-3️⃣-goto--salto-directo-a-una-etiqueta)
+      - [🔹 Sintaxis básica](#-sintaxis-básica)
+      - [🔹 Ejemplo práctico](#-ejemplo-práctico)
+      - [⚠️ Cuándo (y cuándo NO) usar `goto`](#️-cuándo-y-cuándo-no-usar-goto)
+      - [🔹 Ejemplo: romper varios bucles anidados](#-ejemplo-romper-varios-bucles-anidados)
+    - [⚡ Resumen general](#-resumen-general-1)
+    - [🧠 Optimización y buenas prácticas](#-optimización-y-buenas-prácticas-1)
+      - [💡 **Ejemplo avanzado: combinación de control**](#-ejemplo-avanzado-combinación-de-control)
+      - [🧩 **Conclusión**](#-conclusión-1)
+  - [🧮 17.- Matrices en C# (Arrays)](#-17--matrices-en-c-arrays)
+    - [🔹 17.1.- Declaración y creación de matrices](#-171--declaración-y-creación-de-matrices)
+    - [🔹 17.2.- Acceso y modificación de elementos](#-172--acceso-y-modificación-de-elementos)
+    - [🔹 17.3.- Recorrer matrices con `for` y `foreach`](#-173--recorrer-matrices-con-for-y-foreach)
+    - [🔹 17.4.- Matrices multidimensionales](#-174--matrices-multidimensionales)
+      - [Ejemplo de matriz bidimensional (como una tabla)](#ejemplo-de-matriz-bidimensional-como-una-tabla)
+    - [🔹 17.5.- Matrices irregulares (Jagged Arrays)](#-175--matrices-irregulares-jagged-arrays)
+    - [🔹 17.6.- Métodos útiles de la clase `Array`](#-176--métodos-útiles-de-la-clase-array)
+    - [🔹 17.7.- Copiar y clonar matrices](#-177--copiar-y-clonar-matrices)
+    - [🔹 17.8.- Uso avanzado: inicialización dinámica](#-178--uso-avanzado-inicialización-dinámica)
+    - [🔹 17.9.- Buenas prácticas con arrays](#-179--buenas-prácticas-con-arrays)
+    - [🔹 17.10.- Ejemplo completo](#-1710--ejemplo-completo)
+    - [🧠 Resumen del tema](#-resumen-del-tema)
+    - [🔹 17.11.- Tipos de Arreglos y Variantes Avanzadas](#-1711--tipos-de-arreglos-y-variantes-avanzadas)
+      - [🧩 1. Arreglos Multidimensionales (`[,]`)](#-1-arreglos-multidimensionales-)
+      - [🪜 2. Arreglos Jagged (`[][]`)](#-2-arreglos-jagged-)
+      - [🔄 3. Arreglos Dinámicos (`List<T>`)](#-3-arreglos-dinámicos-listt)
+      - [⚡ 4. Conversión entre Arrays y Listas](#-4-conversión-entre-arrays-y-listas)
+      - [🧠 5. Redimensionar Arrays Manualmente](#-5-redimensionar-arrays-manualmente)
+      - [🔍 6. Arreglos con Tipos Personalizados](#-6-arreglos-con-tipos-personalizados)
+      - [⚙️ 7. Tips de Optimización](#️-7-tips-de-optimización)
+  - [🧱 18.- Listas y Colecciones en C](#-18--listas-y-colecciones-en-c)
+    - [🧩 18.1.- Introducción a las Colecciones Genéricas](#-181--introducción-a-las-colecciones-genéricas)
+    - [📋 18.2.- List — Listas Dinámicas](#-182--list--listas-dinámicas)
+    - [🔑 18.3.- Dictionary\<TKey, TValue\> — Diccionarios (Mapas Clave-Valor)](#-183--dictionarytkey-tvalue--diccionarios-mapas-clave-valor)
+    - [📦 18.4.- Queue — Colas (FIFO)](#-184--queue--colas-fifo)
+    - [🪃 18.5.- Stack — Pilas (LIFO)](#-185--stack--pilas-lifo)
+    - [🔍 18.6.- HashSet — Conjuntos sin duplicados](#-186--hashset--conjuntos-sin-duplicados)
+    - [🧮 18.7.- SortedList y SortedDictionary](#-187--sortedlist-y-sorteddictionary)
+    - [🧠 18.8.- Consejos y Buenas Prácticas](#-188--consejos-y-buenas-prácticas)
+    - [💡 18.9.- Ejemplo Práctico: Gestión de Estudiantes](#-189--ejemplo-práctico-gestión-de-estudiantes)
+  - [🧩 19.- Métodos en C](#-19--métodos-en-c)
+    - [19.1 ¿Qué es un Método?](#191-qué-es-un-método)
+    - [19.2 Estructura de un Método](#192-estructura-de-un-método)
+    - [19.3 Métodos `void` (sin retorno)](#193-métodos-void-sin-retorno)
+    - [19.4 Métodos con Retorno](#194-métodos-con-retorno)
+    - [19.5 Parámetros y Argumentos](#195-parámetros-y-argumentos)
+    - [19.6 Parámetros por Valor y por Referencia](#196-parámetros-por-valor-y-por-referencia)
+      - [🔹 Por Valor (default)](#-por-valor-default)
+      - [🔹 Por Referencia (`ref`)](#-por-referencia-ref)
+      - [🔹 Solo salida (`out`)](#-solo-salida-out)
+    - [19.7 Parámetros Opcionales y con Nombre](#197-parámetros-opcionales-y-con-nombre)
+    - [19.8 Métodos Estáticos (`static`)](#198-métodos-estáticos-static)
+    - [19.9 Sobrecarga de Métodos (Overloading)](#199-sobrecarga-de-métodos-overloading)
+    - [19.10 Expresiones Lambda (Métodos en una línea)](#1910-expresiones-lambda-métodos-en-una-línea)
+    - [19.11 Métodos Locales (anidados dentro de otro método)](#1911-métodos-locales-anidados-dentro-de-otro-método)
+    - [19.12 Métodos Asíncronos (`async` / `await`)](#1912-métodos-asíncronos-async--await)
+    - [19.13 Buenas Prácticas](#1913-buenas-prácticas)
+    - [19.14 Ejemplo Final: Calculadora Modular](#1914-ejemplo-final-calculadora-modular)
+  - [🧩 20.- Métodos y Funciones Avanzadas](#-20--métodos-y-funciones-avanzadas)
+    - [20.1 Recursividad](#201-recursividad)
+    - [20.2 Funciones Anónimas (Anonymous Functions)](#202-funciones-anónimas-anonymous-functions)
+    - [20.3 Expresiones Lambda Avanzadas](#203-expresiones-lambda-avanzadas)
+    - [20.4 Delegados (Delegates)](#204-delegados-delegates)
+    - [20.5 Eventos (basados en Delegados)](#205-eventos-basados-en-delegados)
+    - [20.6 Métodos Genéricos](#206-métodos-genéricos)
+    - [20.7 Parámetros `params`](#207-parámetros-params)
+    - [20.8 Métodos de Extensión](#208-métodos-de-extensión)
+    - [20.9 Métodos Asíncronos Avanzados](#209-métodos-asíncronos-avanzados)
+    - [20.10 Buenas Prácticas](#2010-buenas-prácticas)
+    - [20.11 Ejemplo Integrado: Calculadora Genérica y Asíncrona](#2011-ejemplo-integrado-calculadora-genérica-y-asíncrona)
+  - [21.- Delegados, Eventos y LINQ en C#\*\*](#21--delegados-eventos-y-linq-en-c)
+    - [21.1 ¿Qué es un Delegado?](#211-qué-es-un-delegado)
+      - [Ejemplo Básico](#ejemplo-básico)
+    - [21.2 Delegados Multicast](#212-delegados-multicast)
+    - [21.3 Eventos](#213-eventos)
+      - [Ejemplo Básico de Eventos](#ejemplo-básico-de-eventos)
+    - [21.4 Delegados Genéricos (`Func` y `Action`)](#214-delegados-genéricos-func-y-action)
+    - [21.5 LINQ (Language Integrated Query)](#215-linq-language-integrated-query)
+      - [Ejemplo básico](#ejemplo-básico-1)
+    - [21.6 Operadores LINQ Comunes](#216-operadores-linq-comunes)
+      - [Ejemplo usando varios](#ejemplo-usando-varios)
+    - [21.7 Buenas Prácticas para Delegados, Eventos y LINQ](#217-buenas-prácticas-para-delegados-eventos-y-linq)
+  - [22.- Programación Orientada a Objetos (POO) en C](#22--programación-orientada-a-objetos-poo-en-c)
+    - [22.1 Conceptos Clave](#221-conceptos-clave)
+    - [22.2 Clases y Objetos](#222-clases-y-objetos)
+      - [22.2.1 Declaración de una Clase](#2221-declaración-de-una-clase)
+      - [22.2.2 Crear un Objeto](#2222-crear-un-objeto)
+    - [22.3 Constructores](#223-constructores)
+    - [22.4 Propiedades y Encapsulamiento](#224-propiedades-y-encapsulamiento)
+    - [22.5 Métodos](#225-métodos)
+    - [22.6 Herencia](#226-herencia)
+    - [22.7 Polimorfismo](#227-polimorfismo)
+    - [22.8 Abstracción](#228-abstracción)
+    - [22.9 Interfaces](#229-interfaces)
+    - [22.10 Buenas Prácticas en POO](#2210-buenas-prácticas-en-poo)
+  - [Indice](#indice)
