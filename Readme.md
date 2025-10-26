@@ -2075,8 +2075,8 @@ Console.WriteLine($"resultado: {resultado}"); // 6
 
 **Explicación:**
 
-* `++numero` incrementa `numero` a 6 **antes** de asignarlo a `resultado`.
-* Ambos, `numero` y `resultado`, valen 6.
+- `++numero` incrementa `numero` a 6 **antes** de asignarlo a `resultado`.
+- Ambos, `numero` y `resultado`, valen 6.
 
 ---
 
@@ -2091,8 +2091,8 @@ Console.WriteLine($"resultado: {resultado}"); // 5
 
 **Explicación:**
 
-* `numero++` primero asigna el valor actual de `numero` a `resultado` (5).
-* Luego incrementa `numero` a 6.
+- `numero++` primero asigna el valor actual de `numero` a `resultado` (5).
+- Luego incrementa `numero` a 6.
 
 💡 *Tip:* Prefijo se usa cuando necesitas el valor incrementado inmediatamente.
 Sufijo se usa cuando quieres usar el valor actual antes de incrementarlo.
@@ -2128,4 +2128,374 @@ Console.WriteLine($"resultado: {resultado}"); // 5
 
 ---
 
-## 8.-
+### 7.8.- Exponenciación (`Math.Pow`)
+
+En C#, **no existe un operador `^` para potencia** como en algunos otros lenguajes.
+En su lugar, se utiliza el método **`Math.Pow(base, exponente)`**, que devuelve un **double**.
+
+---
+
+#### 7.8.1.-🔹 Ejemplo básico de `Math.Pow`
+
+```csharp
+double baseNumero = 3;
+double exponente = 4;
+
+double resultado = Math.Pow(baseNumero, exponente); // 3^4
+Console.WriteLine($"Resultado: {resultado}"); // 81
+```
+
+**Explicación paso a paso:**
+
+1. `Math.Pow(3, 4)` → calcula (3^4 = 3 *3* 3 * 3 = 81)
+2. Siempre devuelve un tipo **double**, aunque la base y el exponente sean enteros.
+3. Se puede usar con variables y expresiones directamente.
+
+---
+
+#### 7.8.2.-🔹 Combinación con otros operadores
+
+```csharp
+double a = 2;
+double b = 5;
+double c = 3;
+
+// Operación combinada: ((a^b) + c) / 2
+double resultado = (Math.Pow(a, b) + c) / 2;
+Console.WriteLine($"Resultado combinado: {resultado}");
+```
+
+**Explicación:**
+
+1. `Math.Pow(a, b)` → (2^5 = 32)
+2. `32 + c` → `32 + 3 = 35`
+3. `35 / 2` → `17.5`
+
+> Esto muestra cómo **integrar exponenciación en expresiones aritméticas complejas**.
+
+---
+
+#### 7.8.3🔹 Ejemplo avanzado: Validación de resultados
+
+Supongamos que queremos **verificar si un número elevado a una potencia supera cierto límite**:
+
+```csharp
+double baseNumero = 4;
+double exponente = 3;
+double limite = 60;
+
+double potencia = Math.Pow(baseNumero, exponente);
+
+bool dentroDelLimite = potencia <= limite;  // Operador relacional
+bool permitido = dentroDelLimite && (baseNumero > 0); // Operador lógico
+
+Console.WriteLine($"Potencia: {potencia}");             // 64
+Console.WriteLine($"Dentro del límite: {dentroDelLimite}"); // false
+Console.WriteLine($"Permitido: {permitido}");          // false
+```
+
+**Explicación:**
+
+1. `Math.Pow(4, 3)` → 64
+2. `64 <= 60` → `false`
+3. `(false) && (4 > 0)` → `false`
+4. Demuestra cómo combinar **exponenciación, relacionales y lógicos** en un mismo cálculo.
+
+---
+
+#### 7.8.4🔹 Resumen
+
+- `Math.Pow(base, exponente)` → calcula la potencia.
+- Siempre devuelve `double`.
+- Se puede combinar con **operadores aritméticos** (`+`, `-`, `*`, `/`, `%`) y **relacionales/lógicos** para condicionales.
+- Ideal para cálculos matemáticos, validaciones, simulaciones y juegos.
+
+---
+
+### 7.9.- Ejemplo final: Calculadora Avanzada
+
+```csharp
+using System;
+
+class CalculadoraAvanzada
+{
+    static void Main()
+    {
+        // --- Declaración de variables ---
+        double num1 = 10;
+        double num2 = 3;
+        double resultado;
+
+        Console.WriteLine("=== Calculadora Avanzada ===");
+
+        // --- Operaciones aritméticas ---
+        resultado = num1 + num2;
+        Console.WriteLine($"Suma: {num1} + {num2} = {resultado}");
+
+        resultado = num1 - num2;
+        Console.WriteLine($"Resta: {num1} - {num2} = {resultado}");
+
+        resultado = num1 * num2;
+        Console.WriteLine($"Multiplicación: {num1} * {num2} = {resultado}");
+
+        resultado = num1 / num2;
+        Console.WriteLine($"División: {num1} / {num2} = {resultado}");
+
+        resultado = num1 % num2;
+        Console.WriteLine($"Módulo: {num1} % {num2} = {resultado}");
+
+        resultado = Math.Pow(num1, num2);
+        Console.WriteLine($"Potencia: {num1}^{num2} = {resultado}");
+
+        // --- Operadores de asignación compuesta ---
+        double valor = 5;
+        valor += 2; // valor = 7
+        valor *= 3; // valor = 21
+        valor -= 4; // valor = 17
+        valor /= 2; // valor = 8.5
+        valor %= 3; // valor = 2.5
+        Console.WriteLine($"Valor final con asignación compuesta: {valor}");
+
+        // --- Incremento y decremento ---
+        int a = 5;
+        Console.WriteLine($"a antes del incremento: {a}");
+        Console.WriteLine($"Prefijo ++a: {++a}"); // 6
+        Console.WriteLine($"Sufijo a++: {a++}");  // muestra 6, luego a = 7
+        Console.WriteLine($"a después del sufijo: {a}");
+        
+        int b = 10;
+        Console.WriteLine($"Prefijo --b: {--b}"); // 9
+        Console.WriteLine($"Sufijo b--: {b--}");  // muestra 9, luego b = 8
+        Console.WriteLine($"b después del sufijo: {b}");
+
+        // --- Operadores relacionales ---
+        bool mayor = num1 > num2;
+        bool igual = num1 == num2;
+        bool menorIgual = num1 <= num2;
+        Console.WriteLine($"num1 > num2: {mayor}");
+        Console.WriteLine($"num1 == num2: {igual}");
+        Console.WriteLine($"num1 <= num2: {menorIgual}");
+
+        // --- Operadores lógicos ---
+        bool cond1 = (num1 > 0) && (num2 > 0); // AND
+        bool cond2 = (num1 < 0) || (num2 > 0); // OR
+        bool cond3 = !(num1 == num2);          // NOT
+        Console.WriteLine($"(num1 > 0) && (num2 > 0): {cond1}");
+        Console.WriteLine($"(num1 < 0) || (num2 > 0): {cond2}");
+        Console.WriteLine($"!(num1 == num2): {cond3}");
+
+        // --- Ejemplo combinado: validación avanzada ---
+        if ((num1 > num2 && num2 != 0) || (Math.Pow(num1, 2) > 50))
+        {
+            Console.WriteLine("Condición avanzada cumplida");
+        }
+        else
+        {
+            Console.WriteLine("Condición avanzada NO cumplida");
+        }
+
+        Console.WriteLine("=== Fin de la Calculadora Avanzada ===");
+    }
+}
+```
+
+---
+
+#### 🔹 7.9.1 Explicación paso a paso
+
+1. **Aritméticos:** `+`, `-`, `*`, `/`, `%`, `Math.Pow()` → operaciones básicas y potencia.
+2. **Asignación compuesta:** `+=, *=, -=, /=, %=` → actualiza variable paso a paso.
+3. **Incremento/decremento:** `++a, a++, --b, b--` → prefijo y sufijo.
+4. **Relacionales:** `>`, `==`, `<=` → comparaciones para condiciones booleanas.
+5. **Lógicos:** `&&`, `||`, `!` → combinación de condiciones booleanas.
+6. **Ejemplo combinado final:** `if ((num1 > num2 && num2 != 0) || (Math.Pow(num1,2) > 50))`
+   → demuestra cómo todos los operadores trabajan juntos en un escenario real.
+
+---
+
+💡 **Salida esperada (aproximada):**
+
+```yaml
+=== Calculadora Avanzada ===
+Suma: 10 + 3 = 13
+Resta: 10 - 3 = 7
+Multiplicación: 10 * 3 = 30
+División: 10 / 3 = 3.3333333333333335
+Módulo: 10 % 3 = 1
+Potencia: 10^3 = 1000
+Valor final con asignación compuesta: 2.5
+a antes del incremento: 5
+Prefijo ++a: 6
+Sufijo a++: 6
+a después del sufijo: 7
+Prefijo --b: 9
+Sufijo b--: 9
+b después del sufijo: 8
+num1 > num2: True
+num1 == num2: False
+num1 <= num2: False
+(num1 > 0) && (num2 > 0): True
+(num1 < 0) || (num2 > 0): True
+!(num1 == num2): True
+Condición avanzada cumplida
+=== Fin de la Calculadora Avanzada ===
+```
+
+---
+
+## 8.- Transformar Cadenas a Valores Numéricos
+
+En programación, es común recibir **datos en forma de texto** (strings) que necesitamos **convertir a números** para poder realizar operaciones matemáticas o comparaciones. C# ofrece varias formas de hacerlo de manera segura y eficiente.
+
+---
+
+### 8.1.- Conversión usando `int.Parse()` y `double.Parse()`
+
+- `int.Parse(string)` → convierte un string a **entero** (`int`).
+- `double.Parse(string)` → convierte un string a **decimal** o número con decimales (`double`).
+
+**Ejemplo:**
+
+```csharp
+string textoEntero = "42";
+string textoDecimal = "3.14";
+
+int numeroEntero = int.Parse(textoEntero);
+double numeroDecimal = double.Parse(textoDecimal);
+
+Console.WriteLine($"Entero: {numeroEntero}");
+Console.WriteLine($"Decimal: {numeroDecimal}");
+```
+
+**Salida:**
+
+```yaml
+Entero: 42
+Decimal: 3.14
+```
+
+**Nota:**
+Si el texto no representa un número válido, `Parse()` lanzará una **excepción** (`FormatException`).
+
+---
+
+### 8.2.- Conversión segura con `TryParse()`
+
+`TryParse()` permite convertir cadenas sin riesgo de excepción. Devuelve un **booleano** indicando si la conversión fue exitosa.
+
+**Sintaxis:**
+
+```csharp
+int resultadoEntero;
+bool exito = int.TryParse("123", out resultadoEntero);
+
+if (exito)
+    Console.WriteLine($"Conversión exitosa: {resultadoEntero}");
+else
+    Console.WriteLine("No se pudo convertir la cadena");
+```
+
+**Ventajas:**
+
+- Evita errores de ejecución.
+- Útil cuando el usuario ingresa datos que pueden no ser numéricos.
+
+---
+
+### 8.3.- Conversión de números decimales
+
+```csharp
+double resultadoDecimal;
+if (double.TryParse("12.34", out resultadoDecimal))
+{
+    Console.WriteLine($"Número decimal: {resultadoDecimal}");
+}
+else
+{
+    Console.WriteLine("Error al convertir a decimal");
+}
+```
+
+**Tip:** Para configuraciones de región donde el separador decimal es coma `,`, se puede usar `CultureInfo.InvariantCulture`:
+
+```csharp
+using System.Globalization;
+
+double numero = double.Parse("12.34", CultureInfo.InvariantCulture);
+```
+
+---
+
+### 8.4.- Conversión usando `Convert.ToInt32()` y `Convert.ToDouble()`
+
+- Otra alternativa segura que convierte y devuelve un número.
+- Devuelve **0** si la cadena es `null`, pero lanzará excepción si el formato es incorrecto.
+
+```csharp
+string texto = "56";
+int numero = Convert.ToInt32(texto);
+Console.WriteLine(numero); // 56
+```
+
+---
+
+### 8.5.- Conversión a otros tipos numéricos con `Convert`
+
+C# ofrece el **namespace `System`** con la clase `Convert`, que permite transformar strings u otros tipos en diferentes tipos numéricos de forma sencilla:
+
+```csharp
+string textoFloat = "3.14";
+string textoDecimal = "12.3456";
+string textoLong = "9876543210";
+
+// Convertir a float (Single)
+float numeroFloat = Convert.ToSingle(textoFloat);
+Console.WriteLine($"float: {numeroFloat}");
+
+// Convertir a decimal
+decimal numeroDecimal = Convert.ToDecimal(textoDecimal);
+Console.WriteLine($"decimal: {numeroDecimal}");
+
+// Convertir a long (Int64)
+long numeroLong = Convert.ToInt64(textoLong);
+Console.WriteLine($"long: {numeroLong}");
+```
+
+**Salida esperada:**
+
+```yaml
+float: 3.14
+decimal: 12.3456
+long: 9876543210
+```
+
+---
+
+### 8.6.-Tabla de Conversiones en C #
+
+| Valor de ejemplo         | Tipo Origen | Tipo Destino | Método / Función      | Tipo resultante | Comentario                                          |
+| ------------------------ | ----------- | ------------ | --------------------- | --------------- | --------------------------------------------------- |
+| `"42"`                   | string      | int          | `int.Parse()`         | int             | Lanza excepción si no es numérico                   |
+| `"3.1416"`               | string      | double       | `double.Parse()`      | double          | Lanza excepción si no es numérico                   |
+| `"42"`                   | string      | int          | `int.TryParse()`      | int             | Seguro: devuelve true/false y valor en `out`        |
+| `"3.1416"`               | string      | double       | `double.TryParse()`   | double          | Seguro: devuelve true/false y valor en `out`        |
+| `"42"`                   | string      | int          | `Convert.ToInt32()`   | int             | Convierte null a 0, lanza error si formato inválido |
+| `"3.1416"`               | string      | double       | `Convert.ToDouble()`  | double          | Convierte null a 0, lanza error si formato inválido |
+| `"2.718"`                | string      | float        | `Convert.ToSingle()`  | float           | Convierte string a float (Single precision)         |
+| `"3.1416"`               | string      | decimal      | `Convert.ToDecimal()` | decimal         | Alta precisión para cálculos financieros            |
+| `"9876543210"`           | string      | long         | `Convert.ToInt64()`   | long            | Para enteros grandes de 64 bits                     |
+| `"255"`                  | string      | byte         | `Convert.ToByte()`    | byte            | Convierte string a byte (0-255)                     |
+| `"127"`                  | string      | sbyte        | `Convert.ToSByte()`   | sbyte           | Convierte string a sbyte (-128 a 127)               |
+| `"4294967295"`           | string      | uint         | `Convert.ToUInt32()`  | uint            | Convierte string a entero sin signo 32 bits         |
+| `"18446744073709551615"` | string      | ulong        | `Convert.ToUInt64()`  | ulong           | Convierte string a entero sin signo 64 bits         |
+
+---
+
+💡 **Notas:**
+
+1. **`Parse()`** → es rápido pero **arriesgado** si el string no es numérico; pero **lanza excepción si el formato es inválido**.
+2. **`TryParse()`** → es **seguro** y recomendado cuando la entrada puede ser inválida., devuelve booleano indicando si la conversión fue exitosa y el valor convertido en `out`.
+3. **`Convert.ToX()`** → maneja **nulls**, pero no strings inválidas y convierte entre tipos, pero aún puede lanzar excepción si el formato es inválido  lanzará **`FormatException`**..
+4. Tipos `float`, `double`, `decimal` → se usan según precisión requerida.
+5. Tipos `byte`, `sbyte`, `uint`, `ulong` → útiles para optimización de memoria o rangos específicos de valores.
+6. Para **decimal/floating point**, se puede usar `CultureInfo.InvariantCulture` si el separador decimal puede variar.
