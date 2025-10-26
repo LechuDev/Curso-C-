@@ -1,81 +1,5 @@
 # Curso de Programación en C #
 
-## Índice
-
-- [Curso de Programación en C](#curso-de-programación-en-c)
-  - [Índice](#índice)
-  - [1.- Uso de la Línea de Comandos (CMD)](#1--uso-de-la-línea-de-comandos-cmd)
-    - [1.1.- ¿Para qué sirve?](#11--para-qué-sirve)
-    - [1.2.- Comandos Básicos](#12--comandos-básicos)
-  - [2.- Ambiente de Trabajo en C](#2--ambiente-de-trabajo-en-c)
-    - [2.1 Instalación del SDK de .NET](#21-instalación-del-sdk-de-net)
-      - [2.1.1 Historia de los compiladores](#211-historia-de-los-compiladores)
-      - [2.1.2 Instrucciones de Descarga](#212-instrucciones-de-descarga)
-    - [2.2 Descarga de IDE](#22-descarga-de-ide)
-      - [Opción 1: Visual Studio Code (Ligero y rápido)](#opción-1-visual-studio-code-ligero-y-rápido)
-      - [Opción 2: Visual Studio Community (Completo y profesional)](#opción-2-visual-studio-community-completo-y-profesional)
-  - [3.- Primeros Pasos en C](#3--primeros-pasos-en-c)
-    - [3.1 Tu primer "Hola, Mundo"](#31-tu-primer-hola-mundo)
-      - [Versión Antigua (C# 1.0 - 7.0)](#versión-antigua-c-10---70)
-      - [Versión Moderna (C# 9 y superior)](#versión-moderna-c-9-y-superior)
-    - [3.2 Compilación y Ejecución](#32-compilación-y-ejecución)
-      - [3.2.1 🧠 ¿Qué es compilar?](#321--qué-es-compilar)
-      - [3.2.2⚙️ Compilación desde la Línea de Comandos](#322️-compilación-desde-la-línea-de-comandos)
-        - [3.2.2.1 Paso 1: Crear el archivo](#3221-paso-1-crear-el-archivo)
-        - [3.2.2.2 Paso 2: Compilar con el SDK de .NET](#3222-paso-2-compilar-con-el-sdk-de-net)
-        - [3.2.2.3 Paso 3: Ejecutar el programa](#3223-paso-3-ejecutar-el-programa)
-      - [3.2.3 💻 Compilación y Ejecución en Visual Studio Code](#323--compilación-y-ejecución-en-visual-studio-code)
-      - [🧩 3.2.4 ¿Qué sucede durante la ejecución?](#-324-qué-sucede-durante-la-ejecución)
-      - [⚡ 3.2.5 Errores Comunes al Compilar](#-325-errores-comunes-al-compilar)
-      - [🧮 3.2.6 Extra: Compilación de varios archivos](#-326-extra-compilación-de-varios-archivos)
-      - [🎯 3.2.7 Resumen](#-327-resumen)
-  - [4.- Bits y Bytes de Información](#4--bits-y-bytes-de-información)
-    - [4.1 ¿Qué es un Bit?](#41-qué-es-un-bit)
-    - [4.2 ¿Qué es un Byte?](#42-qué-es-un-byte)
-    - [4.3 Conversión entre Bits y Bytes](#43-conversión-entre-bits-y-bytes)
-    - [4.4 Ejemplo de Conversión](#44-ejemplo-de-conversión)
-      - [Ejemplo 1: Bits a Bytes](#ejemplo-1-bits-a-bytes)
-      - [Ejemplo 2: Bytes a Bits](#ejemplo-2-bytes-a-bits)
-      - [Ejemplo 3: Representando un texto](#ejemplo-3-representando-un-texto)
-      - [Ejemplo 4: Tamaños comunes en informática](#ejemplo-4-tamaños-comunes-en-informática)
-    - [4.5 Importancia en Programación](#45-importancia-en-programación)
-  - [5.- Tipos de Datos en C# – Variables y Constantes](#5--tipos-de-datos-en-c--variables-y-constantes)
-    - [5.1 ¿Qué es una Variable?](#51-qué-es-una-variable)
-    - [5.2 Reglas para Nombrar Variables](#52-reglas-para-nombrar-variables)
-    - [5.3 Tipos de Datos Primitivos en C](#53-tipos-de-datos-primitivos-en-c)
-      - [🧮 Tipos Numéricos Enteros](#-tipos-numéricos-enteros)
-      - [🔢 Tipos Numéricos de Punto Flotante](#-tipos-numéricos-de-punto-flotante)
-      - [🔠 Tipos de Texto y Caracteres](#-tipos-de-texto-y-caracteres)
-      - [💡 Tipo Lógico (Booleano)](#-tipo-lógico-booleano)
-    - [5.4 Variables vs. Constantes](#54-variables-vs-constantes)
-    - [5.5 Inferencia de Tipos (`var` y `dynamic`)](#55-inferencia-de-tipos-var-y-dynamic)
-      - [🔹 `var` (Tipo Inferido en tiempo de compilación)](#-var-tipo-inferido-en-tiempo-de-compilación)
-      - [🔹 `dynamic` (Tipo dinámico en tiempo de ejecución)](#-dynamic-tipo-dinámico-en-tiempo-de-ejecución)
-    - [5.6 Ejemplo General en C](#56-ejemplo-general-en-c)
-    - [5.7 Recomendaciones Profesionales](#57-recomendaciones-profesionales)
-  - [6.- Más sobre Strings](#6--más-sobre-strings)
-    - [6.1 Introducción a los Strings en C](#61-introducción-a-los-strings-en-c)
-    - [6.2 Manipulación de Strings (Concatenación, Subcadenas, Búsqueda)](#62-manipulación-de-strings-concatenación-subcadenas-búsqueda)
-      - [🔹 6.2.1 Concatenación: unir varios strings](#-621-concatenación-unir-varios-strings)
-        - [🔹 Concatenación con el operador `+`](#-concatenación-con-el-operador-)
-        - [🔹 Concatenación con `string.Concat()`](#-concatenación-con-stringconcat)
-        - [🔹 Concatenación con interpolación (`$""`)](#-concatenación-con-interpolación-)
-        - [💡 **Resumen de las tres formas:**](#-resumen-de-las-tres-formas)
-      - [🔹 6.2.2 Subcadenas: extraer una parte del texto](#-622-subcadenas-extraer-una-parte-del-texto)
-      - [🔹 6.2.3 Búsqueda: localizar texto dentro de un string](#-623-búsqueda-localizar-texto-dentro-de-un-string)
-    - [6.3 Formateo de Strings](#63-formateo-de-strings)
-    - [6.4 Interpolación de Strings](#64-interpolación-de-strings)
-    - [6.5 Métodos Comunes de la Clase String](#65-métodos-comunes-de-la-clase-string)
-    - [6.6 Uso de StringBuilder para Cadenas Grandes](#66-uso-de-stringbuilder-para-cadenas-grandes)
-    - [6.7 Codificación y Unicode](#67-codificación-y-unicode)
-    - [6.8 Expresiones Regulares](#68-expresiones-regulares)
-    - [6.9 Internacionalización y Localización de Strings](#69-internacionalización-y-localización-de-strings)
-    - [6.10 Optimización del Rendimiento con Strings](#610-optimización-del-rendimiento-con-strings)
-    - [6.11 Buenas Prácticas en el Manejo de Strings](#611-buenas-prácticas-en-el-manejo-de-strings)
-    - [6.12 Ejemplos Prácticos y Ejercicios](#612-ejemplos-prácticos-y-ejercicios)
-
----
-
 ## 1.- Uso de la Línea de Comandos (CMD)
 
 La **Línea de Comandos** (también conocida como **CMD** o Símbolo del Sistema) es una potente herramienta que te permite interactuar con tu sistema operativo mediante comandos de texto.
@@ -178,7 +102,7 @@ Un **IDE** (Entorno de Desarrollo Integrado) facilita el proceso de programació
 
 El clásico primer programa para aprender un lenguaje.
 
-#### Versión Antigua (C# 1.0 - 7.0)
+#### 3.1.1 Versión Antigua (C# 1.0 - 7.0)
 
 Antes de C# 9, era obligatorio escribir toda la estructura del programa con su clase principal y método `Main`.
 
@@ -221,7 +145,7 @@ namespace MiPrimerPrograma
 - `Console.WriteLine("Hola, Mundo!");`
   Imprime el mensaje `"Hola, Mundo!"` en la consola y salta a la siguiente línea.
 
-#### Versión Moderna (C# 9 y superior)
+#### 3.1.2 Versión Moderna (C# 9 y superior)
 
 En las versiones modernas de C#, escribir un programa es tan simple como:
 
@@ -412,9 +336,6 @@ Esto generará un único ejecutable `programa.exe` que incluye todas las clases.
 > 🧠 **Tip del Pro:**
 > Si usas Visual Studio (no Code), al presionar **Ctrl + F5** el IDE compila y ejecuta tu programa automáticamente, mostrando la consola sin cerrarla al terminar.
 > Esto es ideal para ver los resultados sin tener que abrir la terminal aparte.
-
----
-Perfecto ⚙️ Aquí tienes tu sección **4.- Bits y Bytes de Información** completamente ampliada, manteniendo el mismo formato, tono y orden de títulos, pero con explicaciones más profundas, ejemplos claros y comparaciones prácticas para entenderlo a la perfección 👇
 
 ---
 
@@ -1383,3 +1304,828 @@ Console.WriteLine(mensajeMayusculas); // Salida: HOLA LECHUDEV
 ```
 
 ---
+
+## 7.- Los Operadores en C #
+
+Un **operador** es un símbolo que le indica al compilador que realice una operación específica sobre uno o más operandos (valores o variables).
+
+**Ejemplo general:**
+
+```csharp
+int a = 10;
+int b = 5;
+int resultado = a + b; // Usa el operador +
+```
+
+En este caso:
+
+- `+` es el **operador**.
+- `a` y `b` son los **operandos**.
+- `resultado` almacenará la **suma** (15).
+
+C# incluye varios tipos de operadores:
+
+- **Aritméticos** → +, -, *, /, %
+- **De asignación** → =, +=, -=, etc.
+- **De comparación o relacionales** → ==, !=, >, <, >=, <=
+- **Lógicos** → &&, ||, !
+
+---
+
+### 7.1.- Operadores Aritméticos
+
+Esos Operadores siguen una jerarquía de precedencia:
+
+#### 7.1.1.- Suma (`+`)
+
+El operador `+` sirve para **sumar** valores numéricos o **concatenar** strings.
+
+```csharp
+int a = 7;
+int b = 3;
+int suma = a + b;
+Console.WriteLine(suma); // 10
+```
+
+**También funciona con texto:**
+
+```csharp
+string saludo = "Hola " + "mundo!";
+Console.WriteLine(saludo); // Hola mundo!
+```
+
+---
+
+#### 7.1.2 Resta (`-`)
+
+El operador `-` se usa para **restar** valores o **negar** un número.
+
+```csharp
+int a = 10;
+int b = 4;
+int resta = a - b;
+Console.WriteLine(resta); // 6
+```
+
+**Negación:**
+
+```csharp
+int negativo = -a; // -10
+```
+
+---
+
+#### 7.1.3 Multiplicación (`*`)
+
+Multiplica dos valores numéricos.
+
+```csharp
+int a = 6;
+int b = 4;
+int producto = a * b;
+Console.WriteLine(producto); // 24
+```
+
+💡 *Dato:* También puedes multiplicar variables de tipo `double` o `float` para obtener resultados decimales.
+
+---
+
+#### 7.1.4 División (`/`)
+
+El operador `/` divide dos números.
+⚠️ Ten cuidado con los **tipos de datos**, ya que la división entre enteros **descarta los decimales**.
+
+```csharp
+int a = 7;
+int b = 2;
+int division = a / b;
+Console.WriteLine(division); // 3 → porque es división entera
+```
+
+Si quieres el **resultado decimal**, usa `double` o `float`:
+
+```csharp
+double resultado = 7.0 / 2.0;
+Console.WriteLine(resultado); // 3.5
+```
+
+---
+
+#### 7.1.5 Módulo (`%`)
+
+El operador `%` devuelve el **residuo** (resto) de una división.
+
+```csharp
+int a = 10;
+int b = 3;
+int residuo = a % b;
+Console.WriteLine(residuo); // 1
+```
+
+💡 *Uso común:* Determinar si un número es **par o impar**:
+
+```csharp
+if (a % 2 == 0)
+    Console.WriteLine("Es par");
+else
+    Console.WriteLine("Es impar");
+```
+
+---
+
+#### 7.1.6 Incremento (`++`)
+
+Aumenta el valor de una variable **en 1**.
+Hay dos formas: **post-incremento** y **pre-incremento**.
+
+```csharp
+int x = 5;
+x++; // Post-incremento
+Console.WriteLine(x); // 6
+
+int y = 5;
+++y; // Pre-incremento
+Console.WriteLine(y); // 6
+```
+
+**Diferencia clave:**
+
+- `x++` → primero usa el valor y luego incrementa.
+- `++x` → primero incrementa y luego usa el valor.
+
+---
+
+#### 7.1.7 Decremento (`--`)
+
+Disminuye el valor de una variable **en 1**.
+También puede ser **post-decremento** o **pre-decremento**.
+
+```csharp
+int z = 10;
+z--;
+Console.WriteLine(z); // 9
+```
+
+---
+
+#### 7.1.8 Exponenciación (potencias)
+
+En C#, **no existe un operador `^` para potencias**, ese símbolo se usa para XOR (operación lógica).
+Para elevar un número a una potencia, se usa el método **`Math.Pow()`**.
+
+```csharp
+double baseNum = 2;
+double exponente = 3;
+double resultado = Math.Pow(baseNum, exponente);
+Console.WriteLine(resultado); // 8
+```
+
+💡 *Dato:* `Math.Pow()` siempre devuelve un **double**.
+
+---
+
+#### 7.1.9 Resumen
+
+| Operador     | Nombre         | Ejemplo          | Resultado  |
+| :----------- | :------------- | :--------------- | :--------- |
+| `+`          | Suma           | `5 + 3`          | 8          |
+| `-`          | Resta          | `5 - 3`          | 2          |
+| `*`          | Multiplicación | `5 * 3`          | 15         |
+| `/`          | División       | `7 / 2`          | 3 (entero) |
+| `%`          | Módulo         | `7 % 2`          | 1          |
+| `++`         | Incremento     | `x++`            | x = x + 1  |
+| `--`         | Decremento     | `x--`            | x = x - 1  |
+| `Math.Pow()` | Exponenciación | `Math.Pow(2, 3)` | 8          |
+
+---
+
+#### 7.1.10 Ejemplo: Calculadora simple
+
+Aquí tienes un ejemplo completo que muestra todos los operadores en acción:
+
+```csharp
+using System;
+
+class Calculadora
+{
+    static void Main()
+    {
+        double a = 10, b = 3;
+
+        Console.WriteLine($"Suma: {a + b}");
+        Console.WriteLine($"Resta: {a - b}");
+        Console.WriteLine($"Multiplicación: {a * b}");
+        Console.WriteLine($"División: {a / b}");
+        Console.WriteLine($"Módulo: {a % b}");
+        Console.WriteLine($"Incremento de a: {++a}");
+        Console.WriteLine($"Decremento de b: {--b}");
+        Console.WriteLine($"Potencia: {Math.Pow(2, 5)}");
+    }
+}
+```
+
+**Salida:**
+
+```console
+Suma: 13
+Resta: 7
+Multiplicación: 30
+División: 3.3333333333333335
+Módulo: 1
+Incremento de a: 11
+Decremento de b: 2
+Potencia: 32
+```
+
+---
+
+💡 **Consejo final:**
+Practica cada operador con distintos tipos de datos (`int`, `double`, `float`, `decimal`) para entender cómo C# maneja las conversiones y los resultados.
+
+---
+
+### 7.2.- Operadores de Asignación
+
+Los **operadores de asignación** se utilizan para **asignar valores a variables** y, en muchos casos, **combinar operaciones aritméticas con asignación** en un solo paso.
+
+---
+
+#### 🔹 7.2.1 Asignación básica (`=`)
+
+El operador `=` asigna el valor de la derecha a la variable de la izquierda.
+
+```csharp
+int a = 10;  // La variable 'a' recibe el valor 10
+Console.WriteLine(a); // 10
+```
+
+**Explicación:**
+
+1. `int a` → Declara una variable de tipo entero.
+2. `= 10` → Asigna el valor 10 a `a`.
+3. `Console.WriteLine(a)` → Imprime el valor actual de `a`.
+
+---
+
+#### 🔹 7.2.2 Asignación con suma (`+=`)
+
+Suma un valor a la variable **y guarda el resultado en la misma variable**.
+
+```csharp
+int a = 5;
+a += 3;  // Equivalente a: a = a + 3
+Console.WriteLine(a); // 8
+```
+
+**Explicación paso a paso:**
+
+- `a += 3` → toma el valor actual de `a` (5), le suma 3, y guarda 8 de nuevo en `a`.
+
+---
+
+#### 🔹 7.2.3 Asignación con resta (`-=`)
+
+Resta un valor a la variable y guarda el resultado.
+
+```csharp
+int a = 10;
+a -= 4;  // Equivalente a: a = a - 4
+Console.WriteLine(a); // 6
+```
+
+---
+
+#### 🔹 7.2.4 Asignación con multiplicación (`*=`)
+
+Multiplica el valor de la variable por un número y lo guarda.
+
+```csharp
+int a = 7;
+a *= 3;  // a = a * 3
+Console.WriteLine(a); // 21
+```
+
+---
+
+#### 🔹 7.2.5 Asignación con división (`/=`)
+
+Divide la variable por un valor y guarda el resultado.
+⚠️ Recuerda el comportamiento de los tipos de datos (`int` vs `double`).
+
+```csharp
+double a = 15;
+a /= 4;  // a = a / 4
+Console.WriteLine(a); // 3.75
+```
+
+---
+
+#### 🔹 7.2.6 Asignación con módulo (`%=`)
+
+Calcula el residuo de la división y lo asigna a la variable.
+
+```csharp
+int a = 10;
+a %= 3;  // a = a % 3
+Console.WriteLine(a); // 1
+```
+
+---
+
+#### 🔹 7.2.7 Resumen de los operadores de asignación
+
+| Operador | Equivalente | Descripción         |
+| :------- | :---------- | :------------------ |
+| `=`      | `a = b`     | Asignación simple   |
+| `+=`     | `a = a + b` | Suma y asigna       |
+| `-=`     | `a = a - b` | Resta y asigna      |
+| `*=`     | `a = a * b` | Multiplica y asigna |
+| `/=`     | `a = a / b` | Divide y asigna     |
+| `%=`     | `a = a % b` | Módulo y asigna     |
+
+---
+
+💡 **Consejos prácticos:**
+
+- Usa operadores compuestos (`+=`, `-=`, etc.) para **código más limpio y legible**.
+- Son especialmente útiles en **bucles**, contadores y acumuladores:
+
+```csharp
+int suma = 0;
+for(int i = 1; i <= 5; i++)
+{
+    suma += i; // Acumula los valores del 1 al 5
+}
+Console.WriteLine(suma); // 15
+```
+
+#### 🔹 7.2.8 Ejemplo: Calculadora avanzada
+
+Este ejemplo muestra cómo usar **operadores aritméticos**, **asignación** y **combinación de operaciones** en un programa simple tipo calculadora:
+
+```csharp
+using System;
+
+class CalculadoraAvanzada
+{
+    static void Main()
+    {
+        // Declaración de variables
+        double numero1 = 15;
+        double numero2 = 4;
+
+        // Operaciones básicas
+        double suma = numero1 + numero2;
+        double resta = numero1 - numero2;
+        double multiplicacion = numero1 * numero2;
+        double division = numero1 / numero2;
+        double modulo = numero1 % numero2;
+
+        Console.WriteLine($"Suma: {suma}");
+        Console.WriteLine($"Resta: {resta}");
+        Console.WriteLine($"Multiplicación: {multiplicacion}");
+        Console.WriteLine($"División: {division}");
+        Console.WriteLine($"Módulo: {modulo}");
+
+        // Uso de operadores de asignación compuesta
+        double valor = 10;
+        valor += 5;  // valor = valor + 5
+        Console.WriteLine($"Valor después de += 5: {valor}");
+
+        valor *= 2;  // valor = valor * 2
+        Console.WriteLine($"Valor después de *= 2: {valor}");
+
+        valor -= 4;  // valor = valor - 4
+        Console.WriteLine($"Valor después de -= 4: {valor}");
+
+        valor /= 3;  // valor = valor / 3
+        Console.WriteLine($"Valor después de /= 3: {valor}");
+
+        valor %= 2;  // valor = valor % 2
+        Console.WriteLine($"Valor después de %= 2: {valor}");
+
+        // Exponenciación usando Math.Pow
+        double potencia = Math.Pow(numero1, 2); // numero1^2
+        Console.WriteLine($"Potencia: {potencia}");
+    }
+}
+```
+
+---
+
+##### 🔹 Explicación paso a paso
+
+1. **Declaración de variables:**
+
+   - `numero1` y `numero2` se usan para operaciones básicas.
+   - `valor` se usa para mostrar **operadores de asignación compuesta**.
+
+2. **Operaciones aritméticas:**
+
+   - `+`, `-`, `*`, `/`, `%` → realizan suma, resta, multiplicación, división y módulo.
+
+3. **Operadores de asignación compuesta:**
+
+   - `+=, -=, *=, /=, %=` → simplifican el código combinando operación y asignación.
+   - El valor de `valor` se actualiza paso a paso mostrando cada resultado.
+
+4. **Exponenciación:**
+
+   - `Math.Pow(numero1, 2)` → eleva `numero1` al cuadrado.
+   - Siempre devuelve un `double`.
+
+---
+
+**Salida del programa:**
+
+```yaml
+Suma: 19
+Resta: 11
+Multiplicación: 60
+División: 3.75
+Módulo: 3
+Valor después de += 5: 15
+Valor después de *= 2: 30
+Valor después de -= 4: 26
+Valor después de /= 3: 8.666666666666666
+Valor después de %= 2: 0.666666666666666
+Potencia: 225
+```
+
+---
+
+💡 **Consejos:**
+
+- Este ejemplo combina **todos los operadores vistos hasta ahora** en un solo programa.
+- Ideal para practicar cómo se **actualizan variables paso a paso** y cómo funcionan los operadores de **asignación compuesta** y **aritmética** juntos.
+- Puedes modificar los valores de `numero1` y `numero2` para probar distintos escenarios.
+
+---
+
+### 7.3.- Operadores Relacionales y de Comparación
+
+Los **operadores relacionales** se usan para **comparar valores**.
+Siempre devuelven un valor **booleano** (`true` o `false`).
+Son fundamentales para **condicionales** (`if`, `while`) y **bucles**.
+
+---
+
+#### 🔹 7.3.1 Igualdad (`==`)
+
+Comprueba si dos valores son iguales.
+
+```csharp
+int a = 5;
+int b = 5;
+bool resultado = a == b; // true
+Console.WriteLine(resultado);
+```
+
+**Explicación:**
+
+- `==` compara los valores de `a` y `b`.
+- Si son iguales, devuelve `true`; si no, `false`.
+
+---
+
+#### 🔹 7.3.2 Diferente (`!=`)
+
+Comprueba si dos valores **no son iguales**.
+
+```csharp
+int a = 5;
+int b = 3;
+bool resultado = a != b; // true
+Console.WriteLine(resultado);
+```
+
+---
+
+#### 🔹 7.3.3 Mayor que (`>`)
+
+Comprueba si un valor es **mayor que** otro.
+
+```csharp
+int a = 10;
+int b = 7;
+bool resultado = a > b; // true
+Console.WriteLine(resultado);
+```
+
+---
+
+#### 🔹 7.3.4 Menor que (`<`)
+
+Comprueba si un valor es **menor que** otro.
+
+```csharp
+int a = 10;
+int b = 15;
+bool resultado = a < b; // true
+Console.WriteLine(resultado);
+```
+
+---
+
+#### 🔹 7.3.5 Mayor o igual que (`>=`)
+
+Comprueba si un valor es **mayor o igual** que otro.
+
+```csharp
+int a = 10;
+int b = 10;
+bool resultado = a >= b; // true
+Console.WriteLine(resultado);
+```
+
+---
+
+#### 🔹 7.3.6 Menor o igual que (`<=`)
+
+Comprueba si un valor es **menor o igual** que otro.
+
+```csharp
+int a = 7;
+int b = 10;
+bool resultado = a <= b; // true
+Console.WriteLine(resultado);
+```
+
+---
+
+#### 🔹 7.3.7 Ejemplo práctico: Comparaciones combinadas
+
+```csharp
+int edad = 25;
+int edadMinima = 18;
+int edadMaxima = 30;
+
+// Verifica si la edad está dentro del rango
+bool permitido = (edad >= edadMinima) && (edad <= edadMaxima);
+Console.WriteLine($"Edad dentro del rango: {permitido}"); // true
+
+// Verifica si la edad no está en el rango
+bool fueraRango = (edad < edadMinima) || (edad > edadMaxima);
+Console.WriteLine($"Edad fuera del rango: {fueraRango}"); // false
+```
+
+**Explicación paso a paso:**
+
+1. `(edad >= edadMinima)` → `true` si la persona cumple la edad mínima.
+2. `(edad <= edadMaxima)` → `true` si la persona cumple la edad máxima.
+3. `&&` → operador lógico que devuelve `true` solo si ambas condiciones son `true`.
+4. `||` → operador lógico que devuelve `true` si **al menos una** de las condiciones es `true`.
+
+---
+
+💡 **Resumen visual de los operadores relacionales:**
+
+| Operador | Significado       |
+| -------- | ----------------- |
+| `==`     | Igual a           |
+| `!=`     | Distinto de       |
+| `>`      | Mayor que         |
+| `<`      | Menor que         |
+| `>=`     | Mayor o igual que |
+| `<=`     | Menor o igual que |
+
+---
+
+### 7.4.- Operadores Lógicos (`&&`, `||`, `!`)
+
+Los **operadores lógicos** se usan para **combinar o invertir expresiones booleanas** (`true` o `false`).
+Son fundamentales cuando necesitamos evaluar **más de una condición** al mismo tiempo.
+
+---
+
+#### 🔹 7.4.1 AND lógico (`&&`)
+
+El operador **AND (`&&`)** devuelve `true` **solo si ambas condiciones son verdaderas**.
+
+```csharp
+int edad = 25;
+bool tieneLicencia = true;
+
+// Verifica si cumple edad y tiene licencia
+bool puedeConducir = (edad >= 18) && tieneLicencia;
+Console.WriteLine(puedeConducir); // true
+```
+
+**Explicación paso a paso:**
+
+1. `(edad >= 18)` → `true` porque 25 >= 18
+2. `tieneLicencia` → `true`
+3. `&&` combina las dos condiciones: `true && true` → `true`
+
+Si alguna condición fuera `false`, el resultado sería `false`.
+
+💡 *Tip:* AND lógico es útil cuando todas las condiciones **deben cumplirse simultáneamente**.
+
+---
+
+#### 🔹 7.4.2 OR lógico (`||`)
+
+El operador **OR (`||`)** devuelve `true` **si al menos una condición es verdadera**.
+
+```csharp
+bool tieneLlaves = false;
+bool conoceCodigo = true;
+
+// Puede abrir la puerta si tiene llaves o conoce el código
+bool puedeEntrar = tieneLlaves || conoceCodigo;
+Console.WriteLine(puedeEntrar); // true
+```
+
+**Explicación paso a paso:**
+
+1. `tieneLlaves` → `false`
+2. `conoceCodigo` → `true`
+3. `||` combina las condiciones: `false || true` → `true`
+
+💡 *Tip:* OR lógico se usa cuando basta **cumplir una de varias condiciones**.
+
+---
+
+#### 🔹 7.4.3 NOT lógico (`!`)
+
+El operador **NOT (`!`)** invierte el valor de una expresión booleana.
+
+```csharp
+bool estaLloviendo = true;
+bool noLlueve = !estaLloviendo;
+Console.WriteLine(noLlueve); // false
+```
+
+**Explicación:**
+
+- `!estaLloviendo` invierte `true` → `false`.
+- Es útil para condiciones de **negación** en `if`.
+
+---
+
+#### 🔹 7.4.4 Combinación de operadores lógicos y relacionales
+
+Generalmente, los operadores lógicos se usan **junto con operadores relacionales** para crear condiciones más complejas.
+
+```csharp
+int edad = 20;
+double saldo = 500.0;
+
+// Requisitos: edad entre 18 y 30, o saldo mayor a 1000
+bool puedeAcceder = ((edad >= 18 && edad <= 30) || saldo > 1000);
+Console.WriteLine(puedeAcceder); // true
+```
+
+**Explicación paso a paso:**
+
+1. `(edad >= 18 && edad <= 30)` → `true && true` → `true`
+2. `saldo > 1000` → `500 > 1000` → `false`
+3. `(true || false)` → `true`
+
+> ⚡ *Tip:* Usa paréntesis para controlar el orden de evaluación.
+> En C#, `&&` tiene mayor prioridad que `||`.
+
+---
+
+#### 🔹 7.4.5 Tabla de verdad de operadores lógicos
+
+**AND (`&&`)**
+
+| A     | B     | A && B |
+| ----- | ----- | ------ |
+| true  | true  | true   |
+| true  | false | false  |
+| false | true  | false  |
+| false | false | false  |
+
+**OR (`||`)**
+
+| A     | B     | A || B |
+|-------|-------|--------|
+| true  | true  | true   |
+| true  | false | true   |
+| false | true  | true   |
+| false | false | false  |
+
+**NOT (`!`)**
+
+| A     | !A    |
+| ----- | ----- |
+| true  | false |
+| false | true  |
+
+---
+
+#### 🔹 7.4.6 Ejemplo práctico: Control de acceso
+
+```csharp
+string usuario = "admin";
+string password = "1234";
+bool esAdmin = (usuario == "admin") && (password == "1234");
+
+if (esAdmin)
+{
+    Console.WriteLine("Acceso concedido");
+}
+else
+{
+    Console.WriteLine("Acceso denegado");
+}
+```
+
+**Explicación:**
+
+1. `(usuario == "admin")` → verifica igualdad
+2. `(password == "1234")` → verifica igualdad
+3. `&&` → ambas condiciones deben cumplirse para dar acceso.
+4. `if` evalúa el resultado booleano y decide la acción.
+
+---
+
+💡 **Consejos prácticos:**
+
+- Combina operadores relacionales y lógicos para condiciones complejas.
+- Siempre usa paréntesis para dejar claro **el orden de evaluación**.
+- Los operadores lógicos se usan mucho en **bucles y validaciones**: login, formularios, juegos, etc.
+
+---
+
+¡Perfecto! Vamos a crear un **ejemplo completo de calculadora avanzada en C#** que combine **todos los operadores vistos hasta ahora**: aritméticos, de asignación, relacionales y lógicos. La idea es que veas cómo se usan juntos en un solo programa práctico y comentado paso a paso. 😎
+
+---
+
+### 7.6.- Operador de Incremento (`++`)
+
+El operador **incremento (`++`)** aumenta **en 1** el valor de una variable.
+Se puede usar de **dos formas**:
+
+1. **Prefijo:** `++variable` → primero incrementa, luego usa el valor.
+2. **Sufijo:** `variable++` → primero usa el valor, luego incrementa.
+
+---
+
+#### 🔹 Ejemplo 1: Prefijo (`++variable`)
+
+```csharp
+int numero = 5;
+int resultado = ++numero; // Primero incrementa, luego asigna
+Console.WriteLine($"numero: {numero}");     // 6
+Console.WriteLine($"resultado: {resultado}"); // 6
+```
+
+**Explicación:**
+
+* `++numero` incrementa `numero` a 6 **antes** de asignarlo a `resultado`.
+* Ambos, `numero` y `resultado`, valen 6.
+
+---
+
+#### 🔹 Ejemplo 2: Sufijo (`variable++`)
+
+```csharp
+int numero = 5;
+int resultado = numero++; // Primero asigna, luego incrementa
+Console.WriteLine($"numero: {numero}");     // 6
+Console.WriteLine($"resultado: {resultado}"); // 5
+```
+
+**Explicación:**
+
+* `numero++` primero asigna el valor actual de `numero` a `resultado` (5).
+* Luego incrementa `numero` a 6.
+
+💡 *Tip:* Prefijo se usa cuando necesitas el valor incrementado inmediatamente.
+Sufijo se usa cuando quieres usar el valor actual antes de incrementarlo.
+
+---
+
+### 7.7.- Operador de Decremento (`--`)
+
+El operador **decremento (`--`)** disminuye **en 1** el valor de una variable.
+También tiene **prefijo y sufijo**.
+
+---
+
+#### 🔹 Ejemplo 1: Prefijo (`--variable`)
+
+```csharp
+int numero = 5;
+int resultado = --numero; // Primero decrementa, luego asigna
+Console.WriteLine($"numero: {numero}");     // 4
+Console.WriteLine($"resultado: {resultado}"); // 4
+```
+
+---
+
+#### 🔹 Ejemplo 2: Sufijo (`variable--`)
+
+```csharp
+int numero = 5;
+int resultado = numero--; // Primero asigna, luego decrementa
+Console.WriteLine($"numero: {numero}");     // 4
+Console.WriteLine($"resultado: {resultado}"); // 5
+```
+
+---
+
+## 8.-
