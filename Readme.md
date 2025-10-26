@@ -2499,3 +2499,324 @@ long: 9876543210
 4. Tipos `float`, `double`, `decimal` → se usan según precisión requerida.
 5. Tipos `byte`, `sbyte`, `uint`, `ulong` → útiles para optimización de memoria o rangos específicos de valores.
 6. Para **decimal/floating point**, se puede usar `CultureInfo.InvariantCulture` si el separador decimal puede variar.
+
+## 9.- Funciones Matemáticas de la Librería Math
+
+En C#, la **clase `Math`** del **namespace `System`** ofrece un conjunto completo de **funciones matemáticas** para realizar operaciones comunes y avanzadas. Estas funciones permiten:
+
+* Calcular raíces, potencias y logaritmos.
+* Redondear números.
+* Trabajar con trigonometría.
+* Obtener valores absolutos y comparaciones entre números.
+
+Todas las funciones de `Math` son **estáticas**, lo que significa que no necesitas crear una instancia de la clase para usarlas. Por ejemplo:
+
+```csharp
+double resultado = Math.Sqrt(16); // Devuelve 4
+```
+
+---
+
+### 9.1.- Raíz Cuadrada y Potencias
+
+1. **`Math.Sqrt(double x)`** → Devuelve la raíz cuadrada de un número.
+
+```csharp
+double raiz = Math.Sqrt(25); // 5
+```
+
+2. **`Math.Pow(double x, double y)`** → Eleva `x` a la potencia `y`.
+
+```csharp
+double potencia = Math.Pow(2, 3); // 8
+```
+
+---
+
+### 9.2.- Valores Absolutos y Signos
+
+3. **`Math.Abs(double x)`** → Devuelve el valor absoluto de un número.
+
+```csharp
+double absoluto = Math.Abs(-10); // 10
+```
+
+4. **`Math.Sign(double x)`** → Devuelve -1, 0 o 1 dependiendo del signo del número.
+
+```csharp
+int signo = Math.Sign(-15); // -1
+```
+
+---
+
+### 9.3.- Redondeo y Truncamiento
+
+5. **`Math.Round(double x)`** → Redondea al número entero más cercano.
+
+```csharp
+double redondeo = Math.Round(3.6); // 4
+```
+
+6. **`Math.Ceiling(double x)`** → Redondea hacia arriba (techo).
+
+```csharp
+double techo = Math.Ceiling(3.2); // 4
+```
+
+7. **`Math.Floor(double x)`** → Redondea hacia abajo (piso).
+
+```csharp
+double piso = Math.Floor(3.8); // 3
+```
+
+8. **`Math.Truncate(double x)`** → Elimina la parte decimal sin redondear.
+
+```csharp
+double truncado = Math.Truncate(3.9); // 3
+```
+
+---
+
+### 9.4.- Mínimo, Máximo y Comparaciones
+
+9. **`Math.Min(double a, double b)`** → Devuelve el menor de dos números.
+
+```csharp
+double menor = Math.Min(5, 9); // 5
+```
+
+10. **`Math.Max(double a, double b)`** → Devuelve el mayor de dos números.
+
+```csharp
+double mayor = Math.Max(5, 9); // 9
+```
+
+---
+
+### 9.5.- Logaritmos y Exponenciales
+
+11. **`Math.Exp(double x)`** → Devuelve `e` elevado a `x`.
+
+```csharp
+double eElevado = Math.Exp(1); // 2.718281828...
+```
+
+12. **`Math.Log(double x)`** → Logaritmo natural (base e) de `x`.
+
+```csharp
+double log = Math.Log(7.389); // ~2
+```
+
+13. **`Math.Log10(double x)`** → Logaritmo en base 10 de `x`.
+
+```csharp
+double log10 = Math.Log10(1000); // 3
+```
+
+---
+
+### 9.6.- Trigonometría
+
+14. **`Math.Sin(double x)`** → Seno de `x` (en radianes).
+
+```csharp
+double seno = Math.Sin(Math.PI / 2); // 1
+```
+
+15. **`Math.Cos(double x)`** → Coseno de `x` (en radianes).
+
+```csharp
+double coseno = Math.Cos(0); // 1
+```
+
+16. **`Math.Tan(double x)`** → Tangente de `x` (en radianes).
+
+```csharp
+double tangente = Math.Tan(Math.PI / 4); // ~1
+```
+
+---
+
+### 9.8.- Raíces y Potencias Avanzadas
+
+21. **`Math.Cbrt(double x)`** → Calcula la raíz cúbica de un número (disponible en C# 8 y superior).
+
+```csharp
+double raizCubica = Math.Cbrt(27); // 3
+```
+
+22. **`Math.Pow(x, 1.0 / n)`** → Para calcular raíces n-ésimas si `Cbrt()` no está disponible.
+
+```csharp
+double raizCuarta = Math.Pow(16, 0.25); // 2
+```
+
+---
+
+### 9.9.- Funciones de Redondeo con Decimales
+
+23. **`Math.Round(double x, int decimals)`** → Redondea `x` a `decimals` cifras decimales.
+
+```csharp
+double redondeoDecimal = Math.Round(3.14159, 2); // 3.14
+```
+
+24. **`Math.Floor()` y `Math.Ceiling()`** combinadas con multiplicación para redondeos específicos:
+
+```csharp
+double valor = 5.67;
+double redondearAlEnteroMasCercano = Math.Floor(valor + 0.5); // 6
+```
+
+---
+
+### 9.10.- Funciones de Valor Absoluto Avanzadas
+
+25. **`Math.Abs(decimal x)`** → Valor absoluto para tipo decimal.
+26. **`Math.Abs(int x)`** → Valor absoluto para enteros.
+27. **`Math.Abs(float x)`** → Valor absoluto para float.
+28. **`Math.Abs(long x)`** → Valor absoluto para long.
+
+> Nota: `Math.Abs()` es **sobrecargada** para diferentes tipos numéricos.
+
+---
+
+### 9.11.- Comparaciones y Clamping
+
+29. **`Math.Clamp(double value, double min, double max)`** → Restringe un valor a un rango `[min, max]`.
+
+```csharp
+double valor = 12;
+double valorClampeado = Math.Clamp(valor, 0, 10); // 10
+```
+
+30. **`Math.Max()` y `Math.Min()`** → Para comparaciones rápidas entre dos valores (ya visto).
+
+---
+
+### 9.12.- Funciones Trigonométricas Adicionales
+
+31. **`Math.Asin(double x)`** → Arco seno (devuelve radianes).
+
+```csharp
+double asin = Math.Asin(1); // PI/2
+```
+
+32. **`Math.Acos(double x)`** → Arco coseno.
+
+33. **`Math.Atan(double x)`** → Arco tangente.
+
+34. **`Math.Atan2(double y, double x)`** → Arco tangente considerando ambos ejes para obtener ángulo completo.
+
+---
+
+### 9.13.- Funciones Hiperbólicas
+
+35. **`Math.Sinh(double x)`** → Seno hiperbólico.
+36. **`Math.Cosh(double x)`** → Coseno hiperbólico.
+37. **`Math.Tanh(double x)`** → Tangente hiperbólica.
+
+---
+
+### 9.14.- Funciones de Comparación de Precisión
+
+38. **`Math.IEEERemainder(double x, double y)`** → Devuelve el residuo de la división de acuerdo a la norma IEEE 754.
+
+---
+
+💡 **Tip General:**
+
+* La clase `Math` es **estática**, por lo que se llama como `Math.Funcion()`.
+* Muchas funciones aceptan `double`, pero hay **sobrecargas** para `int`, `long`, `float`, `decimal`.
+* Se recomienda **usar `Math.Round` o `Math.Truncate`** para resultados controlados cuando trabajes con decimales.
+
+---
+
+### 9.15.- Ejemplo práctico: “Demostración completa de Math”
+
+```csharp
+using System;
+
+class DemoMath
+{
+    static void Main()
+    {
+        Console.WriteLine("=== Funciones Matemáticas de la clase Math ===\n");
+
+        double valor = 9;
+        double valor2 = 2.5;
+        double angulo = Math.PI / 4; // 45 grados
+
+        // --- Raíces y Potencias ---
+        Console.WriteLine($"Raíz cuadrada de {valor}: {Math.Sqrt(valor)}");
+        Console.WriteLine($"{valor} elevado a 3: {Math.Pow(valor, 3)}");
+        Console.WriteLine($"Raíz cúbica de 27: {Math.Cbrt(27)}");
+
+        // --- Valores Absolutos ---
+        Console.WriteLine($"Valor absoluto de -15: {Math.Abs(-15)}");
+
+        // --- Redondeos ---
+        Console.WriteLine($"Redondeo de 2.5: {Math.Round(valor2)}");
+        Console.WriteLine($"Redondeo a 1 decimal de 2.567: {Math.Round(2.567, 1)}");
+        Console.WriteLine($"Techo de 2.3: {Math.Ceiling(2.3)}");
+        Console.WriteLine($"Piso de 2.7: {Math.Floor(2.7)}");
+        Console.WriteLine($"Truncar 2.9: {Math.Truncate(2.9)}");
+
+        // --- Comparaciones ---
+        Console.WriteLine($"Máximo entre 5 y 10: {Math.Max(5, 10)}");
+        Console.WriteLine($"Mínimo entre 5 y 10: {Math.Min(5, 10)}");
+        Console.WriteLine($"Clamp 12 entre 0 y 10: {Math.Clamp(12, 0, 10)}");
+
+        // --- Logaritmos y exponenciales ---
+        Console.WriteLine($"e elevado a 1: {Math.Exp(1)}");
+        Console.WriteLine($"Logaritmo natural de 7.389: {Math.Log(7.389)}");
+        Console.WriteLine($"Logaritmo base 10 de 1000: {Math.Log10(1000)}");
+
+        // --- Trigonometría ---
+        Console.WriteLine($"Seno de 45°: {Math.Sin(angulo)}");
+        Console.WriteLine($"Coseno de 45°: {Math.Cos(angulo)}");
+        Console.WriteLine($"Tangente de 45°: {Math.Tan(angulo)}");
+
+        // --- Arcos ---
+        Console.WriteLine($"Arco seno de 1: {Math.Asin(1)}");
+        Console.WriteLine($"Arco coseno de 0: {Math.Acos(0)}");
+        Console.WriteLine($"Arco tangente de 1: {Math.Atan(1)}");
+        Console.WriteLine($"Arco tangente con Atan2(1,1): {Math.Atan2(1,1)}");
+
+        // --- Hiperbólicas ---
+        Console.WriteLine($"Seno hiperbólico de 1: {Math.Sinh(1)}");
+        Console.WriteLine($"Coseno hiperbólico de 1: {Math.Cosh(1)}");
+        Console.WriteLine($"Tangente hiperbólica de 1: {Math.Tanh(1)}");
+
+        // --- Constantes ---
+        Console.WriteLine($"Constante PI: {Math.PI}");
+        Console.WriteLine($"Constante e: {Math.E}");
+
+        // --- Residuo IEEE ---
+        Console.WriteLine($"Residuo IEEE de 10/3: {Math.IEEERemainder(10, 3)}");
+
+        Console.WriteLine("\n=== Fin de la demostración ===");
+    }
+}
+```
+
+---
+
+#### 🔹 Qué hace este programa
+
+1. Muestra **raíz cuadrada, cúbica y potencias**.
+2. Aplica **valor absoluto** a números negativos.
+3. Hace **redondeos**: `Round`, `Ceiling`, `Floor`, `Truncate`.
+4. Compara valores con **Min, Max y Clamp**.
+5. Usa **logaritmos y exponenciales**.
+6. Trabaja con **trigonometría y arcos** (`Sin`, `Cos`, `Tan`, `Asin`, `Acos`, `Atan`, `Atan2`).
+7. Incluye **funciones hiperbólicas**.
+8. Muestra las **constantes matemáticas** `Math.PI` y `Math.E`.
+9. Calcula el **residuo IEEE** con `Math.IEEERemainder`.
+
+---
+
+## Nuevo
+---
+
+# Nuevo
