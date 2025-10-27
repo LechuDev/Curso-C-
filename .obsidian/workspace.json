@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "readme.md",
+                "file": "Cursos Unity/Curso 1/Curso de Unity con CSharp.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "readme"
+              "title": "Curso de Unity con CSharp"
             }
           }
         ]
@@ -170,5 +170,8 @@
     }
   },
   "active": "6168326aae48856f",
-  "lastOpenFiles": []
+  "lastOpenFiles": [
+    "Cursos Unity/Curso 1/Sin confirmar 472781.crdownload",
+    "readme.md"
+  ]
 }
