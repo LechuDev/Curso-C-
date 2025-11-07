@@ -1,0 +1,44 @@
+{
+  "styles": {
+    "Cursos C#": {
+      "backgroundColor": "#551664",
+      "textColor": "#ffffff",
+      "opacity": 0.8,
+      "applyToSubfolders": true
+    },
+    "Cursos Godot": {
+      "backgroundColor": "#355570",
+      "opacity": 0.8,
+      "textColor": "#ffffff",
+      "applyToSubfolders": true
+    },
+    "Cursos Unity": {
+      "backgroundColor": "#17191c",
+      "textColor": "#ffffff",
+      "applyToSubfolders": true
+    },
+    "Flutter": {
+      "backgroundColor": "#02569b",
+      "applyToSubfolders": true,
+      "textColor": "#ffffff"
+    }
+  },
+  "presets": {
+    "Cursos C#": {
+      "backgroundColor": "#551664",
+      "textColor": "#ffffff",
+      "opacity": 0.8,
+      "applyToSubfolders": true
+    },
+    "Godot": {
+      "backgroundColor": "#355570",
+      "opacity": 0.8,
+      "textColor": "#ffffff",
+      "applyToSubfolders": true
+    }
+  },
+  "presetOrder": [
+    "Cursos C#",
+    "Godot"
+  ]
+}
