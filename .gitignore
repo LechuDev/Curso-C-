@@ -1,0 +1,28 @@
+# Ignorar archivos de configuración y claves
+.obsidian/plugins/copilot/data.json
+*.env
+*.key
+*.secret
+*.bak
+*.log
+
+# Ignorar copias de seguridad
+**/backup/
+*.backup
+*.old
+
+# Ignorar archivos temporales
+*.tmp
+*.swp
+*.DS_Store
+Thumbs.db
+
+# Ignorar carpetas de sistema
+node_modules/
+.vscode/
+.idea/
+.obsidian/plugins/copilot/
+//
+//
+//
+//

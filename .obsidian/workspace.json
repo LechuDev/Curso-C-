@@ -75,6 +75,22 @@
             }
           }
         ]
+      },
+      {
+        "id": "8fe961c57a01d587",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "d8b2a65393c7adb9",
+            "type": "leaf",
+            "state": {
+              "type": "git-view",
+              "state": {},
+              "icon": "git-pull-request",
+              "title": "Source Control"
+            }
+          }
+        ]
       }
     ],
     "direction": "horizontal",
@@ -142,31 +158,22 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "readme.md",
+                "file": "Presupuesto Personal/Presupuesto Personal.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Esquema de readme"
-            }
-          },
-          {
-            "id": "d8b2a65393c7adb9",
-            "type": "leaf",
-            "state": {
-              "type": "git-view",
-              "state": {},
-              "icon": "git-pull-request",
-              "title": "Source Control"
+              "title": "Esquema de Presupuesto Personal"
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 3
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
